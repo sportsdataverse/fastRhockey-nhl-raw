@@ -542,4 +542,5 @@ package 'httr' was built under R version 4.5.2
 ℹ Building master scheduledule rows, 1232 with final JSON
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule
+ℹ Building master schedule[2026-04-07 12:39:24] INFO: === NHL Raw Scraper started === 
+[2026-04-07 12:39:24] INFO: === 2020-21 season === 

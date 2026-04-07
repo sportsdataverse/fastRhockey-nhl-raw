@@ -12,7 +12,7 @@ do
 done
 
 RESCRAPE=${RESCRAPE:-TRUE}
-
+echo "Rescrape set to: $RESCRAPE"
 for i in $(seq "${START_YEAR}" "${END_YEAR}")
 do
     echo "=== Processing season $i ==="
