@@ -23,13 +23,6 @@ suppressPackageStartupMessages(library(arrow))
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(cli))
 
-# ── Logging ──────────────────────────────────────────────────────────────
-LOG_FILE <- "fastRhockey_nhl_raw_logfile.txt"
-logging <- function(msg, level = "INFO") {
-  entry <- paste0(format(Sys.time(), "[%Y-%m-%d %H:%M:%S] "), level, ": ", msg)
-  cat(entry, "\n", file = LOG_FILE, append = FALSE)
-}
-logging("=== NHL Raw Scraper started ===")
 
 option_list <- list(
   optparse::make_option(
@@ -62,6 +55,15 @@ options(scipen = 999)
 if (is.na(opt$end_year)) opt$end_year <- opt$start_year
 season_vector <- opt$start_year:opt$end_year
 rescrape <- opt$rescrape
+
+# ── Logging ──────────────────────────────────────────────────────────────
+LOG_FILE <- glue::glue("logs/fastRhockey_nhl_raw_logfile_{opt$start_year}.txt")
+logging <- function(msg, level = "INFO") {
+  entry <- paste0(format(Sys.time(), "[%Y-%m-%d %H:%M:%S] "), level, ": ", msg)
+  cat(entry, "\n", file = LOG_FILE, append = FALSE)
+}
+logging("=== NHL Raw Scraper started ===")
+
 
 RAW_REPO <- "sportsdataverse/fastRhockey-nhl-raw"
 RAW_BRANCH <- "main"
