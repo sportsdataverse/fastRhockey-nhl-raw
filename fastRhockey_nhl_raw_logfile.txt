@@ -549,3 +549,7 @@ package 'httr' was built under R version 4.5.2
 [2026-04-07 13:03:44] INFO: === NHL Raw Scraper started === 
 [2026-04-07 13:03:44] INFO: === 2020-21 season === 
 [2026-04-07 13:03:54] INFO: 952 completed games in schedule 
+[2026-04-07 14:12:21] INFO: === NHL Raw Scraper started === 
+[2026-04-07 14:12:22] INFO: === 2020-21 season === 
+[2026-04-07 14:12:31] INFO: 952 completed games in schedule 
+[2026-04-07 14:49:25] INFO: 952 of 952 games linked (2184 raw, 2184 final) 

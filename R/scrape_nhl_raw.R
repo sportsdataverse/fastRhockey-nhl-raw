@@ -27,7 +27,7 @@ suppressPackageStartupMessages(library(cli))
 LOG_FILE <- "fastRhockey_nhl_raw_logfile.txt"
 logging <- function(msg, level = "INFO") {
   entry <- paste0(format(Sys.time(), "[%Y-%m-%d %H:%M:%S] "), level, ": ", msg)
-  cat(entry, "\n", file = LOG_FILE, append = TRUE)
+  cat(entry, "\n", file = LOG_FILE, append = FALSE)
 }
 logging("=== NHL Raw Scraper started ===")
 
