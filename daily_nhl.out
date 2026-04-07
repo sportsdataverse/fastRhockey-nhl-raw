@@ -1,2 +1,6 @@
 Rescrape set to: true
 === Processing season 2020 ===
+[main af6365c] NHL Raw Updated (Start: 2020 End: 2020)
+ 3 files changed, 5 insertions(+), 2 deletions(-)
+ create mode 100644 daily_nhl.out
+=== Processing season 2021 ===
