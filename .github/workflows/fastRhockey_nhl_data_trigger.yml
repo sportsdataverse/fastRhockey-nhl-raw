@@ -1,0 +1,20 @@
+on: [push, workflow_dispatch]
+
+name: fastRhockey NHL Data trigger
+
+jobs:
+    fastRhockey_nhl_data_trigger:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Trigger fastRhockey NHL Data
+              uses: peter-evans/repository-dispatch@v3
+              with:
+                  token: ${{ secrets.SDV_GH_TOKEN }}
+                  repository: sportsdataverse/fastRhockey-nhl-data
+                  event-type: daily_nhl_data
+                  client-payload: |-
+                    {
+                      "ref": "refs/heads/main",
+                      "event_name": "daily_nhl_data",
+                      "commit_message": "${{ github.event.head_commit.message }}"
+                    }
