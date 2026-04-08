@@ -1,0 +1,16 @@
+ℹ === NHL Raw Scraper started ===
+
+── Processing 2015-16 season ───────────────────────────────────────────────────
+ℹ Fetching 2015-16 schedule
+2026-04-08 02:49:31.517527: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-04-08 02:49:32.773092: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+2026-04-08 02:49:33.398017: Could not fetch schedule for MNS: missing value where TRUE/FALSE needed
+ℹ 1317 completed games in schedule
+ℹ Fetching 2015-16 schedule✔ Fetched 2015-16 schedule [7.7s]
+
+ℹ Scraping 1317 games for 2015-16
+ℹ   Progress: 25/1317 games
+ℹ Scraping 1317 games for 2015-16ℹ   Progress: 50/1317 games
+ℹ Scraping 1317 games for 2015-16ℹ   Progress: 75/1317 games
+ℹ Scraping 1317 games for 2015-16ℹ   Progress: 100/1317 games
+ℹ Scraping 1317 games for 2015-16
