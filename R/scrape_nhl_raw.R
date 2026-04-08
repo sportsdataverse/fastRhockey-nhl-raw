@@ -1,8 +1,9 @@
 ## Scrape raw NHL game JSON and schedules into fastRhockey-nhl-raw
+## Season year = the larger year of the season (e.g. 2025-26 → 2026)
 ## Usage:
-##   Rscript R/scrape_nhl_raw.R -s 2024           (single season)
-##   Rscript R/scrape_nhl_raw.R -s 2023 -e 2024   (range of seasons)
-##   Rscript R/scrape_nhl_raw.R -s 2024 -r TRUE   (rescrape existing)
+##   Rscript R/scrape_nhl_raw.R -s 2026           (single season, 2025-26)
+##   Rscript R/scrape_nhl_raw.R -s 2024 -e 2026   (range: 2023-24 through 2025-26)
+##   Rscript R/scrape_nhl_raw.R -s 2026 -r TRUE   (rescrape existing)
 ##
 ## Outputs:
 ##   nhl/json/raw/{game_id}.json    — raw API data organized under old-format keys
@@ -57,7 +58,7 @@ season_vector <- opt$start_year:opt$end_year
 rescrape <- opt$rescrape
 
 # ── Logging ──────────────────────────────────────────────────────────────
-LOG_FILE <- glue::glue("logs/fastRhockey_nhl_raw_logfile_{opt$start_year}.txt")
+LOG_FILE <- glue::glue("logs/fastRhockey_nhl_raw_logfile_{opt$start_year}.log")
 logging <- function(msg, level = "INFO") {
   entry <- paste0(format(Sys.time(), "[%Y-%m-%d %H:%M:%S] "), level, ": ", msg)
   cat(entry, "\n", file = LOG_FILE, append = FALSE)
@@ -402,8 +403,8 @@ download_game <- function(gid, process = TRUE,
 
 for (season_year in season_vector) {
   season_label <- paste0(
-    season_year, "-",
-    substr(as.character(season_year + 1), 3, 4)
+    season_year - 1, "-",
+    substr(as.character(season_year), 3, 4)
   )
   cli::cli_h1("Processing {season_label} season")
   logging(glue("=== {season_label} season ==="))
