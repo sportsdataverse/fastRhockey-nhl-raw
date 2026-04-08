@@ -1,0 +1,78 @@
+ℹ === NHL Raw Scraper started ===
+
+── Processing 2016-17 season ───────────────────────────────────────────────────
+ℹ Fetching 2016-17 schedule
+2026-04-08 03:51:31.405691: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-04-08 03:51:33.281758: Could not fetch schedule for MNS: missing value where TRUE/FALSE needed
+ℹ 1355 completed games in schedule
+ℹ Fetching 2016-17 schedule✔ Fetched 2016-17 schedule [8s]
+
+ℹ Scraping 1355 games for 2016-17
+ℹ   Progress: 25/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 50/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 75/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 100/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 125/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 150/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 175/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 200/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 225/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 250/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 275/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 300/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 325/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 350/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 375/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 400/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 425/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 450/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 475/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 500/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 525/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 550/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 575/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 600/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 625/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 650/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 675/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 700/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 725/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 750/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 775/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 800/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 825/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 850/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 875/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 900/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 925/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 950/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 975/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1000/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1025/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1050/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1075/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1100/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1125/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1150/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1175/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1200/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1225/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1250/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1275/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1300/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1325/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1350/1355 games
+ℹ Scraping 1355 games for 2016-17ℹ   Progress: 1355/1355 games
+ℹ Scraping 1355 games for 2016-17✔ Scraped 1355 games for 2016-17 [57m 3.8s]
+
+ℹ Updating 2016-17 schedule with JSON links
+✔ 1355 of 1463 games linked (19176 raw, 19176 final)
+ℹ Updating 2016-17 schedule with JSON links✔ Updated 2016-17 schedule with JSON links [918ms]
+
+ℹ Building master schedule
+✔ 19213 total schedule rows, 17857 with final JSON
+ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
+ℹ Building master schedule
+ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
+ℹ Building master scheduleAuto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
