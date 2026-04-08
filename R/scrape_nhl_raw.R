@@ -29,16 +29,16 @@ option_list <- list(
   optparse::make_option(
     c("-s", "--start_year"),
     action = "store",
-    default = fastRhockey:::most_recent_nhl_season(),
+    default = fastRhockey::most_recent_nhl_season(),
     type = "integer",
-    help = "Start year of the seasons to process [default: current season]"
+    help = "Start season's end year to process, e.g. 2026 for 2025-26 [default: most recent]"
   ),
   optparse::make_option(
     c("-e", "--end_year"),
     action = "store",
     default = NA_integer_,
     type = "integer",
-    help = "End year of the seasons to process [default: same as start_year]"
+    help = "End season's end year to process [default: same as start_year]"
   ),
   optparse::make_option(
     c("-r", "--rescrape"),
