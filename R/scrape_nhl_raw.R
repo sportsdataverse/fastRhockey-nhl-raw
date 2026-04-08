@@ -57,13 +57,7 @@ if (is.na(opt$end_year)) opt$end_year <- opt$start_year
 season_vector <- opt$start_year:opt$end_year
 rescrape <- opt$rescrape
 
-# ── Logging ──────────────────────────────────────────────────────────────
-LOG_FILE <- glue::glue("logs/fastRhockey_nhl_raw_logfile_{opt$start_year}.log")
-logging <- function(msg, level = "INFO") {
-  entry <- paste0(format(Sys.time(), "[%Y-%m-%d %H:%M:%S] "), level, ": ", msg)
-  cat(entry, "\n", file = LOG_FILE, append = FALSE)
-}
-logging("=== NHL Raw Scraper started ===")
+cli::cli_alert_info("=== NHL Raw Scraper started ===")
 
 
 RAW_REPO <- "sportsdataverse/fastRhockey-nhl-raw"
@@ -407,7 +401,6 @@ for (season_year in season_vector) {
     substr(as.character(season_year), 3, 4)
   )
   cli::cli_h1("Processing {season_label} season")
-  logging(glue("=== {season_label} season ==="))
 
 
   # ── STEP 1: Fetch and save schedule ──────────────────────────────────
@@ -427,7 +420,6 @@ for (season_year in season_vector) {
 
   games <- dplyr::filter(sched, game_state == "OFF")
   cli::cli_alert_info("{nrow(games)} completed games in schedule")
-  logging(glue("{nrow(games)} completed games in schedule"))
 
   if (nrow(games) == 0) {
     cli::cli_alert_warning("No completed games. Skipping season.")
@@ -473,7 +465,7 @@ for (season_year in season_vector) {
           cli::cli_alert_warning("Failed game {gid}: {conditionMessage(e)}")
         }
       )
-      if (i %% 50 == 0 || i == n_games) {
+      if (i %% 25 == 0 || i == n_games) {
         cli::cli_alert_info("  Progress: {i}/{n_games} games")
       }
     }
@@ -512,7 +504,6 @@ for (season_year in season_vector) {
   cli::cli_alert_success(
     "{sum(sched$game_json)} of {nrow(sched)} games linked ({n_raw} raw, {n_final} final)"
   )
-  logging(glue("{sum(sched$game_json)} of {nrow(sched)} games linked ({n_raw} raw, {n_final} final)"))
 
   rm(games, games_to_scrape, sched)
   gc()
@@ -538,6 +529,5 @@ arrow::write_parquet(sched_all, "nhl/nhl_schedule_master.parquet", compression =
 cli::cli_alert_success(
   "{nrow(sched_all)} total schedule rows, {sum(sched_all$game_json, na.rm = TRUE)} with final JSON"
 )
-logging(glue("Master: {nrow(sched_all)} schedule rows, {sum(sched_all$game_json, na.rm = TRUE)} with final JSON"))
-logging("=== NHL Raw Scraper complete ===")
+cli::cli_alert_info("=== NHL Raw Scraper complete ===")
 cli::cli_h1("All done!")

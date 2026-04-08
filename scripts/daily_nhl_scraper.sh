@@ -1,7 +1,6 @@
 #!/bin/bash
 # Scrape raw NHL game JSON and schedules
-# Season year = the larger year of the season (e.g. 2025-26 → 2026)
-# Usage: bash scripts/daily_nhl_scraper.sh -s 2026 -e 2026
+# Usage: bash scripts/daily_nhl_scraper.sh -s 2025 -e 2025
 
 while getopts s:e:r: flag
 do
@@ -17,8 +16,9 @@ echo "Rescrape set to: $RESCRAPE"
 mkdir -p logs
 for i in $(seq "${START_YEAR}" "${END_YEAR}")
 do
+    LOGFILE="logs/fastRhockey_nhl_raw_logfile_${i}.log"
+    echo "=== Processing season $i ==="
     {
-        echo "=== Processing season $i ==="
         git pull >> /dev/null
         git config --local user.email "action@github.com"
         git config --local user.name "Github Action"
@@ -32,5 +32,5 @@ do
         git commit -m "NHL Raw Updated (Start: $i End: $i)" || echo "No changes to commit"
         git pull >> /dev/null
         git push >> /dev/null
-    } 2>&1
+    } 2>&1 | tee "$LOGFILE"
 done

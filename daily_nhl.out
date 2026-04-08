@@ -1,0 +1,12 @@
+Rescrape set to: true
+=== Processing season 2015 ===
+
+── Processing 2014-15 season ───────────────────────────────────────────────────
+ℹ Fetching 2014-15 schedule
+2026-04-08 01:48:34.329313: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-04-08 01:48:35.844945: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+2026-04-08 01:48:36.360147: Could not fetch schedule for MNS: missing value where TRUE/FALSE needed
+ℹ 1321 completed games in schedule
+ℹ Fetching 2014-15 schedule✔ Fetched 2014-15 schedule [10s]
+
+ℹ Scraping 1321 games for 2014-15
