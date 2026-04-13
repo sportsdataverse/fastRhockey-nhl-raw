@@ -624,3 +624,25 @@ Please move or remove them before you merge.
 Aborting
 error: Your local changes to the following files would be overwritten by merge:
   logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020060.json nhl/json/final/2025020221.json nhl/json/final/2025020374.json nhl/json/final/2025020448.json nhl/json/final/2025020467.json nhl/json/final/2025020855.json nhl/json/final/2025020866.json nhl/json/final/2025020918.json nhl/json/final/2025020919.json nhl/json/final/2025021105.json nhl/json/final/2025021134.json nhl/json/final/2025021170.json nhl/json/final/2025021261.json nhl/json/final/2025021263.json nhl/json/final/2025021276.json nhl/json/final/2025021277.json nhl/json/final/2025021278.json nhl/json/final/2025021279.json nhl/json/final/2025021280.json nhl/json/final/2025021281.json nhl/json/raw/2025020060.json nhl/json/raw/2025020221.json nhl/json/raw/2025020374.json nhl/json/raw/2025020448.json nhl/json/raw/2025020467.json nhl/json/raw/2025020855.json nhl/json/raw/2025020866.json nhl/json/raw/2025020918.json nhl/json/raw/2025020919.json nhl/json/raw/2025021105.json nhl/json/raw/2025021134.json nhl/json/raw/2025021170.json nhl/json/raw/2025021261.json nhl/json/raw/2025021263.json nhl/json/raw/2025021276.json nhl/json/raw/2025021277.json nhl/json/raw/2025021278.json nhl/json/raw/2025021279.json nhl/json/raw/2025021280.json nhl/json/raw/2025021281.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
+[main 3e92556b] NHL Raw Updated (Start: 2026 End: 2026)
+ 46 files changed, 1290 insertions(+), 1408 deletions(-)
+ rewrite daily_nhl.out (73%)
+ rewrite logs/fastRhockey_nhl_raw_logfile_2026.log (73%)
+ create mode 100644 nhl/json/final/2025021276.json
+ create mode 100644 nhl/json/final/2025021277.json
+ create mode 100644 nhl/json/final/2025021278.json
+ create mode 100644 nhl/json/final/2025021279.json
+ create mode 100644 nhl/json/final/2025021280.json
+ create mode 100644 nhl/json/final/2025021281.json
+ create mode 100644 nhl/json/raw/2025021276.json
+ create mode 100644 nhl/json/raw/2025021277.json
+ create mode 100644 nhl/json/raw/2025021278.json
+ create mode 100644 nhl/json/raw/2025021279.json
+ create mode 100644 nhl/json/raw/2025021280.json
+ create mode 100644 nhl/json/raw/2025021281.json
+ rewrite nhl/schedules/rds/nhl_schedule_2026.rds (62%)
+error: Your local changes to the following files would be overwritten by merge:
+	logs/fastRhockey_nhl_raw_logfile_2026.log
+Please commit your changes or stash them before you merge.
+Aborting
+fatal: could not read Username for 'https://github.com': No such device or address
