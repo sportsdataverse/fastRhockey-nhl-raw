@@ -1,5 +1,5 @@
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   1ac21591..ea544ee8  main       -> origin/main
+   ea544ee8..e747a197  main       -> origin/main
 error: Your local changes to the following files would be overwritten by merge:
 	logs/fastRhockey_nhl_raw_logfile_2026.log
 Please commit your changes or stash them before you merge.
@@ -607,107 +607,71 @@ Aborting
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
 ℹ Building master scheduleerror: Your local changes to the following files would be overwritten by merge:
 	logs/fastRhockey_nhl_raw_logfile_2026.log
-	nhl/json/final/2025020037.json
-	nhl/json/final/2025020058.json
-	nhl/json/final/2025020194.json
-	nhl/json/final/2025020196.json
-	nhl/json/final/2025020197.json
-	nhl/json/final/2025020198.json
-	nhl/json/final/2025020199.json
-	nhl/json/final/2025020200.json
-	nhl/json/final/2025020201.json
-	nhl/json/final/2025020203.json
-	nhl/json/final/2025020205.json
-	nhl/json/final/2025020206.json
-	nhl/json/final/2025020208.json
-	nhl/json/final/2025020210.json
-	nhl/json/final/2025020211.json
+	nhl/json/final/2025020035.json
+	nhl/json/final/2025020105.json
+	nhl/json/final/2025020117.json
+	nhl/json/final/2025020147.json
+	nhl/json/final/2025020213.json
+	nhl/json/final/2025020214.json
 	nhl/json/final/2025020215.json
-	nhl/json/final/2025020216.json
-	nhl/json/final/2025020226.json
-	nhl/json/final/2025020234.json
-	nhl/json/final/2025020238.json
-	nhl/json/final/2025020240.json
-	nhl/json/final/2025020242.json
-	nhl/json/final/2025020265.json
-	nhl/json/final/2025020391.json
-	nhl/json/final/2025020590.json
-	nhl/json/final/2025020628.json
-	nhl/json/final/2025020872.json
-	nhl/json/final/2025020881.json
-	nhl/json/final/2025020939.json
-	nhl/json/final/2025020983.json
-	nhl/json/final/2025021016.json
-	nhl/json/final/2025021106.json
-	nhl/json/final/2025021200.json
-	nhl/json/final/2025021231.json
-	nhl/json/final/2025021259.json
-	nhl/json/final/2025021292.json
-	nhl/json/final/2025021293.json
-	nhl/json/final/2025021294.json
-	nhl/json/final/2025021295.json
-	nhl/json/final/2025021298.json
-	nhl/json/final/2025021300.json
-	nhl/json/raw/2025020037.json
-	nhl/json/raw/2025020058.json
-	nhl/json/raw/2025020194.json
-	nhl/json/raw/2025020196.json
-	nhl/json/raw/2025020197.json
-	nhl/json/raw/2025020198.json
-	nhl/json/raw/2025020199.json
-	nhl/json/raw/2025020200.json
-	nhl/json/raw/2025020201.json
-	nhl/json/raw/2025020203.json
-	nhl/json/raw/2025020205.json
-	nhl/json/raw/2025020206.json
-	nhl/json/raw/2025020208.json
-	nhl/json/raw/2025020210.json
-	nhl/json/raw/2025020211.json
+	nhl/json/final/2025020217.json
+	nhl/json/final/2025020222.json
+	nhl/json/final/2025020229.json
+	nhl/json/final/2025020230.json
+	nhl/json/final/2025020398.json
+	nhl/json/final/2025020507.json
+	nhl/json/final/2025020528.json
+	nhl/json/final/2025020696.json
+	nhl/json/final/2025020764.json
+	nhl/json/final/2025020944.json
+	nhl/json/final/2025020950.json
+	nhl/json/final/2025021040.json
+	nhl/json/final/2025021133.json
+	nhl/json/final/2025021243.json
+	nhl/json/final/2025021303.json
+	nhl/json/final/2025021305.json
+	nhl/json/raw/2025020035.json
+	nhl/json/raw/2025020105.json
+	nhl/json/raw/2025020117.json
+	nhl/json/raw/2025020147.json
+	nhl/json/raw/2025020213.json
+	nhl/json/raw/2025020214.json
 	nhl/json/raw/2025020215.json
-	nhl/json/raw/2025020216.json
-	nhl/json/raw/2025020226.json
-	nhl/json/raw/2025020234.json
-	nhl/json/raw/2025020238.json
-	nhl/json/raw/2025020240.json
-	nhl/json/raw/2025020242.json
-	nhl/json/raw/2025020265.json
-	nhl/json/raw/2025020391.json
-	nhl/json/raw/2025020590.json
-	nhl/json/raw/2025020628.json
-	nhl/json/raw/2025020872.json
-	nhl/json/raw/2025020881.json
-	nhl/json/raw/2025020939.json
-	nhl/json/raw/2025020983.json
-	nhl/json/raw/2025021016.json
-	nhl/json/raw/2025021106.json
-	nhl/json/raw/2025021200.json
-	nhl/json/raw/2025021231.json
-	nhl/json/raw/2025021259.json
-	nhl/json/raw/2025021292.json
-	nhl/json/raw/2025021293.json
-	nhl/json/raw/2025021294.json
-	nhl/json/raw/2025021295.json
-	nhl/json/raw/2025021298.json
-	nhl/json/raw/2025021300.json
+	nhl/json/raw/2025020217.json
+	nhl/json/raw/2025020222.json
+	nhl/json/raw/2025020229.json
+	nhl/json/raw/2025020230.json
+	nhl/json/raw/2025020398.json
+	nhl/json/raw/2025020507.json
+	nhl/json/raw/2025020528.json
+	nhl/json/raw/2025020696.json
+	nhl/json/raw/2025020764.json
+	nhl/json/raw/2025020944.json
+	nhl/json/raw/2025020950.json
+	nhl/json/raw/2025021040.json
+	nhl/json/raw/2025021133.json
+	nhl/json/raw/2025021243.json
+	nhl/json/raw/2025021303.json
+	nhl/json/raw/2025021305.json
 	nhl/nhl_schedule_master.parquet
 	nhl/nhl_schedule_master.rds
 	nhl/schedules/parquet/nhl_schedule_2026.parquet
 	nhl/schedules/rds/nhl_schedule_2026.rds
 Please commit your changes or stash them before you merge.
 error: The following untracked working tree files would be overwritten by merge:
-	nhl/json/final/2025021301.json
-	nhl/json/final/2025021302.json
-	nhl/json/final/2025021303.json
-	nhl/json/final/2025021304.json
-	nhl/json/final/2025021305.json
-	nhl/json/final/2025021306.json
-	nhl/json/raw/2025021301.json
-	nhl/json/raw/2025021302.json
-	nhl/json/raw/2025021303.json
-	nhl/json/raw/2025021304.json
-	nhl/json/raw/2025021305.json
-	nhl/json/raw/2025021306.json
+	nhl/json/final/2025021307.json
+	nhl/json/final/2025021308.json
+	nhl/json/final/2025021309.json
+	nhl/json/final/2025021310.json
+	nhl/json/final/2025021311.json
+	nhl/json/final/2025021312.json
+	nhl/json/raw/2025021307.json
+	nhl/json/raw/2025021308.json
+	nhl/json/raw/2025021309.json
+	nhl/json/raw/2025021310.json
+	nhl/json/raw/2025021311.json
+	nhl/json/raw/2025021312.json
 Please move or remove them before you merge.
 Aborting
 error: Your local changes to the following files would be overwritten by merge:
-  logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020037.json nhl/json/final/2025020058.json nhl/json/final/2025020194.json nhl/json/final/2025020196.json nhl/json/final/2025020197.json nhl/json/final/2025020198.json nhl/json/final/2025020199.json nhl/json/final/2025020200.json nhl/json/final/2025020201.json nhl/json/final/2025020203.json nhl/json/final/2025020205.json nhl/json/final/2025020206.json nhl/json/final/2025020208.json nhl/json/final/2025020210.json nhl/json/final/2025020211.json nhl/json/final/2025020215.json nhl/json/final/2025020216.json nhl/json/final/2025020226.json nhl/json/final/2025020234.json nhl/json/final/2025020238.json nhl/json/final/2025020240.json nhl/json/final/2025020242.json nhl/json/final/2025020265.json nhl/json/final/2025020391.json nhl/json/final/2025020590.json nhl/json/final/2025020628.json nhl/json/final/2025020872.json nhl/json/final/2025020881.json nhl/json/final/2025020939.json nhl/json/final/2025020983.json nhl/json/final/2025021016.json nhl/json/final/2025021106.json nhl/json/final/2025021200.json nhl/json/final/2025021231.json nhl/json/final/2025021259.json nhl/json/final/2025021292.json nhl/json/final/2025021293.json nhl/json/final/2025021294.json nhl/json/final/2025021295.json nhl/json/final/2025021298.json nhl/json/final/2025021300.json nhl/json/final/2025021301.json nhl/json/final/2025021302.json nhl/json/final/2025021303.json nhl/json/final/2025021304.json nhl/json/final/2025021305.json nhl/json/final/2025021306.json nhl/json/raw/2025020037.json nhl/json/raw/2025020058.json nhl/json/raw/2025020194.json nhl/json/raw/2025020196.json nhl/json/raw/2025020197.json nhl/json/raw/2025020198.json nhl/json/raw/2025020199.json nhl/json/raw/2025020200.json nhl/json/raw/2025020201.json nhl/json/raw/2025020203.json nhl/json/raw/2025020205.json nhl/json/raw/2025020206.json nhl/json/raw/2025020208.json nhl/json/raw/2025020210.json nhl/json/raw/2025020211.json nhl/json/raw/2025020215.json nhl/json/raw/2025020216.json nhl/json/raw/2025020226.json nhl/json/raw/2025020234.json nhl/json/raw/2025020238.json nhl/json/raw/2025020240.json nhl/json/raw/2025020242.json nhl/json/raw/2025020265.json nhl/json/raw/2025020391.json nhl/json/raw/2025020590.json nhl/json/raw/2025020628.json nhl/json/raw/2025020872.json nhl/json/raw/2025020881.json nhl/json/raw/2025020939.json nhl/json/raw/2025020983.json nhl/json/raw/2025021016.json nhl/json/raw/2025021106.json nhl/json/raw/2025021200.json nhl/json/raw/2025021231.json nhl/json/raw/2025021259.json nhl/json/raw/2025021292.json nhl/json/raw/2025021293.json nhl/json/raw/2025021294.json nhl/json/raw/2025021295.json nhl/json/raw/2025021298.json nhl/json/raw/2025021300.json nhl/json/raw/2025021301.json nhl/json/raw/2025021302.json nhl/json/raw/2025021303.json nhl/json/raw/2025021304.json nhl/json/raw/2025021305.json nhl/json/raw/2025021306.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
+  logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020035.json nhl/json/final/2025020105.json nhl/json/final/2025020117.json nhl/json/final/2025020147.json nhl/json/final/2025020213.json nhl/json/final/2025020214.json nhl/json/final/2025020215.json nhl/json/final/2025020217.json nhl/json/final/2025020222.json nhl/json/final/2025020229.json nhl/json/final/2025020230.json nhl/json/final/2025020398.json nhl/json/final/2025020507.json nhl/json/final/2025020528.json nhl/json/final/2025020696.json nhl/json/final/2025020764.json nhl/json/final/2025020944.json nhl/json/final/2025020950.json nhl/json/final/2025021040.json nhl/json/final/2025021133.json nhl/json/final/2025021243.json nhl/json/final/2025021303.json nhl/json/final/2025021305.json nhl/json/final/2025021307.json nhl/json/final/2025021308.json nhl/json/final/2025021309.json nhl/json/final/2025021310.json nhl/json/final/2025021311.json nhl/json/final/2025021312.json nhl/json/raw/2025020035.json nhl/json/raw/2025020105.json nhl/json/raw/2025020117.json nhl/json/raw/2025020147.json nhl/json/raw/2025020213.json nhl/json/raw/2025020214.json nhl/json/raw/2025020215.json nhl/json/raw/2025020217.json nhl/json/raw/2025020222.json nhl/json/raw/2025020229.json nhl/json/raw/2025020230.json nhl/json/raw/2025020398.json nhl/json/raw/2025020507.json nhl/json/raw/2025020528.json nhl/json/raw/2025020696.json nhl/json/raw/2025020764.json nhl/json/raw/2025020944.json nhl/json/raw/2025020950.json nhl/json/raw/2025021040.json nhl/json/raw/2025021133.json nhl/json/raw/2025021243.json nhl/json/raw/2025021303.json nhl/json/raw/2025021305.json nhl/json/raw/2025021307.json nhl/json/raw/2025021308.json nhl/json/raw/2025021309.json nhl/json/raw/2025021310.json nhl/json/raw/2025021311.json nhl/json/raw/2025021312.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
