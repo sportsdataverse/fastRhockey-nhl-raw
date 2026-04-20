@@ -1,5 +1,5 @@
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   cfd09ee9..e0bd6418  main       -> origin/main
+   e0bd6418..69fbce29  main       -> origin/main
 error: Your local changes to the following files would be overwritten by merge:
 	logs/fastRhockey_nhl_raw_logfile_2026.log
 Please commit your changes or stash them before you merge.
@@ -607,29 +607,51 @@ Aborting
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
 ℹ Building master scheduleerror: Your local changes to the following files would be overwritten by merge:
 	logs/fastRhockey_nhl_raw_logfile_2026.log
-	nhl/json/final/2025020219.json
-	nhl/json/final/2025020225.json
-	nhl/json/final/2025020230.json
-	nhl/json/final/2025020236.json
-	nhl/json/final/2025020255.json
-	nhl/json/raw/2025020219.json
-	nhl/json/raw/2025020225.json
-	nhl/json/raw/2025020230.json
-	nhl/json/raw/2025020236.json
-	nhl/json/raw/2025020255.json
+	nhl/json/final/2025020258.json
+	nhl/json/final/2025020259.json
+	nhl/json/final/2025020260.json
+	nhl/json/final/2025020261.json
+	nhl/json/final/2025020265.json
+	nhl/json/final/2025020269.json
+	nhl/json/final/2025020271.json
+	nhl/json/final/2025020272.json
+	nhl/json/final/2025020273.json
+	nhl/json/final/2025020274.json
+	nhl/json/final/2025020276.json
+	nhl/json/final/2025020277.json
+	nhl/json/final/2025020278.json
+	nhl/json/final/2025020281.json
+	nhl/json/final/2025030141.json
+	nhl/json/raw/2025020258.json
+	nhl/json/raw/2025020259.json
+	nhl/json/raw/2025020260.json
+	nhl/json/raw/2025020261.json
+	nhl/json/raw/2025020265.json
+	nhl/json/raw/2025020269.json
+	nhl/json/raw/2025020271.json
+	nhl/json/raw/2025020272.json
+	nhl/json/raw/2025020273.json
+	nhl/json/raw/2025020274.json
+	nhl/json/raw/2025020276.json
+	nhl/json/raw/2025020277.json
+	nhl/json/raw/2025020278.json
+	nhl/json/raw/2025020281.json
+	nhl/json/raw/2025030141.json
 	nhl/nhl_schedule_master.parquet
 	nhl/nhl_schedule_master.rds
 	nhl/schedules/parquet/nhl_schedule_2026.parquet
 	nhl/schedules/rds/nhl_schedule_2026.rds
 Please commit your changes or stash them before you merge.
 error: The following untracked working tree files would be overwritten by merge:
-	nhl/json/final/2025030131.json
-	nhl/json/final/2025030141.json
-	nhl/json/final/2025030161.json
-	nhl/json/raw/2025030131.json
-	nhl/json/raw/2025030141.json
-	nhl/json/raw/2025030161.json
+	nhl/json/final/2025030111.json
+	nhl/json/final/2025030121.json
+	nhl/json/final/2025030151.json
+	nhl/json/final/2025030171.json
+	nhl/json/raw/2025030111.json
+	nhl/json/raw/2025030121.json
+	nhl/json/raw/2025030151.json
+	nhl/json/raw/2025030171.json
 Please move or remove them before you merge.
 Aborting
 error: Your local changes to the following files would be overwritten by merge:
-  logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020219.json nhl/json/final/2025020225.json nhl/json/final/2025020230.json nhl/json/final/2025020236.json nhl/json/final/2025020255.json nhl/json/final/2025030131.json nhl/json/final/2025030141.json nhl/json/final/2025030161.json nhl/json/raw/2025020219.json nhl/json/raw/2025020225.json nhl/json/raw/2025020230.json nhl/json/raw/2025020236.json nhl/json/raw/2025020255.json nhl/json/raw/2025030131.json nhl/json/raw/2025030141.json nhl/json/raw/2025030161.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
+  logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020258.json nhl/json/final/2025020259.json nhl/json/final/2025020260.json nhl/json/final/2025020261.json nhl/json/final/2025020265.json nhl/json/final/2025020269.json nhl/json/final/2025020271.json nhl/json/final/2025020272.json nhl/json/final/2025020273.json nhl/json/final/2025020274.json nhl/json/final/2025020276.json nhl/json/final/2025020277.json nhl/json/final/2025020278.json nhl/json/final/2025020281.json nhl/json/final/2025030111.json nhl/json/final/2025030121.json nhl/json/final/2025030141.json nhl/json/final/2025030151.json nhl/json/final/2025030171.json nhl/json/raw/2025020258.json nhl/json/raw/2025020259.json nhl/json/raw/2025020260.json nhl/json/raw/2025020261.json nhl/json/raw/2025020265.json nhl/json/raw/2025020269.json nhl/json/raw/2025020271.json nhl/json/raw/2025020272.json nhl/json/raw/2025020273.json nhl/json/raw/2025020274.json nhl/json/raw/2025020276.json nhl/json/raw/2025020277.json nhl/json/raw/2025020278.json nhl/json/raw/2025020281.json nhl/json/raw/2025030111.json nhl/json/raw/2025030121.json nhl/json/raw/2025030141.json nhl/json/raw/2025030151.json nhl/json/raw/2025030171.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds

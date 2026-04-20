@@ -1,7 +1,7 @@
 Rescrape set to: true
 === Processing season 2026 ===
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   cfd09ee9..e0bd6418  main       -> origin/main
+   e0bd6418..69fbce29  main       -> origin/main
 error: Your local changes to the following files would be overwritten by merge:
 	logs/fastRhockey_nhl_raw_logfile_2026.log
 Please commit your changes or stash them before you merge.
@@ -10,594 +10,617 @@ Aborting
 
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
-2026-04-19 08:00:07.205608: Could not fetch schedule for ARI: missing value where TRUE/FALSE needed
-2026-04-19 08:00:10.906593: Could not fetch schedule for MNS: missing value where TRUE/FALSE needed
-ℹ 1315 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [4s]
+2026-04-20 08:00:09.073028: Could not fetch schedule for ARI: missing value where TRUE/FALSE needed
+2026-04-20 08:00:16.602765: Could not fetch schedule for MNS: missing value where TRUE/FALSE needed
+ℹ 1319 completed games in schedule
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [8.2s]
 
-ℹ Scraping 1315 games for 2025-26
-ℹ   Progress: 25/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 50/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:02:21.041995: Invalid arguments or no game shifts data for 2025020057 available!
-2026-04-19 08:02:22.758329: Invalid arguments or no game shifts data for 2025020058 available!
-2026-04-19 08:02:24.580124: Invalid arguments or no game shifts data for 2025020059 available!
-2026-04-19 08:02:26.200385: Invalid arguments or no game shifts data for 2025020060 available!
-2026-04-19 08:02:27.950723: Invalid arguments or no game shifts data for 2025020061 available!
-2026-04-19 08:02:30.444156: Invalid arguments or no game shifts data for 2025020062 available!
-2026-04-19 08:02:32.439487: Invalid arguments or no game shifts data for 2025020063 available!
-2026-04-19 08:02:34.094263: Invalid arguments or no game shifts data for 2025020064 available!
-2026-04-19 08:02:35.78419: Invalid arguments or no game shifts data for 2025020065 available!
-2026-04-19 08:02:37.471463: Invalid arguments or no game shifts data for 2025020066 available!
-2026-04-19 08:02:39.359951: Invalid arguments or no game shifts data for 2025020067 available!
-2026-04-19 08:02:41.131135: Invalid arguments or no game shifts data for 2025020068 available!
-2026-04-19 08:02:43.040381: Invalid arguments or no game shifts data for 2025020069 available!
-2026-04-19 08:02:45.147808: Invalid arguments or no game shifts data for 2025020070 available!
-2026-04-19 08:02:46.934324: Invalid arguments or no game shifts data for 2025020071 available!
-2026-04-19 08:02:48.958131: Invalid arguments or no game shifts data for 2025020072 available!
-2026-04-19 08:02:50.753142: Invalid arguments or no game shifts data for 2025020073 available!
-2026-04-19 08:02:52.570964: Invalid arguments or no game shifts data for 2025020074 available!
-2026-04-19 08:02:54.329581: Invalid arguments or no game shifts data for 2025020075 available!
-ℹ   Progress: 75/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:02:56.228342: Invalid arguments or no game shifts data for 2025020076 available!
-2026-04-19 08:02:58.063031: Invalid arguments or no game shifts data for 2025020077 available!
-2026-04-19 08:02:59.84272: Invalid arguments or no game shifts data for 2025020078 available!
-2026-04-19 08:03:01.805026: Invalid arguments or no game shifts data for 2025020079 available!
-2026-04-19 08:03:04.021519: Invalid arguments or no game shifts data for 2025020080 available!
-2026-04-19 08:03:05.771399: Invalid arguments or no game shifts data for 2025020081 available!
-2026-04-19 08:03:07.535031: Invalid arguments or no game shifts data for 2025020082 available!
-2026-04-19 08:03:09.10591: Invalid arguments or no game shifts data for 2025020083 available!
-2026-04-19 08:03:10.956084: Invalid arguments or no game shifts data for 2025020084 available!
-2026-04-19 08:03:12.770506: Invalid arguments or no game shifts data for 2025020085 available!
-2026-04-19 08:03:14.894704: Invalid arguments or no game shifts data for 2025020086 available!
-2026-04-19 08:03:16.706898: Invalid arguments or no game shifts data for 2025020087 available!
-2026-04-19 08:03:18.45061: Invalid arguments or no game shifts data for 2025020088 available!
-2026-04-19 08:03:20.203292: Invalid arguments or no game shifts data for 2025020089 available!
-2026-04-19 08:03:22.057559: Invalid arguments or no game shifts data for 2025020090 available!
-2026-04-19 08:03:23.935488: Invalid arguments or no game shifts data for 2025020091 available!
-2026-04-19 08:03:25.657554: Invalid arguments or no game shifts data for 2025020092 available!
-2026-04-19 08:03:27.524556: Invalid arguments or no game shifts data for 2025020093 available!
-2026-04-19 08:03:29.506235: Invalid arguments or no game shifts data for 2025020094 available!
-2026-04-19 08:03:31.322263: Invalid arguments or no game shifts data for 2025020095 available!
-2026-04-19 08:03:33.115773: Invalid arguments or no game shifts data for 2025020096 available!
-2026-04-19 08:03:34.687781: Invalid arguments or no game shifts data for 2025020097 available!
-2026-04-19 08:03:36.878388: Invalid arguments or no game shifts data for 2025020098 available!
-2026-04-19 08:03:38.499744: Invalid arguments or no game shifts data for 2025020099 available!
-2026-04-19 08:03:40.202154: Invalid arguments or no game shifts data for 2025020100 available!
-ℹ   Progress: 100/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:03:41.949767: Invalid arguments or no game shifts data for 2025020101 available!
-2026-04-19 08:03:43.804634: Invalid arguments or no game shifts data for 2025020102 available!
-2026-04-19 08:03:45.480075: Invalid arguments or no game shifts data for 2025020103 available!
-2026-04-19 08:03:47.393611: Invalid arguments or no game shifts data for 2025020104 available!
-2026-04-19 08:03:49.097977: Invalid arguments or no game shifts data for 2025020105 available!
-2026-04-19 08:03:51.058162: Invalid arguments or no game shifts data for 2025020106 available!
-2026-04-19 08:03:52.872626: Invalid arguments or no game shifts data for 2025020107 available!
-2026-04-19 08:03:54.932456: Invalid arguments or no game shifts data for 2025020108 available!
-ℹ   Progress: 125/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:04:40.862086: Invalid arguments or no game shifts data for 2025020127 available!
-2026-04-19 08:04:42.735679: Invalid arguments or no game shifts data for 2025020128 available!
-2026-04-19 08:04:44.588403: Invalid arguments or no game shifts data for 2025020129 available!
-2026-04-19 08:04:46.339167: Invalid arguments or no game shifts data for 2025020130 available!
-2026-04-19 08:04:48.136961: Invalid arguments or no game shifts data for 2025020131 available!
-2026-04-19 08:04:49.91209: Invalid arguments or no game shifts data for 2025020132 available!
-2026-04-19 08:04:51.685914: Invalid arguments or no game shifts data for 2025020133 available!
-2026-04-19 08:04:53.678439: Invalid arguments or no game shifts data for 2025020134 available!
-2026-04-19 08:04:55.360265: Invalid arguments or no game shifts data for 2025020135 available!
-2026-04-19 08:04:57.053611: Invalid arguments or no game shifts data for 2025020136 available!
-2026-04-19 08:04:58.716413: Invalid arguments or no game shifts data for 2025020137 available!
-2026-04-19 08:05:00.364174: Invalid arguments or no game shifts data for 2025020138 available!
-2026-04-19 08:05:02.166832: Invalid arguments or no game shifts data for 2025020139 available!
-2026-04-19 08:05:04.079807: Invalid arguments or no game shifts data for 2025020140 available!
-2026-04-19 08:05:05.782127: Invalid arguments or no game shifts data for 2025020141 available!
-2026-04-19 08:05:07.524073: Invalid arguments or no game shifts data for 2025020142 available!
-2026-04-19 08:05:09.405447: Invalid arguments or no game shifts data for 2025020143 available!
-2026-04-19 08:05:11.332775: Invalid arguments or no game shifts data for 2025020144 available!
-2026-04-19 08:05:13.38203: Invalid arguments or no game shifts data for 2025020145 available!
-2026-04-19 08:05:15.257407: Invalid arguments or no game shifts data for 2025020146 available!
-2026-04-19 08:05:16.920659: Invalid arguments or no game shifts data for 2025020147 available!
-2026-04-19 08:05:18.607903: Invalid arguments or no game shifts data for 2025020148 available!
-2026-04-19 08:05:20.27059: Invalid arguments or no game shifts data for 2025020149 available!
-2026-04-19 08:05:22.010523: Invalid arguments or no game shifts data for 2025020150 available!
-ℹ   Progress: 150/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:05:23.743756: Invalid arguments or no game shifts data for 2025020151 available!
-2026-04-19 08:05:25.561346: Invalid arguments or no game shifts data for 2025020152 available!
-2026-04-19 08:05:27.564152: Invalid arguments or no game shifts data for 2025020153 available!
-2026-04-19 08:05:29.6556: Invalid arguments or no game shifts data for 2025020154 available!
-2026-04-19 08:05:31.826221: Invalid arguments or no game shifts data for 2025020155 available!
-2026-04-19 08:05:33.747282: Invalid arguments or no game shifts data for 2025020156 available!
-2026-04-19 08:05:35.521153: Invalid arguments or no game shifts data for 2025020157 available!
-2026-04-19 08:05:37.418957: Invalid arguments or no game shifts data for 2025020158 available!
-2026-04-19 08:05:39.047533: Invalid arguments or no game shifts data for 2025020159 available!
-2026-04-19 08:05:40.708089: Invalid arguments or no game shifts data for 2025020160 available!
-2026-04-19 08:05:42.62591: Invalid arguments or no game shifts data for 2025020161 available!
-2026-04-19 08:05:44.470787: Invalid arguments or no game shifts data for 2025020162 available!
-2026-04-19 08:05:46.076524: Invalid arguments or no game shifts data for 2025020163 available!
-2026-04-19 08:05:47.845852: Invalid arguments or no game shifts data for 2025020164 available!
-2026-04-19 08:05:49.538414: Invalid arguments or no game shifts data for 2025020165 available!
-2026-04-19 08:05:51.499878: Invalid arguments or no game shifts data for 2025020166 available!
-2026-04-19 08:05:53.368222: Invalid arguments or no game shifts data for 2025020167 available!
-2026-04-19 08:05:55.425602: Invalid arguments or no game shifts data for 2025020168 available!
-2026-04-19 08:05:56.993352: Invalid arguments or no game shifts data for 2025020169 available!
-2026-04-19 08:05:58.577912: Invalid arguments or no game shifts data for 2025020170 available!
-2026-04-19 08:06:00.493927: Invalid arguments or no game shifts data for 2025020171 available!
-2026-04-19 08:06:02.245631: Invalid arguments or no game shifts data for 2025020172 available!
-2026-04-19 08:06:03.847733: Invalid arguments or no game shifts data for 2025020173 available!
-2026-04-19 08:06:05.481: Invalid arguments or no game shifts data for 2025020174 available!
-2026-04-19 08:06:07.419564: Invalid arguments or no game shifts data for 2025020175 available!
-ℹ   Progress: 175/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:06:09.228194: Invalid arguments or no game shifts data for 2025020176 available!
-2026-04-19 08:06:11.210296: Invalid arguments or no game shifts data for 2025020177 available!
-2026-04-19 08:06:13.074194: Invalid arguments or no game shifts data for 2025020178 available!
-2026-04-19 08:06:14.67335: Invalid arguments or no game shifts data for 2025020179 available!
-2026-04-19 08:06:16.296006: Invalid arguments or no game shifts data for 2025020180 available!
-2026-04-19 08:06:18.012064: Invalid arguments or no game shifts data for 2025020181 available!
-ℹ   Progress: 200/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:07:49.682843: Invalid arguments or no game shifts data for 2025020218 available!
-2026-04-19 08:07:51.271184: Invalid arguments or no game shifts data for 2025020219 available!
-2026-04-19 08:07:52.905497: Invalid arguments or no game shifts data for 2025020220 available!
-2026-04-19 08:07:54.461656: Invalid arguments or no game shifts data for 2025020221 available!
-2026-04-19 08:07:56.037182: Invalid arguments or no game shifts data for 2025020222 available!
-2026-04-19 08:07:57.657427: Invalid arguments or no game shifts data for 2025020223 available!
-2026-04-19 08:07:59.286296: Invalid arguments or no game shifts data for 2025020224 available!
-2026-04-19 08:08:01.244752: Invalid arguments or no game shifts data for 2025020225 available!
-ℹ   Progress: 225/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:08:02.856363: Invalid arguments or no game shifts data for 2025020226 available!
-2026-04-19 08:08:04.481668: Invalid arguments or no game shifts data for 2025020227 available!
-2026-04-19 08:08:05.979624: Invalid arguments or no game shifts data for 2025020228 available!
-2026-04-19 08:08:07.550672: Invalid arguments or no game shifts data for 2025020229 available!
-2026-04-19 08:08:09.249919: Invalid arguments or no game shifts data for 2025020230 available!
-2026-04-19 08:08:11.384835: Invalid arguments or no game shifts data for 2025020231 available!
-2026-04-19 08:08:12.930107: Invalid arguments or no game shifts data for 2025020232 available!
-2026-04-19 08:08:14.485534: Invalid arguments or no game shifts data for 2025020233 available!
-2026-04-19 08:08:16.034904: Invalid arguments or no game shifts data for 2025020234 available!
-2026-04-19 08:08:17.666062: Invalid arguments or no game shifts data for 2025020235 available!
-2026-04-19 08:08:19.264045: Invalid arguments or no game shifts data for 2025020236 available!
-2026-04-19 08:08:20.886492: Invalid arguments or no game shifts data for 2025020237 available!
-2026-04-19 08:08:22.661079: Invalid arguments or no game shifts data for 2025020238 available!
-2026-04-19 08:08:24.24509: Invalid arguments or no game shifts data for 2025020239 available!
-2026-04-19 08:08:25.84641: Invalid arguments or no game shifts data for 2025020240 available!
-2026-04-19 08:08:27.457266: Invalid arguments or no game shifts data for 2025020241 available!
-2026-04-19 08:08:29.766551: Invalid arguments or no game shifts data for 2025020242 available!
-2026-04-19 08:08:31.548558: Invalid arguments or no game shifts data for 2025020243 available!
-2026-04-19 08:08:33.150339: Invalid arguments or no game shifts data for 2025020244 available!
-2026-04-19 08:08:34.802918: Invalid arguments or no game shifts data for 2025020245 available!
-2026-04-19 08:08:36.413687: Invalid arguments or no game shifts data for 2025020246 available!
-2026-04-19 08:08:37.95638: Invalid arguments or no game shifts data for 2025020247 available!
-2026-04-19 08:08:39.580501: Invalid arguments or no game shifts data for 2025020248 available!
-2026-04-19 08:08:41.19731: Invalid arguments or no game shifts data for 2025020249 available!
-2026-04-19 08:08:43.118895: Invalid arguments or no game shifts data for 2025020250 available!
-ℹ   Progress: 250/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:08:44.645828: Invalid arguments or no game shifts data for 2025020251 available!
-2026-04-19 08:08:46.506229: Invalid arguments or no game shifts data for 2025020252 available!
-2026-04-19 08:08:48.143007: Invalid arguments or no game shifts data for 2025020253 available!
-2026-04-19 08:08:49.764572: Invalid arguments or no game shifts data for 2025020254 available!
-2026-04-19 08:08:51.506545: Invalid arguments or no game shifts data for 2025020255 available!
-2026-04-19 08:08:53.280787: Invalid arguments or no game shifts data for 2025020256 available!
-2026-04-19 08:08:54.824296: Invalid arguments or no game shifts data for 2025020257 available!
-2026-04-19 08:08:56.643379: Invalid arguments or no game shifts data for 2025020258 available!
-2026-04-19 08:08:58.50452: Invalid arguments or no game shifts data for 2025020259 available!
-2026-04-19 08:09:00.081311: Invalid arguments or no game shifts data for 2025020260 available!
-2026-04-19 08:09:01.649977: Invalid arguments or no game shifts data for 2025020261 available!
-2026-04-19 08:09:03.183533: Invalid arguments or no game shifts data for 2025020262 available!
-2026-04-19 08:09:04.746479: Invalid arguments or no game shifts data for 2025020263 available!
-2026-04-19 08:09:06.37073: Invalid arguments or no game shifts data for 2025020264 available!
-2026-04-19 08:09:08.018873: Invalid arguments or no game shifts data for 2025020265 available!
-2026-04-19 08:09:09.925164: Invalid arguments or no game shifts data for 2025020266 available!
-2026-04-19 08:09:11.687967: Invalid arguments or no game shifts data for 2025020267 available!
-2026-04-19 08:09:13.447386: Invalid arguments or no game shifts data for 2025020268 available!
-2026-04-19 08:09:15.399352: Invalid arguments or no game shifts data for 2025020269 available!
-ℹ   Progress: 275/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 300/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:10:27.542785: Invalid arguments or no game shifts data for 2025020301 available!
-2026-04-19 08:10:29.684979: Invalid arguments or no game shifts data for 2025020302 available!
-2026-04-19 08:10:31.565208: Invalid arguments or no game shifts data for 2025020303 available!
-2026-04-19 08:10:33.166006: Invalid arguments or no game shifts data for 2025020304 available!
-2026-04-19 08:10:34.810691: Invalid arguments or no game shifts data for 2025020305 available!
-2026-04-19 08:10:36.341071: Invalid arguments or no game shifts data for 2025020306 available!
-2026-04-19 08:10:38.01253: Invalid arguments or no game shifts data for 2025020307 available!
-2026-04-19 08:10:39.651624: Invalid arguments or no game shifts data for 2025020308 available!
-2026-04-19 08:10:41.195135: Invalid arguments or no game shifts data for 2025020309 available!
-2026-04-19 08:10:42.7909: Invalid arguments or no game shifts data for 2025020310 available!
-2026-04-19 08:10:44.348586: Invalid arguments or no game shifts data for 2025020311 available!
-2026-04-19 08:10:46.287074: Invalid arguments or no game shifts data for 2025020312 available!
-2026-04-19 08:10:48.036106: Invalid arguments or no game shifts data for 2025020313 available!
-2026-04-19 08:10:49.817102: Invalid arguments or no game shifts data for 2025020314 available!
-2026-04-19 08:10:51.338073: Invalid arguments or no game shifts data for 2025020315 available!
-2026-04-19 08:10:52.919831: Invalid arguments or no game shifts data for 2025020316 available!
-2026-04-19 08:10:54.32371: Invalid arguments or no game shifts data for 2025020317 available!
-2026-04-19 08:10:55.723444: Invalid arguments or no game shifts data for 2025020318 available!
-2026-04-19 08:10:57.21657: Invalid arguments or no game shifts data for 2025020319 available!
-2026-04-19 08:10:58.793686: Invalid arguments or no game shifts data for 2025020320 available!
-2026-04-19 08:11:00.555381: Invalid arguments or no game shifts data for 2025020321 available!
-2026-04-19 08:11:02.524453: Invalid arguments or no game shifts data for 2025020322 available!
-2026-04-19 08:11:03.992543: Invalid arguments or no game shifts data for 2025020323 available!
-2026-04-19 08:11:05.454594: Invalid arguments or no game shifts data for 2025020324 available!
-2026-04-19 08:11:07.057333: Invalid arguments or no game shifts data for 2025020325 available!
-ℹ   Progress: 325/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:11:08.834374: Invalid arguments or no game shifts data for 2025020326 available!
-2026-04-19 08:11:10.191471: Invalid arguments or no game shifts data for 2025020327 available!
-2026-04-19 08:11:11.822522: Invalid arguments or no game shifts data for 2025020328 available!
-2026-04-19 08:11:13.589861: Invalid arguments or no game shifts data for 2025020329 available!
-2026-04-19 08:11:15.239431: Invalid arguments or no game shifts data for 2025020330 available!
-2026-04-19 08:11:16.827475: Invalid arguments or no game shifts data for 2025020331 available!
-2026-04-19 08:11:18.336587: Invalid arguments or no game shifts data for 2025020332 available!
-2026-04-19 08:11:20.204402: Invalid arguments or no game shifts data for 2025020333 available!
-2026-04-19 08:11:21.807707: Invalid arguments or no game shifts data for 2025020334 available!
-2026-04-19 08:11:23.418098: Invalid arguments or no game shifts data for 2025020335 available!
-2026-04-19 08:11:24.908438: Invalid arguments or no game shifts data for 2025020336 available!
-2026-04-19 08:11:26.636146: Invalid arguments or no game shifts data for 2025020337 available!
-2026-04-19 08:11:28.570096: Invalid arguments or no game shifts data for 2025020338 available!
-2026-04-19 08:11:30.257326: Invalid arguments or no game shifts data for 2025020339 available!
-2026-04-19 08:11:31.856572: Invalid arguments or no game shifts data for 2025020340 available!
-2026-04-19 08:11:33.54348: Invalid arguments or no game shifts data for 2025020341 available!
-2026-04-19 08:11:35.287914: Invalid arguments or no game shifts data for 2025020342 available!
-2026-04-19 08:11:37.258177: Invalid arguments or no game shifts data for 2025020343 available!
-2026-04-19 08:11:38.841572: Invalid arguments or no game shifts data for 2025020344 available!
-2026-04-19 08:11:40.491773: Invalid arguments or no game shifts data for 2025020345 available!
-2026-04-19 08:11:42.332605: Invalid arguments or no game shifts data for 2025020346 available!
-2026-04-19 08:11:44.002147: Invalid arguments or no game shifts data for 2025020347 available!
-2026-04-19 08:11:45.523523: Invalid arguments or no game shifts data for 2025020348 available!
-2026-04-19 08:11:47.170924: Invalid arguments or no game shifts data for 2025020349 available!
-2026-04-19 08:11:49.065385: Invalid arguments or no game shifts data for 2025020350 available!
-ℹ   Progress: 350/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:11:50.66862: Invalid arguments or no game shifts data for 2025020351 available!
-2026-04-19 08:11:52.267905: Invalid arguments or no game shifts data for 2025020352 available!
-2026-04-19 08:11:53.835685: Invalid arguments or no game shifts data for 2025020353 available!
-2026-04-19 08:11:55.526525: Invalid arguments or no game shifts data for 2025020354 available!
-2026-04-19 08:11:57.148009: Invalid arguments or no game shifts data for 2025020355 available!
-2026-04-19 08:11:58.77908: Invalid arguments or no game shifts data for 2025020356 available!
-2026-04-19 08:12:00.457628: Invalid arguments or no game shifts data for 2025020357 available!
-2026-04-19 08:12:02.028506: Invalid arguments or no game shifts data for 2025020358 available!
-2026-04-19 08:12:03.606122: Invalid arguments or no game shifts data for 2025020359 available!
-2026-04-19 08:12:05.170726: Invalid arguments or no game shifts data for 2025020360 available!
-2026-04-19 08:12:07.227119: Invalid arguments or no game shifts data for 2025020361 available!
-2026-04-19 08:12:08.869272: Invalid arguments or no game shifts data for 2025020362 available!
-2026-04-19 08:12:10.41368: Invalid arguments or no game shifts data for 2025020363 available!
-2026-04-19 08:12:11.989531: Invalid arguments or no game shifts data for 2025020364 available!
-2026-04-19 08:12:13.471943: Invalid arguments or no game shifts data for 2025020365 available!
-2026-04-19 08:12:14.965154: Invalid arguments or no game shifts data for 2025020366 available!
-2026-04-19 08:12:16.465641: Invalid arguments or no game shifts data for 2025020367 available!
-2026-04-19 08:12:17.989473: Invalid arguments or no game shifts data for 2025020368 available!
-2026-04-19 08:12:19.604306: Invalid arguments or no game shifts data for 2025020369 available!
-2026-04-19 08:12:21.285349: Invalid arguments or no game shifts data for 2025020370 available!
-2026-04-19 08:12:23.188929: Invalid arguments or no game shifts data for 2025020371 available!
-2026-04-19 08:12:24.800339: Invalid arguments or no game shifts data for 2025020372 available!
-2026-04-19 08:12:26.476286: Invalid arguments or no game shifts data for 2025020373 available!
-2026-04-19 08:12:28.53844: Invalid arguments or no game shifts data for 2025020374 available!
-2026-04-19 08:12:30.460629: Invalid arguments or no game shifts data for 2025020375 available!
-ℹ   Progress: 375/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:12:32.043873: Invalid arguments or no game shifts data for 2025020376 available!
-2026-04-19 08:12:33.567802: Invalid arguments or no game shifts data for 2025020377 available!
-2026-04-19 08:12:35.462008: Invalid arguments or no game shifts data for 2025020378 available!
-2026-04-19 08:12:36.925137: Invalid arguments or no game shifts data for 2025020379 available!
-2026-04-19 08:12:38.463542: Invalid arguments or no game shifts data for 2025020380 available!
-2026-04-19 08:12:40.092604: Invalid arguments or no game shifts data for 2025020381 available!
-2026-04-19 08:12:41.579261: Invalid arguments or no game shifts data for 2025020382 available!
-2026-04-19 08:12:43.161625: Invalid arguments or no game shifts data for 2025020383 available!
-2026-04-19 08:12:44.719327: Invalid arguments or no game shifts data for 2025020384 available!
-2026-04-19 08:12:46.213763: Invalid arguments or no game shifts data for 2025020385 available!
-2026-04-19 08:12:47.960299: Invalid arguments or no game shifts data for 2025020386 available!
-2026-04-19 08:12:49.634502: Invalid arguments or no game shifts data for 2025020387 available!
-2026-04-19 08:12:51.400677: Invalid arguments or no game shifts data for 2025020388 available!
-2026-04-19 08:12:53.256846: Invalid arguments or no game shifts data for 2025020389 available!
-2026-04-19 08:12:54.847655: Invalid arguments or no game shifts data for 2025020390 available!
-2026-04-19 08:12:56.64562: Invalid arguments or no game shifts data for 2025020391 available!
-2026-04-19 08:12:58.337628: Invalid arguments or no game shifts data for 2025020392 available!
-2026-04-19 08:12:59.907304: Invalid arguments or no game shifts data for 2025020393 available!
-2026-04-19 08:13:01.490415: Invalid arguments or no game shifts data for 2025020394 available!
-2026-04-19 08:13:03.121586: Invalid arguments or no game shifts data for 2025020395 available!
-2026-04-19 08:13:04.676494: Invalid arguments or no game shifts data for 2025020396 available!
-2026-04-19 08:13:06.364431: Invalid arguments or no game shifts data for 2025020397 available!
-2026-04-19 08:13:08.245806: Invalid arguments or no game shifts data for 2025020398 available!
-2026-04-19 08:13:09.804345: Invalid arguments or no game shifts data for 2025020399 available!
-2026-04-19 08:13:11.353801: Invalid arguments or no game shifts data for 2025020400 available!
-ℹ   Progress: 400/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:13:12.95862: Invalid arguments or no game shifts data for 2025020401 available!
-2026-04-19 08:13:14.545652: Invalid arguments or no game shifts data for 2025020402 available!
-2026-04-19 08:13:16.109079: Invalid arguments or no game shifts data for 2025020403 available!
-2026-04-19 08:13:17.82712: Invalid arguments or no game shifts data for 2025020404 available!
-2026-04-19 08:13:19.35587: Invalid arguments or no game shifts data for 2025020405 available!
-2026-04-19 08:13:21.069839: Invalid arguments or no game shifts data for 2025020406 available!
-2026-04-19 08:13:22.712196: Invalid arguments or no game shifts data for 2025020407 available!
-2026-04-19 08:13:24.209546: Invalid arguments or no game shifts data for 2025020408 available!
-2026-04-19 08:13:26.035678: Invalid arguments or no game shifts data for 2025020409 available!
-2026-04-19 08:13:28.261675: Invalid arguments or no game shifts data for 2025020410 available!
-2026-04-19 08:13:29.920801: Invalid arguments or no game shifts data for 2025020411 available!
-ℹ   Progress: 425/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 450/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 475/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 500/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 525/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 550/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 575/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 600/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 625/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:22:17.362744: Invalid arguments or no game shifts data for 2025020640 available!
-2026-04-19 08:22:18.899756: Invalid arguments or no game shifts data for 2025020641 available!
-2026-04-19 08:22:20.84505: Invalid arguments or no game shifts data for 2025020642 available!
-2026-04-19 08:22:22.3333: Invalid arguments or no game shifts data for 2025020643 available!
-2026-04-19 08:22:24.058329: Invalid arguments or no game shifts data for 2025020644 available!
-2026-04-19 08:22:25.633123: Invalid arguments or no game shifts data for 2025020645 available!
-2026-04-19 08:22:27.463346: Invalid arguments or no game shifts data for 2025020646 available!
-2026-04-19 08:22:29.284481: Invalid arguments or no game shifts data for 2025020647 available!
-2026-04-19 08:22:31.039465: Invalid arguments or no game shifts data for 2025020648 available!
-2026-04-19 08:22:32.665386: Invalid arguments or no game shifts data for 2025020649 available!
-2026-04-19 08:22:34.266442: Invalid arguments or no game shifts data for 2025020650 available!
-ℹ   Progress: 650/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:22:36.064209: Invalid arguments or no game shifts data for 2025020651 available!
-2026-04-19 08:22:37.789878: Invalid arguments or no game shifts data for 2025020652 available!
-2026-04-19 08:22:39.471662: Invalid arguments or no game shifts data for 2025020653 available!
-2026-04-19 08:22:41.154531: Invalid arguments or no game shifts data for 2025020654 available!
-2026-04-19 08:22:43.238373: Invalid arguments or no game shifts data for 2025020655 available!
-2026-04-19 08:22:45.037307: Invalid arguments or no game shifts data for 2025020656 available!
-2026-04-19 08:22:46.633301: Invalid arguments or no game shifts data for 2025020657 available!
-2026-04-19 08:22:48.454762: Invalid arguments or no game shifts data for 2025020658 available!
-2026-04-19 08:22:50.104012: Invalid arguments or no game shifts data for 2025020659 available!
-2026-04-19 08:22:51.640799: Invalid arguments or no game shifts data for 2025020660 available!
-2026-04-19 08:22:53.219988: Invalid arguments or no game shifts data for 2025020661 available!
-2026-04-19 08:22:54.835137: Invalid arguments or no game shifts data for 2025020662 available!
-2026-04-19 08:22:56.860061: Invalid arguments or no game shifts data for 2025020663 available!
-2026-04-19 08:22:58.503582: Invalid arguments or no game shifts data for 2025020664 available!
-2026-04-19 08:23:00.35723: Invalid arguments or no game shifts data for 2025020665 available!
-2026-04-19 08:23:01.90793: Invalid arguments or no game shifts data for 2025020666 available!
-2026-04-19 08:23:03.417406: Invalid arguments or no game shifts data for 2025020667 available!
-2026-04-19 08:23:04.977036: Invalid arguments or no game shifts data for 2025020668 available!
-2026-04-19 08:23:06.477121: Invalid arguments or no game shifts data for 2025020669 available!
-2026-04-19 08:23:08.262079: Invalid arguments or no game shifts data for 2025020670 available!
-2026-04-19 08:23:09.92377: Invalid arguments or no game shifts data for 2025020671 available!
-2026-04-19 08:23:11.812127: Invalid arguments or no game shifts data for 2025020672 available!
-2026-04-19 08:23:13.370257: Invalid arguments or no game shifts data for 2025020673 available!
-2026-04-19 08:23:14.867693: Invalid arguments or no game shifts data for 2025020674 available!
-2026-04-19 08:23:16.415657: Invalid arguments or no game shifts data for 2025020675 available!
-ℹ   Progress: 675/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:23:17.939692: Invalid arguments or no game shifts data for 2025020676 available!
-2026-04-19 08:23:19.743456: Invalid arguments or no game shifts data for 2025020677 available!
-2026-04-19 08:23:21.421339: Invalid arguments or no game shifts data for 2025020678 available!
-2026-04-19 08:23:23.125174: Invalid arguments or no game shifts data for 2025020679 available!
-2026-04-19 08:23:24.751093: Invalid arguments or no game shifts data for 2025020680 available!
-2026-04-19 08:23:26.28394: Invalid arguments or no game shifts data for 2025020681 available!
-2026-04-19 08:23:27.862767: Invalid arguments or no game shifts data for 2025020682 available!
-2026-04-19 08:23:30.092342: Invalid arguments or no game shifts data for 2025020683 available!
-2026-04-19 08:23:31.787257: Invalid arguments or no game shifts data for 2025020684 available!
-2026-04-19 08:23:33.493036: Invalid arguments or no game shifts data for 2025020685 available!
-2026-04-19 08:23:35.07867: Invalid arguments or no game shifts data for 2025020686 available!
-2026-04-19 08:23:36.613278: Invalid arguments or no game shifts data for 2025020687 available!
-2026-04-19 08:23:38.257915: Invalid arguments or no game shifts data for 2025020688 available!
-2026-04-19 08:23:39.82009: Invalid arguments or no game shifts data for 2025020689 available!
-2026-04-19 08:23:41.359415: Invalid arguments or no game shifts data for 2025020690 available!
-2026-04-19 08:23:42.992746: Invalid arguments or no game shifts data for 2025020691 available!
-2026-04-19 08:23:44.795548: Invalid arguments or no game shifts data for 2025020692 available!
-2026-04-19 08:23:46.380093: Invalid arguments or no game shifts data for 2025020693 available!
-2026-04-19 08:23:48.050973: Invalid arguments or no game shifts data for 2025020694 available!
-2026-04-19 08:23:49.708405: Invalid arguments or no game shifts data for 2025020695 available!
-2026-04-19 08:23:51.288218: Invalid arguments or no game shifts data for 2025020696 available!
-2026-04-19 08:23:53.006169: Invalid arguments or no game shifts data for 2025020697 available!
-2026-04-19 08:23:54.5666: Invalid arguments or no game shifts data for 2025020698 available!
-2026-04-19 08:23:56.185992: Invalid arguments or no game shifts data for 2025020699 available!
-2026-04-19 08:23:57.675749: Invalid arguments or no game shifts data for 2025020700 available!
-ℹ   Progress: 700/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:23:59.318447: Invalid arguments or no game shifts data for 2025020701 available!
-2026-04-19 08:24:00.901877: Invalid arguments or no game shifts data for 2025020702 available!
-2026-04-19 08:24:02.753619: Invalid arguments or no game shifts data for 2025020703 available!
-2026-04-19 08:24:04.295911: Invalid arguments or no game shifts data for 2025020704 available!
-2026-04-19 08:24:05.901742: Invalid arguments or no game shifts data for 2025020705 available!
-2026-04-19 08:24:07.448735: Invalid arguments or no game shifts data for 2025020706 available!
-2026-04-19 08:24:08.955796: Invalid arguments or no game shifts data for 2025020707 available!
-2026-04-19 08:24:10.472396: Invalid arguments or no game shifts data for 2025020708 available!
-2026-04-19 08:24:12.107368: Invalid arguments or no game shifts data for 2025020709 available!
-2026-04-19 08:24:13.841769: Invalid arguments or no game shifts data for 2025020710 available!
-2026-04-19 08:24:15.374277: Invalid arguments or no game shifts data for 2025020711 available!
-2026-04-19 08:24:16.883785: Invalid arguments or no game shifts data for 2025020712 available!
-2026-04-19 08:24:18.726301: Invalid arguments or no game shifts data for 2025020713 available!
-2026-04-19 08:24:20.232073: Invalid arguments or no game shifts data for 2025020714 available!
-2026-04-19 08:24:21.86474: Invalid arguments or no game shifts data for 2025020715 available!
-2026-04-19 08:24:23.615314: Invalid arguments or no game shifts data for 2025020716 available!
-2026-04-19 08:24:25.147145: Invalid arguments or no game shifts data for 2025020717 available!
-2026-04-19 08:24:26.844676: Invalid arguments or no game shifts data for 2025020718 available!
-2026-04-19 08:24:28.712617: Invalid arguments or no game shifts data for 2025020719 available!
-2026-04-19 08:24:30.37053: Invalid arguments or no game shifts data for 2025020720 available!
-2026-04-19 08:24:31.918087: Invalid arguments or no game shifts data for 2025020721 available!
-2026-04-19 08:24:33.419252: Invalid arguments or no game shifts data for 2025020722 available!
-2026-04-19 08:24:34.965942: Invalid arguments or no game shifts data for 2025020723 available!
-2026-04-19 08:24:36.61343: Invalid arguments or no game shifts data for 2025020724 available!
-2026-04-19 08:24:38.077632: Invalid arguments or no game shifts data for 2025020725 available!
-ℹ   Progress: 725/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:24:39.652697: Invalid arguments or no game shifts data for 2025020726 available!
-2026-04-19 08:24:41.442133: Invalid arguments or no game shifts data for 2025020727 available!
-2026-04-19 08:24:43.050084: Invalid arguments or no game shifts data for 2025020728 available!
-2026-04-19 08:24:44.613858: Invalid arguments or no game shifts data for 2025020729 available!
-2026-04-19 08:24:46.109415: Invalid arguments or no game shifts data for 2025020730 available!
-2026-04-19 08:24:47.804758: Invalid arguments or no game shifts data for 2025020731 available!
-2026-04-19 08:24:49.561639: Invalid arguments or no game shifts data for 2025020732 available!
-2026-04-19 08:24:51.175545: Invalid arguments or no game shifts data for 2025020733 available!
-2026-04-19 08:24:52.579658: Invalid arguments or no game shifts data for 2025020734 available!
-2026-04-19 08:24:54.353317: Invalid arguments or no game shifts data for 2025020735 available!
-ℹ   Progress: 750/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 775/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:26:39.337849: Invalid arguments or no game shifts data for 2025020780 available!
-2026-04-19 08:26:41.023795: Invalid arguments or no game shifts data for 2025020781 available!
-2026-04-19 08:26:42.591087: Invalid arguments or no game shifts data for 2025020782 available!
-2026-04-19 08:26:44.252291: Invalid arguments or no game shifts data for 2025020783 available!
-2026-04-19 08:26:46.051104: Invalid arguments or no game shifts data for 2025020784 available!
-2026-04-19 08:26:47.800987: Invalid arguments or no game shifts data for 2025020785 available!
-2026-04-19 08:26:49.443695: Invalid arguments or no game shifts data for 2025020786 available!
-2026-04-19 08:26:51.291699: Invalid arguments or no game shifts data for 2025020787 available!
-2026-04-19 08:26:52.977502: Invalid arguments or no game shifts data for 2025020788 available!
-2026-04-19 08:26:54.598198: Invalid arguments or no game shifts data for 2025020789 available!
-2026-04-19 08:26:56.377461: Invalid arguments or no game shifts data for 2025020790 available!
-2026-04-19 08:26:57.998444: Invalid arguments or no game shifts data for 2025020791 available!
-2026-04-19 08:26:59.686637: Invalid arguments or no game shifts data for 2025020792 available!
-2026-04-19 08:27:01.542952: Invalid arguments or no game shifts data for 2025020793 available!
-2026-04-19 08:27:03.285453: Invalid arguments or no game shifts data for 2025020794 available!
-2026-04-19 08:27:04.981332: Invalid arguments or no game shifts data for 2025020795 available!
-2026-04-19 08:27:06.782885: Invalid arguments or no game shifts data for 2025020796 available!
-2026-04-19 08:27:08.982502: Invalid arguments or no game shifts data for 2025020797 available!
-2026-04-19 08:27:10.62461: Invalid arguments or no game shifts data for 2025020798 available!
-2026-04-19 08:27:12.198519: Invalid arguments or no game shifts data for 2025020799 available!
-2026-04-19 08:27:13.784205: Invalid arguments or no game shifts data for 2025020800 available!
-ℹ   Progress: 800/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:27:15.429639: Invalid arguments or no game shifts data for 2025020801 available!
-2026-04-19 08:27:16.996452: Invalid arguments or no game shifts data for 2025020802 available!
-2026-04-19 08:27:18.602404: Invalid arguments or no game shifts data for 2025020803 available!
-2026-04-19 08:27:20.157752: Invalid arguments or no game shifts data for 2025020804 available!
-2026-04-19 08:27:21.854427: Invalid arguments or no game shifts data for 2025020805 available!
-2026-04-19 08:27:23.524535: Invalid arguments or no game shifts data for 2025020806 available!
-2026-04-19 08:27:25.18507: Invalid arguments or no game shifts data for 2025020807 available!
-2026-04-19 08:27:27.008141: Invalid arguments or no game shifts data for 2025020808 available!
-2026-04-19 08:27:29.538822: Invalid arguments or no game shifts data for 2025020809 available!
-2026-04-19 08:27:31.520325: Invalid arguments or no game shifts data for 2025020810 available!
-2026-04-19 08:27:33.363485: Invalid arguments or no game shifts data for 2025020811 available!
-2026-04-19 08:27:34.923958: Invalid arguments or no game shifts data for 2025020812 available!
-2026-04-19 08:27:36.788007: Invalid arguments or no game shifts data for 2025020813 available!
-2026-04-19 08:27:38.517307: Invalid arguments or no game shifts data for 2025020814 available!
-2026-04-19 08:27:40.367593: Invalid arguments or no game shifts data for 2025020815 available!
-2026-04-19 08:27:42.143215: Invalid arguments or no game shifts data for 2025020816 available!
-2026-04-19 08:27:43.866627: Invalid arguments or no game shifts data for 2025020817 available!
-2026-04-19 08:27:45.576552: Invalid arguments or no game shifts data for 2025020818 available!
-2026-04-19 08:27:47.169464: Invalid arguments or no game shifts data for 2025020819 available!
-2026-04-19 08:27:48.931306: Invalid arguments or no game shifts data for 2025020820 available!
-2026-04-19 08:27:50.57814: Invalid arguments or no game shifts data for 2025020821 available!
-2026-04-19 08:27:52.231642: Invalid arguments or no game shifts data for 2025020822 available!
-2026-04-19 08:27:53.844673: Invalid arguments or no game shifts data for 2025020823 available!
-2026-04-19 08:27:55.748704: Invalid arguments or no game shifts data for 2025020824 available!
-2026-04-19 08:27:57.439209: Invalid arguments or no game shifts data for 2025020825 available!
-ℹ   Progress: 825/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:27:59.115977: Invalid arguments or no game shifts data for 2025020826 available!
-2026-04-19 08:28:00.722341: Invalid arguments or no game shifts data for 2025020827 available!
-2026-04-19 08:28:02.42573: Invalid arguments or no game shifts data for 2025020829 available!
-2026-04-19 08:28:04.179019: Invalid arguments or no game shifts data for 2025020830 available!
-2026-04-19 08:28:05.786917: Invalid arguments or no game shifts data for 2025020831 available!
-2026-04-19 08:28:07.489518: Invalid arguments or no game shifts data for 2025020832 available!
-2026-04-19 08:28:09.164953: Invalid arguments or no game shifts data for 2025020833 available!
-2026-04-19 08:28:10.725674: Invalid arguments or no game shifts data for 2025020834 available!
-2026-04-19 08:28:12.885914: Invalid arguments or no game shifts data for 2025020835 available!
-2026-04-19 08:28:14.585249: Invalid arguments or no game shifts data for 2025020836 available!
-2026-04-19 08:28:16.341531: Invalid arguments or no game shifts data for 2025020837 available!
-2026-04-19 08:28:18.150329: Invalid arguments or no game shifts data for 2025020838 available!
-2026-04-19 08:28:19.837816: Invalid arguments or no game shifts data for 2025020839 available!
-2026-04-19 08:28:21.45324: Invalid arguments or no game shifts data for 2025020840 available!
-2026-04-19 08:28:23.168104: Invalid arguments or no game shifts data for 2025020841 available!
-2026-04-19 08:28:25.020015: Invalid arguments or no game shifts data for 2025020842 available!
-2026-04-19 08:28:26.777391: Invalid arguments or no game shifts data for 2025020843 available!
-2026-04-19 08:28:28.804855: Invalid arguments or no game shifts data for 2025020844 available!
-2026-04-19 08:28:30.607115: Invalid arguments or no game shifts data for 2025020845 available!
-2026-04-19 08:28:32.567029: Invalid arguments or no game shifts data for 2025020846 available!
-2026-04-19 08:28:34.208806: Invalid arguments or no game shifts data for 2025020847 available!
-2026-04-19 08:28:35.818079: Invalid arguments or no game shifts data for 2025020848 available!
-2026-04-19 08:28:37.449638: Invalid arguments or no game shifts data for 2025020849 available!
-2026-04-19 08:28:39.122489: Invalid arguments or no game shifts data for 2025020850 available!
-2026-04-19 08:28:40.838013: Invalid arguments or no game shifts data for 2025020851 available!
-ℹ   Progress: 850/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:28:42.96751: Invalid arguments or no game shifts data for 2025020852 available!
-2026-04-19 08:28:44.506605: Invalid arguments or no game shifts data for 2025020853 available!
-2026-04-19 08:28:46.286106: Invalid arguments or no game shifts data for 2025020854 available!
-2026-04-19 08:28:48.027964: Invalid arguments or no game shifts data for 2025020855 available!
-2026-04-19 08:28:49.901275: Invalid arguments or no game shifts data for 2025020856 available!
-2026-04-19 08:28:51.519825: Invalid arguments or no game shifts data for 2025020857 available!
-ℹ   Progress: 875/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 900/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:30:59.001015: Invalid arguments or no game shifts data for 2025020910 available!
-2026-04-19 08:31:00.704049: Invalid arguments or no game shifts data for 2025020911 available!
-2026-04-19 08:31:02.435733: Invalid arguments or no game shifts data for 2025020912 available!
-2026-04-19 08:31:04.147285: Invalid arguments or no game shifts data for 2025020913 available!
-2026-04-19 08:31:05.83087: Invalid arguments or no game shifts data for 2025020914 available!
-2026-04-19 08:31:07.528909: Invalid arguments or no game shifts data for 2025020915 available!
-2026-04-19 08:31:09.267303: Invalid arguments or no game shifts data for 2025020916 available!
-2026-04-19 08:31:10.990333: Invalid arguments or no game shifts data for 2025020917 available!
-2026-04-19 08:31:12.848605: Invalid arguments or no game shifts data for 2025020918 available!
-2026-04-19 08:31:14.925377: Invalid arguments or no game shifts data for 2025020919 available!
-2026-04-19 08:31:16.833873: Invalid arguments or no game shifts data for 2025020920 available!
-2026-04-19 08:31:18.516242: Invalid arguments or no game shifts data for 2025020921 available!
-2026-04-19 08:31:20.204775: Invalid arguments or no game shifts data for 2025020922 available!
-2026-04-19 08:31:21.923906: Invalid arguments or no game shifts data for 2025020923 available!
-2026-04-19 08:31:23.67919: Invalid arguments or no game shifts data for 2025020924 available!
-2026-04-19 08:31:25.307348: Invalid arguments or no game shifts data for 2025020925 available!
-2026-04-19 08:31:27.165176: Invalid arguments or no game shifts data for 2025020926 available!
-ℹ   Progress: 925/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:31:29.227764: Invalid arguments or no game shifts data for 2025020927 available!
-2026-04-19 08:31:30.880408: Invalid arguments or no game shifts data for 2025020928 available!
-2026-04-19 08:31:32.688772: Invalid arguments or no game shifts data for 2025020929 available!
-2026-04-19 08:31:34.62989: Invalid arguments or no game shifts data for 2025020930 available!
-2026-04-19 08:31:36.490936: Invalid arguments or no game shifts data for 2025020931 available!
-2026-04-19 08:31:38.132177: Invalid arguments or no game shifts data for 2025020932 available!
-2026-04-19 08:31:39.725061: Invalid arguments or no game shifts data for 2025020933 available!
-2026-04-19 08:31:41.41863: Invalid arguments or no game shifts data for 2025020934 available!
-2026-04-19 08:31:42.967696: Invalid arguments or no game shifts data for 2025020935 available!
-2026-04-19 08:31:44.535754: Invalid arguments or no game shifts data for 2025020936 available!
-2026-04-19 08:31:46.201046: Invalid arguments or no game shifts data for 2025020937 available!
-2026-04-19 08:31:47.840596: Invalid arguments or no game shifts data for 2025020938 available!
-2026-04-19 08:31:49.694806: Invalid arguments or no game shifts data for 2025020939 available!
-2026-04-19 08:31:51.355026: Invalid arguments or no game shifts data for 2025020940 available!
-2026-04-19 08:31:53.239548: Invalid arguments or no game shifts data for 2025020941 available!
-2026-04-19 08:31:54.877452: Invalid arguments or no game shifts data for 2025020942 available!
-2026-04-19 08:31:56.623219: Invalid arguments or no game shifts data for 2025020943 available!
-2026-04-19 08:31:58.295491: Invalid arguments or no game shifts data for 2025020944 available!
-2026-04-19 08:31:59.846618: Invalid arguments or no game shifts data for 2025020945 available!
-2026-04-19 08:32:01.446007: Invalid arguments or no game shifts data for 2025020946 available!
-2026-04-19 08:32:03.159609: Invalid arguments or no game shifts data for 2025020947 available!
-2026-04-19 08:32:05.149746: Invalid arguments or no game shifts data for 2025020948 available!
-2026-04-19 08:32:06.824934: Invalid arguments or no game shifts data for 2025020949 available!
-2026-04-19 08:32:08.483949: Invalid arguments or no game shifts data for 2025020950 available!
-2026-04-19 08:32:10.089514: Invalid arguments or no game shifts data for 2025020951 available!
-ℹ   Progress: 950/1315 games
-ℹ Scraping 1315 games for 2025-262026-04-19 08:32:12.179481: Invalid arguments or no game shifts data for 2025020952 available!
-2026-04-19 08:32:14.191073: Invalid arguments or no game shifts data for 2025020953 available!
-2026-04-19 08:32:16.192447: Invalid arguments or no game shifts data for 2025020954 available!
-2026-04-19 08:32:17.891894: Invalid arguments or no game shifts data for 2025020955 available!
-2026-04-19 08:32:19.569463: Invalid arguments or no game shifts data for 2025020956 available!
-2026-04-19 08:32:21.069646: Invalid arguments or no game shifts data for 2025020957 available!
-2026-04-19 08:32:22.770679: Invalid arguments or no game shifts data for 2025020958 available!
-2026-04-19 08:32:24.5461: Invalid arguments or no game shifts data for 2025020959 available!
-ℹ   Progress: 975/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1000/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1025/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1050/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1075/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1100/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1125/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1150/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1175/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1200/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1225/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1250/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1275/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1300/1315 games
-ℹ Scraping 1315 games for 2025-26ℹ   Progress: 1315/1315 games
-ℹ Scraping 1315 games for 2025-26✔ Scraped 1315 games for 2025-26 [45m 50.7s]
+ℹ Scraping 1319 games for 2025-26
+ℹ   Progress: 25/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 50/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:02:34.281825: Invalid arguments or no game shifts data for 2025020057 available!
+2026-04-20 08:02:36.008901: Invalid arguments or no game shifts data for 2025020058 available!
+2026-04-20 08:02:37.757756: Invalid arguments or no game shifts data for 2025020059 available!
+2026-04-20 08:02:39.45789: Invalid arguments or no game shifts data for 2025020060 available!
+2026-04-20 08:02:41.467374: Invalid arguments or no game shifts data for 2025020061 available!
+2026-04-20 08:02:43.733712: Invalid arguments or no game shifts data for 2025020062 available!
+2026-04-20 08:02:45.61289: Invalid arguments or no game shifts data for 2025020063 available!
+2026-04-20 08:02:47.307326: Invalid arguments or no game shifts data for 2025020064 available!
+2026-04-20 08:02:49.07885: Invalid arguments or no game shifts data for 2025020065 available!
+2026-04-20 08:02:50.941087: Invalid arguments or no game shifts data for 2025020066 available!
+2026-04-20 08:02:52.75372: Invalid arguments or no game shifts data for 2025020067 available!
+2026-04-20 08:02:54.317886: Invalid arguments or no game shifts data for 2025020068 available!
+2026-04-20 08:02:56.022453: Invalid arguments or no game shifts data for 2025020069 available!
+2026-04-20 08:02:57.895794: Invalid arguments or no game shifts data for 2025020070 available!
+2026-04-20 08:02:59.794913: Invalid arguments or no game shifts data for 2025020071 available!
+2026-04-20 08:03:01.597225: Invalid arguments or no game shifts data for 2025020072 available!
+2026-04-20 08:03:03.717417: Invalid arguments or no game shifts data for 2025020073 available!
+2026-04-20 08:03:05.654301: Invalid arguments or no game shifts data for 2025020074 available!
+2026-04-20 08:03:07.413173: Invalid arguments or no game shifts data for 2025020075 available!
+ℹ   Progress: 75/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:03:09.18817: Invalid arguments or no game shifts data for 2025020076 available!
+2026-04-20 08:03:11.009704: Invalid arguments or no game shifts data for 2025020077 available!
+2026-04-20 08:03:12.678897: Invalid arguments or no game shifts data for 2025020078 available!
+2026-04-20 08:03:14.313056: Invalid arguments or no game shifts data for 2025020079 available!
+2026-04-20 08:03:16.037198: Invalid arguments or no game shifts data for 2025020080 available!
+2026-04-20 08:03:17.805747: Invalid arguments or no game shifts data for 2025020081 available!
+2026-04-20 08:03:19.627105: Invalid arguments or no game shifts data for 2025020082 available!
+2026-04-20 08:03:21.094244: Invalid arguments or no game shifts data for 2025020083 available!
+2026-04-20 08:03:22.95519: Invalid arguments or no game shifts data for 2025020084 available!
+2026-04-20 08:03:24.535051: Invalid arguments or no game shifts data for 2025020085 available!
+2026-04-20 08:03:26.410296: Invalid arguments or no game shifts data for 2025020086 available!
+2026-04-20 08:03:28.602443: Invalid arguments or no game shifts data for 2025020087 available!
+2026-04-20 08:03:30.432596: Invalid arguments or no game shifts data for 2025020088 available!
+2026-04-20 08:03:32.076273: Invalid arguments or no game shifts data for 2025020089 available!
+2026-04-20 08:03:33.766715: Invalid arguments or no game shifts data for 2025020090 available!
+2026-04-20 08:03:35.590617: Invalid arguments or no game shifts data for 2025020091 available!
+2026-04-20 08:03:37.253697: Invalid arguments or no game shifts data for 2025020092 available!
+2026-04-20 08:03:39.001112: Invalid arguments or no game shifts data for 2025020093 available!
+2026-04-20 08:03:40.737096: Invalid arguments or no game shifts data for 2025020094 available!
+2026-04-20 08:03:42.699018: Invalid arguments or no game shifts data for 2025020095 available!
+2026-04-20 08:03:44.414315: Invalid arguments or no game shifts data for 2025020096 available!
+2026-04-20 08:03:46.000711: Invalid arguments or no game shifts data for 2025020097 available!
+2026-04-20 08:03:47.803608: Invalid arguments or no game shifts data for 2025020098 available!
+2026-04-20 08:03:49.501688: Invalid arguments or no game shifts data for 2025020099 available!
+2026-04-20 08:03:51.418139: Invalid arguments or no game shifts data for 2025020100 available!
+ℹ   Progress: 100/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:03:53.215073: Invalid arguments or no game shifts data for 2025020101 available!
+2026-04-20 08:03:54.874119: Invalid arguments or no game shifts data for 2025020102 available!
+2026-04-20 08:03:56.795642: Invalid arguments or no game shifts data for 2025020103 available!
+2026-04-20 08:03:58.569185: Invalid arguments or no game shifts data for 2025020104 available!
+2026-04-20 08:04:00.291682: Invalid arguments or no game shifts data for 2025020105 available!
+2026-04-20 08:04:02.035501: Invalid arguments or no game shifts data for 2025020106 available!
+2026-04-20 08:04:03.772059: Invalid arguments or no game shifts data for 2025020107 available!
+2026-04-20 08:04:05.528497: Invalid arguments or no game shifts data for 2025020108 available!
+ℹ   Progress: 125/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:04:50.779072: Invalid arguments or no game shifts data for 2025020127 available!
+2026-04-20 08:04:52.610188: Invalid arguments or no game shifts data for 2025020128 available!
+2026-04-20 08:04:54.384354: Invalid arguments or no game shifts data for 2025020129 available!
+2026-04-20 08:04:56.085444: Invalid arguments or no game shifts data for 2025020130 available!
+2026-04-20 08:04:57.820137: Invalid arguments or no game shifts data for 2025020131 available!
+2026-04-20 08:04:59.560731: Invalid arguments or no game shifts data for 2025020132 available!
+2026-04-20 08:05:01.317308: Invalid arguments or no game shifts data for 2025020133 available!
+2026-04-20 08:05:03.258626: Invalid arguments or no game shifts data for 2025020134 available!
+2026-04-20 08:05:05.058975: Invalid arguments or no game shifts data for 2025020135 available!
+2026-04-20 08:05:07.242768: Invalid arguments or no game shifts data for 2025020136 available!
+2026-04-20 08:05:09.151565: Invalid arguments or no game shifts data for 2025020137 available!
+2026-04-20 08:05:10.893303: Invalid arguments or no game shifts data for 2025020138 available!
+2026-04-20 08:05:12.679935: Invalid arguments or no game shifts data for 2025020139 available!
+2026-04-20 08:05:14.221003: Invalid arguments or no game shifts data for 2025020140 available!
+2026-04-20 08:05:15.779573: Invalid arguments or no game shifts data for 2025020141 available!
+2026-04-20 08:05:17.4506: Invalid arguments or no game shifts data for 2025020142 available!
+2026-04-20 08:05:19.306814: Invalid arguments or no game shifts data for 2025020143 available!
+2026-04-20 08:05:21.137624: Invalid arguments or no game shifts data for 2025020144 available!
+2026-04-20 08:05:22.822273: Invalid arguments or no game shifts data for 2025020145 available!
+2026-04-20 08:05:24.539451: Invalid arguments or no game shifts data for 2025020146 available!
+2026-04-20 08:05:26.421759: Invalid arguments or no game shifts data for 2025020147 available!
+2026-04-20 08:05:28.386443: Invalid arguments or no game shifts data for 2025020148 available!
+2026-04-20 08:05:30.464871: Invalid arguments or no game shifts data for 2025020149 available!
+2026-04-20 08:05:32.233381: Invalid arguments or no game shifts data for 2025020150 available!
+ℹ   Progress: 150/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:05:33.967459: Invalid arguments or no game shifts data for 2025020151 available!
+2026-04-20 08:05:35.803708: Invalid arguments or no game shifts data for 2025020152 available!
+2026-04-20 08:05:37.411799: Invalid arguments or no game shifts data for 2025020153 available!
+2026-04-20 08:05:39.074547: Invalid arguments or no game shifts data for 2025020154 available!
+2026-04-20 08:05:40.705006: Invalid arguments or no game shifts data for 2025020155 available!
+2026-04-20 08:05:42.617764: Invalid arguments or no game shifts data for 2025020156 available!
+2026-04-20 08:05:44.28336: Invalid arguments or no game shifts data for 2025020157 available!
+2026-04-20 08:05:45.822685: Invalid arguments or no game shifts data for 2025020158 available!
+2026-04-20 08:05:47.396049: Invalid arguments or no game shifts data for 2025020159 available!
+2026-04-20 08:05:49.230934: Invalid arguments or no game shifts data for 2025020160 available!
+2026-04-20 08:05:50.995964: Invalid arguments or no game shifts data for 2025020161 available!
+2026-04-20 08:05:52.743269: Invalid arguments or no game shifts data for 2025020162 available!
+2026-04-20 08:05:54.281763: Invalid arguments or no game shifts data for 2025020163 available!
+2026-04-20 08:05:55.700169: Invalid arguments or no game shifts data for 2025020164 available!
+2026-04-20 08:05:57.441248: Invalid arguments or no game shifts data for 2025020165 available!
+2026-04-20 08:05:59.131523: Invalid arguments or no game shifts data for 2025020166 available!
+2026-04-20 08:06:00.878374: Invalid arguments or no game shifts data for 2025020167 available!
+2026-04-20 08:06:02.905694: Invalid arguments or no game shifts data for 2025020168 available!
+2026-04-20 08:06:04.549385: Invalid arguments or no game shifts data for 2025020169 available!
+2026-04-20 08:06:06.344028: Invalid arguments or no game shifts data for 2025020170 available!
+2026-04-20 08:06:08.156764: Invalid arguments or no game shifts data for 2025020171 available!
+2026-04-20 08:06:09.779771: Invalid arguments or no game shifts data for 2025020172 available!
+2026-04-20 08:06:11.354119: Invalid arguments or no game shifts data for 2025020173 available!
+2026-04-20 08:06:13.069051: Invalid arguments or no game shifts data for 2025020174 available!
+2026-04-20 08:06:14.704495: Invalid arguments or no game shifts data for 2025020175 available!
+ℹ   Progress: 175/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:06:16.2956: Invalid arguments or no game shifts data for 2025020176 available!
+2026-04-20 08:06:18.192383: Invalid arguments or no game shifts data for 2025020177 available!
+2026-04-20 08:06:20.015003: Invalid arguments or no game shifts data for 2025020178 available!
+2026-04-20 08:06:21.64762: Invalid arguments or no game shifts data for 2025020179 available!
+2026-04-20 08:06:23.175235: Invalid arguments or no game shifts data for 2025020180 available!
+2026-04-20 08:06:24.739754: Invalid arguments or no game shifts data for 2025020181 available!
+ℹ   Progress: 200/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:07:50.953014: Invalid arguments or no game shifts data for 2025020218 available!
+2026-04-20 08:07:52.340292: Invalid arguments or no game shifts data for 2025020219 available!
+2026-04-20 08:07:53.912023: Invalid arguments or no game shifts data for 2025020220 available!
+2026-04-20 08:07:55.658722: Invalid arguments or no game shifts data for 2025020221 available!
+2026-04-20 08:07:57.253907: Invalid arguments or no game shifts data for 2025020222 available!
+2026-04-20 08:07:58.80932: Invalid arguments or no game shifts data for 2025020223 available!
+2026-04-20 08:08:00.673637: Invalid arguments or no game shifts data for 2025020224 available!
+2026-04-20 08:08:02.393886: Invalid arguments or no game shifts data for 2025020225 available!
+ℹ   Progress: 225/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:08:03.981158: Invalid arguments or no game shifts data for 2025020226 available!
+2026-04-20 08:08:05.667319: Invalid arguments or no game shifts data for 2025020227 available!
+2026-04-20 08:08:07.504619: Invalid arguments or no game shifts data for 2025020228 available!
+2026-04-20 08:08:09.214383: Invalid arguments or no game shifts data for 2025020229 available!
+2026-04-20 08:08:10.842219: Invalid arguments or no game shifts data for 2025020230 available!
+2026-04-20 08:08:12.775047: Invalid arguments or no game shifts data for 2025020231 available!
+2026-04-20 08:08:14.23238: Invalid arguments or no game shifts data for 2025020232 available!
+2026-04-20 08:08:16.028444: Invalid arguments or no game shifts data for 2025020233 available!
+2026-04-20 08:08:17.818192: Invalid arguments or no game shifts data for 2025020234 available!
+2026-04-20 08:08:19.452202: Invalid arguments or no game shifts data for 2025020235 available!
+2026-04-20 08:08:21.117271: Invalid arguments or no game shifts data for 2025020236 available!
+2026-04-20 08:08:22.934331: Invalid arguments or no game shifts data for 2025020237 available!
+2026-04-20 08:08:24.519433: Invalid arguments or no game shifts data for 2025020238 available!
+2026-04-20 08:08:26.403149: Invalid arguments or no game shifts data for 2025020239 available!
+2026-04-20 08:08:28.470811: Invalid arguments or no game shifts data for 2025020240 available!
+2026-04-20 08:08:30.341068: Invalid arguments or no game shifts data for 2025020241 available!
+2026-04-20 08:08:32.360698: Invalid arguments or no game shifts data for 2025020242 available!
+2026-04-20 08:08:33.958335: Invalid arguments or no game shifts data for 2025020243 available!
+2026-04-20 08:08:35.472036: Invalid arguments or no game shifts data for 2025020244 available!
+2026-04-20 08:08:37.221089: Invalid arguments or no game shifts data for 2025020245 available!
+2026-04-20 08:08:38.890466: Invalid arguments or no game shifts data for 2025020246 available!
+2026-04-20 08:08:40.483039: Invalid arguments or no game shifts data for 2025020247 available!
+2026-04-20 08:08:41.961613: Invalid arguments or no game shifts data for 2025020248 available!
+2026-04-20 08:08:43.475321: Invalid arguments or no game shifts data for 2025020249 available!
+2026-04-20 08:08:45.171045: Invalid arguments or no game shifts data for 2025020250 available!
+ℹ   Progress: 250/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:08:47.094406: Invalid arguments or no game shifts data for 2025020251 available!
+2026-04-20 08:08:49.212817: Invalid arguments or no game shifts data for 2025020252 available!
+2026-04-20 08:08:50.905001: Invalid arguments or no game shifts data for 2025020253 available!
+2026-04-20 08:08:52.533099: Invalid arguments or no game shifts data for 2025020254 available!
+2026-04-20 08:08:54.141819: Invalid arguments or no game shifts data for 2025020255 available!
+2026-04-20 08:08:55.69666: Invalid arguments or no game shifts data for 2025020256 available!
+2026-04-20 08:08:57.231815: Invalid arguments or no game shifts data for 2025020257 available!
+2026-04-20 08:08:58.890823: Invalid arguments or no game shifts data for 2025020258 available!
+2026-04-20 08:09:00.906212: Invalid arguments or no game shifts data for 2025020259 available!
+2026-04-20 08:09:02.630096: Invalid arguments or no game shifts data for 2025020260 available!
+2026-04-20 08:09:04.306272: Invalid arguments or no game shifts data for 2025020261 available!
+2026-04-20 08:09:05.836861: Invalid arguments or no game shifts data for 2025020262 available!
+2026-04-20 08:09:07.603444: Invalid arguments or no game shifts data for 2025020263 available!
+2026-04-20 08:09:09.508456: Invalid arguments or no game shifts data for 2025020264 available!
+2026-04-20 08:09:11.213582: Invalid arguments or no game shifts data for 2025020265 available!
+2026-04-20 08:09:12.911901: Invalid arguments or no game shifts data for 2025020266 available!
+2026-04-20 08:09:14.583821: Invalid arguments or no game shifts data for 2025020267 available!
+2026-04-20 08:09:16.310572: Invalid arguments or no game shifts data for 2025020268 available!
+2026-04-20 08:09:18.109858: Invalid arguments or no game shifts data for 2025020269 available!
+ℹ   Progress: 275/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 300/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:10:31.762434: Invalid arguments or no game shifts data for 2025020301 available!
+2026-04-20 08:10:33.26339: Invalid arguments or no game shifts data for 2025020302 available!
+2026-04-20 08:10:34.888939: Invalid arguments or no game shifts data for 2025020303 available!
+2026-04-20 08:10:36.458752: Invalid arguments or no game shifts data for 2025020304 available!
+2026-04-20 08:10:38.072823: Invalid arguments or no game shifts data for 2025020305 available!
+2026-04-20 08:10:40.020919: Invalid arguments or no game shifts data for 2025020306 available!
+2026-04-20 08:10:41.714814: Invalid arguments or no game shifts data for 2025020307 available!
+2026-04-20 08:10:43.262643: Invalid arguments or no game shifts data for 2025020308 available!
+2026-04-20 08:10:44.910886: Invalid arguments or no game shifts data for 2025020309 available!
+2026-04-20 08:10:46.470312: Invalid arguments or no game shifts data for 2025020310 available!
+2026-04-20 08:10:48.099511: Invalid arguments or no game shifts data for 2025020311 available!
+2026-04-20 08:10:49.722413: Invalid arguments or no game shifts data for 2025020312 available!
+2026-04-20 08:10:51.375226: Invalid arguments or no game shifts data for 2025020313 available!
+2026-04-20 08:10:53.115082: Invalid arguments or no game shifts data for 2025020314 available!
+2026-04-20 08:10:54.548074: Invalid arguments or no game shifts data for 2025020315 available!
+2026-04-20 08:10:56.094886: Invalid arguments or no game shifts data for 2025020316 available!
+2026-04-20 08:10:58.079729: Invalid arguments or no game shifts data for 2025020317 available!
+2026-04-20 08:10:59.992236: Invalid arguments or no game shifts data for 2025020318 available!
+2026-04-20 08:11:01.649661: Invalid arguments or no game shifts data for 2025020319 available!
+2026-04-20 08:11:03.292294: Invalid arguments or no game shifts data for 2025020320 available!
+2026-04-20 08:11:04.877131: Invalid arguments or no game shifts data for 2025020321 available!
+2026-04-20 08:11:06.542152: Invalid arguments or no game shifts data for 2025020322 available!
+2026-04-20 08:11:08.613216: Invalid arguments or no game shifts data for 2025020323 available!
+2026-04-20 08:11:10.17781: Invalid arguments or no game shifts data for 2025020324 available!
+2026-04-20 08:11:11.805005: Invalid arguments or no game shifts data for 2025020325 available!
+ℹ   Progress: 325/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:11:13.506312: Invalid arguments or no game shifts data for 2025020326 available!
+2026-04-20 08:11:15.251964: Invalid arguments or no game shifts data for 2025020327 available!
+2026-04-20 08:11:16.833985: Invalid arguments or no game shifts data for 2025020328 available!
+2026-04-20 08:11:18.51834: Invalid arguments or no game shifts data for 2025020329 available!
+2026-04-20 08:11:20.146461: Invalid arguments or no game shifts data for 2025020330 available!
+2026-04-20 08:11:21.814388: Invalid arguments or no game shifts data for 2025020331 available!
+2026-04-20 08:11:23.421695: Invalid arguments or no game shifts data for 2025020332 available!
+2026-04-20 08:11:25.078406: Invalid arguments or no game shifts data for 2025020333 available!
+2026-04-20 08:11:26.870687: Invalid arguments or no game shifts data for 2025020334 available!
+2026-04-20 08:11:29.013359: Invalid arguments or no game shifts data for 2025020335 available!
+2026-04-20 08:11:30.715187: Invalid arguments or no game shifts data for 2025020336 available!
+2026-04-20 08:11:32.423973: Invalid arguments or no game shifts data for 2025020337 available!
+2026-04-20 08:11:34.151593: Invalid arguments or no game shifts data for 2025020338 available!
+2026-04-20 08:11:35.789298: Invalid arguments or no game shifts data for 2025020339 available!
+2026-04-20 08:11:37.376134: Invalid arguments or no game shifts data for 2025020340 available!
+2026-04-20 08:11:39.027023: Invalid arguments or no game shifts data for 2025020341 available!
+2026-04-20 08:11:40.721678: Invalid arguments or no game shifts data for 2025020342 available!
+2026-04-20 08:11:42.661842: Invalid arguments or no game shifts data for 2025020343 available!
+2026-04-20 08:11:44.309495: Invalid arguments or no game shifts data for 2025020344 available!
+2026-04-20 08:11:45.924444: Invalid arguments or no game shifts data for 2025020345 available!
+2026-04-20 08:11:47.649165: Invalid arguments or no game shifts data for 2025020346 available!
+2026-04-20 08:11:49.297648: Invalid arguments or no game shifts data for 2025020347 available!
+2026-04-20 08:11:50.814209: Invalid arguments or no game shifts data for 2025020348 available!
+2026-04-20 08:11:52.455426: Invalid arguments or no game shifts data for 2025020349 available!
+2026-04-20 08:11:54.007738: Invalid arguments or no game shifts data for 2025020350 available!
+ℹ   Progress: 350/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:11:55.606997: Invalid arguments or no game shifts data for 2025020351 available!
+2026-04-20 08:11:57.234259: Invalid arguments or no game shifts data for 2025020352 available!
+2026-04-20 08:11:58.929016: Invalid arguments or no game shifts data for 2025020353 available!
+2026-04-20 08:12:00.751439: Invalid arguments or no game shifts data for 2025020354 available!
+2026-04-20 08:12:02.601836: Invalid arguments or no game shifts data for 2025020355 available!
+2026-04-20 08:12:04.282391: Invalid arguments or no game shifts data for 2025020356 available!
+2026-04-20 08:12:05.795368: Invalid arguments or no game shifts data for 2025020357 available!
+2026-04-20 08:12:07.408726: Invalid arguments or no game shifts data for 2025020358 available!
+2026-04-20 08:12:09.081356: Invalid arguments or no game shifts data for 2025020359 available!
+2026-04-20 08:12:10.944709: Invalid arguments or no game shifts data for 2025020360 available!
+2026-04-20 08:12:12.556603: Invalid arguments or no game shifts data for 2025020361 available!
+2026-04-20 08:12:14.248727: Invalid arguments or no game shifts data for 2025020362 available!
+2026-04-20 08:12:16.017772: Invalid arguments or no game shifts data for 2025020363 available!
+2026-04-20 08:12:17.645198: Invalid arguments or no game shifts data for 2025020364 available!
+2026-04-20 08:12:19.409163: Invalid arguments or no game shifts data for 2025020365 available!
+2026-04-20 08:12:21.729062: Invalid arguments or no game shifts data for 2025020366 available!
+2026-04-20 08:12:23.274585: Invalid arguments or no game shifts data for 2025020367 available!
+2026-04-20 08:12:24.806162: Invalid arguments or no game shifts data for 2025020368 available!
+2026-04-20 08:12:26.528803: Invalid arguments or no game shifts data for 2025020369 available!
+2026-04-20 08:12:28.694901: Invalid arguments or no game shifts data for 2025020370 available!
+2026-04-20 08:12:30.623749: Invalid arguments or no game shifts data for 2025020371 available!
+2026-04-20 08:12:32.485745: Invalid arguments or no game shifts data for 2025020372 available!
+2026-04-20 08:12:34.672859: Invalid arguments or no game shifts data for 2025020373 available!
+2026-04-20 08:12:36.633989: Invalid arguments or no game shifts data for 2025020374 available!
+2026-04-20 08:12:38.214396: Invalid arguments or no game shifts data for 2025020375 available!
+ℹ   Progress: 375/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:12:39.767486: Invalid arguments or no game shifts data for 2025020376 available!
+2026-04-20 08:12:41.379663: Invalid arguments or no game shifts data for 2025020377 available!
+2026-04-20 08:12:42.932256: Invalid arguments or no game shifts data for 2025020378 available!
+2026-04-20 08:12:44.472313: Invalid arguments or no game shifts data for 2025020379 available!
+2026-04-20 08:12:46.33717: Invalid arguments or no game shifts data for 2025020380 available!
+2026-04-20 08:12:48.204551: Invalid arguments or no game shifts data for 2025020381 available!
+2026-04-20 08:12:49.983797: Invalid arguments or no game shifts data for 2025020382 available!
+2026-04-20 08:12:51.921093: Invalid arguments or no game shifts data for 2025020383 available!
+2026-04-20 08:12:53.966479: Invalid arguments or no game shifts data for 2025020384 available!
+2026-04-20 08:12:55.645227: Invalid arguments or no game shifts data for 2025020385 available!
+2026-04-20 08:12:57.446125: Invalid arguments or no game shifts data for 2025020386 available!
+2026-04-20 08:12:59.186338: Invalid arguments or no game shifts data for 2025020387 available!
+2026-04-20 08:13:01.130669: Invalid arguments or no game shifts data for 2025020388 available!
+2026-04-20 08:13:02.988328: Invalid arguments or no game shifts data for 2025020389 available!
+2026-04-20 08:13:04.882645: Invalid arguments or no game shifts data for 2025020390 available!
+2026-04-20 08:13:06.581522: Invalid arguments or no game shifts data for 2025020391 available!
+2026-04-20 08:13:08.622041: Invalid arguments or no game shifts data for 2025020392 available!
+2026-04-20 08:13:10.780232: Invalid arguments or no game shifts data for 2025020393 available!
+2026-04-20 08:13:12.479774: Invalid arguments or no game shifts data for 2025020394 available!
+2026-04-20 08:13:14.360632: Invalid arguments or no game shifts data for 2025020395 available!
+2026-04-20 08:13:16.118052: Invalid arguments or no game shifts data for 2025020396 available!
+2026-04-20 08:13:17.869852: Invalid arguments or no game shifts data for 2025020397 available!
+2026-04-20 08:13:19.573985: Invalid arguments or no game shifts data for 2025020398 available!
+2026-04-20 08:13:21.375445: Invalid arguments or no game shifts data for 2025020399 available!
+2026-04-20 08:13:23.216552: Invalid arguments or no game shifts data for 2025020400 available!
+ℹ   Progress: 400/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:13:25.326227: Invalid arguments or no game shifts data for 2025020401 available!
+2026-04-20 08:13:27.390297: Invalid arguments or no game shifts data for 2025020402 available!
+2026-04-20 08:13:29.315777: Invalid arguments or no game shifts data for 2025020403 available!
+2026-04-20 08:13:31.192509: Invalid arguments or no game shifts data for 2025020404 available!
+2026-04-20 08:13:32.960621: Invalid arguments or no game shifts data for 2025020405 available!
+2026-04-20 08:13:34.779456: Invalid arguments or no game shifts data for 2025020406 available!
+2026-04-20 08:13:36.447313: Invalid arguments or no game shifts data for 2025020407 available!
+2026-04-20 08:13:38.226434: Invalid arguments or no game shifts data for 2025020408 available!
+2026-04-20 08:13:40.042408: Invalid arguments or no game shifts data for 2025020409 available!
+2026-04-20 08:13:41.642449: Invalid arguments or no game shifts data for 2025020410 available!
+2026-04-20 08:13:43.336165: Invalid arguments or no game shifts data for 2025020411 available!
+ℹ   Progress: 425/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 450/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 475/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 500/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 525/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 550/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 575/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 600/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 625/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:23:03.570187: Invalid arguments or no game shifts data for 2025020640 available!
+2026-04-20 08:23:05.235526: Invalid arguments or no game shifts data for 2025020641 available!
+2026-04-20 08:23:07.034756: Invalid arguments or no game shifts data for 2025020642 available!
+2026-04-20 08:23:08.995186: Invalid arguments or no game shifts data for 2025020643 available!
+2026-04-20 08:23:10.631265: Invalid arguments or no game shifts data for 2025020644 available!
+2026-04-20 08:23:12.381188: Invalid arguments or no game shifts data for 2025020645 available!
+2026-04-20 08:23:14.180292: Invalid arguments or no game shifts data for 2025020646 available!
+2026-04-20 08:23:15.801538: Invalid arguments or no game shifts data for 2025020647 available!
+2026-04-20 08:23:17.397008: Invalid arguments or no game shifts data for 2025020648 available!
+2026-04-20 08:23:19.091999: Invalid arguments or no game shifts data for 2025020649 available!
+2026-04-20 08:23:20.763367: Invalid arguments or no game shifts data for 2025020650 available!
+ℹ   Progress: 650/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:23:22.569405: Invalid arguments or no game shifts data for 2025020651 available!
+2026-04-20 08:23:24.248462: Invalid arguments or no game shifts data for 2025020652 available!
+2026-04-20 08:23:25.976172: Invalid arguments or no game shifts data for 2025020653 available!
+2026-04-20 08:23:28.197579: Invalid arguments or no game shifts data for 2025020654 available!
+2026-04-20 08:23:29.954744: Invalid arguments or no game shifts data for 2025020655 available!
+2026-04-20 08:23:31.643528: Invalid arguments or no game shifts data for 2025020656 available!
+2026-04-20 08:23:33.100191: Invalid arguments or no game shifts data for 2025020657 available!
+2026-04-20 08:23:34.900384: Invalid arguments or no game shifts data for 2025020658 available!
+2026-04-20 08:23:36.522219: Invalid arguments or no game shifts data for 2025020659 available!
+2026-04-20 08:23:38.087725: Invalid arguments or no game shifts data for 2025020660 available!
+2026-04-20 08:23:39.811239: Invalid arguments or no game shifts data for 2025020661 available!
+2026-04-20 08:23:41.595783: Invalid arguments or no game shifts data for 2025020662 available!
+2026-04-20 08:23:43.203788: Invalid arguments or no game shifts data for 2025020663 available!
+2026-04-20 08:23:45.195463: Invalid arguments or no game shifts data for 2025020664 available!
+2026-04-20 08:23:47.110854: Invalid arguments or no game shifts data for 2025020665 available!
+2026-04-20 08:23:48.808481: Invalid arguments or no game shifts data for 2025020666 available!
+2026-04-20 08:23:50.438619: Invalid arguments or no game shifts data for 2025020667 available!
+2026-04-20 08:23:52.156757: Invalid arguments or no game shifts data for 2025020668 available!
+2026-04-20 08:23:54.073924: Invalid arguments or no game shifts data for 2025020669 available!
+2026-04-20 08:23:55.834697: Invalid arguments or no game shifts data for 2025020670 available!
+2026-04-20 08:23:57.590455: Invalid arguments or no game shifts data for 2025020671 available!
+2026-04-20 08:23:59.329797: Invalid arguments or no game shifts data for 2025020672 available!
+2026-04-20 08:24:01.067253: Invalid arguments or no game shifts data for 2025020673 available!
+2026-04-20 08:24:02.80461: Invalid arguments or no game shifts data for 2025020674 available!
+2026-04-20 08:24:04.588199: Invalid arguments or no game shifts data for 2025020675 available!
+ℹ   Progress: 675/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:24:06.516525: Invalid arguments or no game shifts data for 2025020676 available!
+2026-04-20 08:24:08.262559: Invalid arguments or no game shifts data for 2025020677 available!
+2026-04-20 08:24:10.174746: Invalid arguments or no game shifts data for 2025020678 available!
+2026-04-20 08:24:12.074514: Invalid arguments or no game shifts data for 2025020679 available!
+2026-04-20 08:24:13.876501: Invalid arguments or no game shifts data for 2025020680 available!
+2026-04-20 08:24:15.482491: Invalid arguments or no game shifts data for 2025020681 available!
+2026-04-20 08:24:17.121217: Invalid arguments or no game shifts data for 2025020682 available!
+2026-04-20 08:24:18.743412: Invalid arguments or no game shifts data for 2025020683 available!
+2026-04-20 08:24:20.407469: Invalid arguments or no game shifts data for 2025020684 available!
+2026-04-20 08:24:21.981379: Invalid arguments or no game shifts data for 2025020685 available!
+2026-04-20 08:24:23.714884: Invalid arguments or no game shifts data for 2025020686 available!
+2026-04-20 08:24:25.454749: Invalid arguments or no game shifts data for 2025020687 available!
+2026-04-20 08:24:27.325378: Invalid arguments or no game shifts data for 2025020688 available!
+2026-04-20 08:24:29.397955: Invalid arguments or no game shifts data for 2025020689 available!
+2026-04-20 08:24:31.47906: Invalid arguments or no game shifts data for 2025020690 available!
+2026-04-20 08:24:33.336063: Invalid arguments or no game shifts data for 2025020691 available!
+2026-04-20 08:24:35.185829: Invalid arguments or no game shifts data for 2025020692 available!
+2026-04-20 08:24:37.0602: Invalid arguments or no game shifts data for 2025020693 available!
+2026-04-20 08:24:38.74435: Invalid arguments or no game shifts data for 2025020694 available!
+2026-04-20 08:24:40.534503: Invalid arguments or no game shifts data for 2025020695 available!
+2026-04-20 08:24:42.347777: Invalid arguments or no game shifts data for 2025020696 available!
+2026-04-20 08:24:44.348493: Invalid arguments or no game shifts data for 2025020697 available!
+2026-04-20 08:24:46.170111: Invalid arguments or no game shifts data for 2025020698 available!
+2026-04-20 08:24:47.890462: Invalid arguments or no game shifts data for 2025020699 available!
+2026-04-20 08:24:49.669164: Invalid arguments or no game shifts data for 2025020700 available!
+ℹ   Progress: 700/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:24:51.465017: Invalid arguments or no game shifts data for 2025020701 available!
+2026-04-20 08:24:53.320635: Invalid arguments or no game shifts data for 2025020702 available!
+2026-04-20 08:24:55.045908: Invalid arguments or no game shifts data for 2025020703 available!
+2026-04-20 08:24:56.92121: Invalid arguments or no game shifts data for 2025020704 available!
+2026-04-20 08:24:58.762595: Invalid arguments or no game shifts data for 2025020705 available!
+2026-04-20 08:25:00.525286: Invalid arguments or no game shifts data for 2025020706 available!
+2026-04-20 08:25:02.209311: Invalid arguments or no game shifts data for 2025020707 available!
+2026-04-20 08:25:04.315248: Invalid arguments or no game shifts data for 2025020708 available!
+2026-04-20 08:25:06.099898: Invalid arguments or no game shifts data for 2025020709 available!
+2026-04-20 08:25:07.914336: Invalid arguments or no game shifts data for 2025020710 available!
+2026-04-20 08:25:09.652959: Invalid arguments or no game shifts data for 2025020711 available!
+2026-04-20 08:25:11.440252: Invalid arguments or no game shifts data for 2025020712 available!
+2026-04-20 08:25:13.390302: Invalid arguments or no game shifts data for 2025020713 available!
+2026-04-20 08:25:15.259284: Invalid arguments or no game shifts data for 2025020714 available!
+2026-04-20 08:25:17.085469: Invalid arguments or no game shifts data for 2025020715 available!
+2026-04-20 08:25:18.949266: Invalid arguments or no game shifts data for 2025020716 available!
+2026-04-20 08:25:20.913852: Invalid arguments or no game shifts data for 2025020717 available!
+2026-04-20 08:25:22.8809: Invalid arguments or no game shifts data for 2025020718 available!
+2026-04-20 08:25:24.701787: Invalid arguments or no game shifts data for 2025020719 available!
+2026-04-20 08:25:26.786309: Invalid arguments or no game shifts data for 2025020720 available!
+2026-04-20 08:25:28.820688: Invalid arguments or no game shifts data for 2025020721 available!
+2026-04-20 08:25:30.696543: Invalid arguments or no game shifts data for 2025020722 available!
+2026-04-20 08:25:32.475642: Invalid arguments or no game shifts data for 2025020723 available!
+2026-04-20 08:25:34.218934: Invalid arguments or no game shifts data for 2025020724 available!
+2026-04-20 08:25:35.930997: Invalid arguments or no game shifts data for 2025020725 available!
+ℹ   Progress: 725/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:25:37.716252: Invalid arguments or no game shifts data for 2025020726 available!
+2026-04-20 08:25:39.443052: Invalid arguments or no game shifts data for 2025020727 available!
+2026-04-20 08:25:41.41765: Invalid arguments or no game shifts data for 2025020728 available!
+2026-04-20 08:25:43.127481: Invalid arguments or no game shifts data for 2025020729 available!
+2026-04-20 08:25:44.830812: Invalid arguments or no game shifts data for 2025020730 available!
+2026-04-20 08:25:46.745603: Invalid arguments or no game shifts data for 2025020731 available!
+2026-04-20 08:25:48.620232: Invalid arguments or no game shifts data for 2025020732 available!
+2026-04-20 08:25:50.312097: Invalid arguments or no game shifts data for 2025020733 available!
+2026-04-20 08:25:51.948822: Invalid arguments or no game shifts data for 2025020734 available!
+2026-04-20 08:25:53.720115: Invalid arguments or no game shifts data for 2025020735 available!
+ℹ   Progress: 750/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 775/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:27:42.42576: Invalid arguments or no game shifts data for 2025020780 available!
+2026-04-20 08:27:44.271257: Invalid arguments or no game shifts data for 2025020781 available!
+2026-04-20 08:27:46.450424: Invalid arguments or no game shifts data for 2025020782 available!
+2026-04-20 08:27:48.313926: Invalid arguments or no game shifts data for 2025020783 available!
+2026-04-20 08:27:50.196994: Invalid arguments or no game shifts data for 2025020784 available!
+2026-04-20 08:27:52.024734: Invalid arguments or no game shifts data for 2025020785 available!
+2026-04-20 08:27:53.806722: Invalid arguments or no game shifts data for 2025020786 available!
+2026-04-20 08:27:55.425487: Invalid arguments or no game shifts data for 2025020787 available!
+2026-04-20 08:27:57.450003: Invalid arguments or no game shifts data for 2025020788 available!
+2026-04-20 08:27:59.555653: Invalid arguments or no game shifts data for 2025020789 available!
+2026-04-20 08:28:01.492944: Invalid arguments or no game shifts data for 2025020790 available!
+2026-04-20 08:28:03.141384: Invalid arguments or no game shifts data for 2025020791 available!
+2026-04-20 08:28:04.761453: Invalid arguments or no game shifts data for 2025020792 available!
+2026-04-20 08:28:06.51403: Invalid arguments or no game shifts data for 2025020793 available!
+2026-04-20 08:28:08.436034: Invalid arguments or no game shifts data for 2025020794 available!
+2026-04-20 08:28:10.182608: Invalid arguments or no game shifts data for 2025020795 available!
+2026-04-20 08:28:12.035212: Invalid arguments or no game shifts data for 2025020796 available!
+2026-04-20 08:28:13.6378: Invalid arguments or no game shifts data for 2025020797 available!
+2026-04-20 08:28:15.44443: Invalid arguments or no game shifts data for 2025020798 available!
+2026-04-20 08:28:17.318355: Invalid arguments or no game shifts data for 2025020799 available!
+2026-04-20 08:28:19.447405: Invalid arguments or no game shifts data for 2025020800 available!
+ℹ   Progress: 800/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:28:21.289804: Invalid arguments or no game shifts data for 2025020801 available!
+2026-04-20 08:28:23.327513: Invalid arguments or no game shifts data for 2025020802 available!
+2026-04-20 08:28:25.173606: Invalid arguments or no game shifts data for 2025020803 available!
+2026-04-20 08:28:27.212327: Invalid arguments or no game shifts data for 2025020804 available!
+2026-04-20 08:28:29.091023: Invalid arguments or no game shifts data for 2025020805 available!
+2026-04-20 08:28:30.95023: Invalid arguments or no game shifts data for 2025020806 available!
+2026-04-20 08:28:32.748061: Invalid arguments or no game shifts data for 2025020807 available!
+2026-04-20 08:28:34.526279: Invalid arguments or no game shifts data for 2025020808 available!
+2026-04-20 08:28:36.296981: Invalid arguments or no game shifts data for 2025020809 available!
+2026-04-20 08:28:38.465613: Invalid arguments or no game shifts data for 2025020810 available!
+2026-04-20 08:28:40.240449: Invalid arguments or no game shifts data for 2025020811 available!
+2026-04-20 08:28:41.905306: Invalid arguments or no game shifts data for 2025020812 available!
+2026-04-20 08:28:43.407779: Invalid arguments or no game shifts data for 2025020813 available!
+2026-04-20 08:28:44.848612: Invalid arguments or no game shifts data for 2025020814 available!
+2026-04-20 08:28:46.642365: Invalid arguments or no game shifts data for 2025020815 available!
+2026-04-20 08:28:48.600178: Invalid arguments or no game shifts data for 2025020816 available!
+2026-04-20 08:28:50.386546: Invalid arguments or no game shifts data for 2025020817 available!
+2026-04-20 08:28:52.292832: Invalid arguments or no game shifts data for 2025020818 available!
+2026-04-20 08:28:54.117023: Invalid arguments or no game shifts data for 2025020819 available!
+2026-04-20 08:28:55.794253: Invalid arguments or no game shifts data for 2025020820 available!
+2026-04-20 08:28:58.039746: Invalid arguments or no game shifts data for 2025020821 available!
+2026-04-20 08:28:59.872666: Invalid arguments or no game shifts data for 2025020822 available!
+2026-04-20 08:29:01.721796: Invalid arguments or no game shifts data for 2025020823 available!
+2026-04-20 08:29:03.461635: Invalid arguments or no game shifts data for 2025020824 available!
+2026-04-20 08:29:05.27765: Invalid arguments or no game shifts data for 2025020825 available!
+ℹ   Progress: 825/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:29:07.257933: Invalid arguments or no game shifts data for 2025020826 available!
+2026-04-20 08:29:09.222864: Invalid arguments or no game shifts data for 2025020827 available!
+2026-04-20 08:29:11.378185: Invalid arguments or no game shifts data for 2025020829 available!
+2026-04-20 08:29:13.412978: Invalid arguments or no game shifts data for 2025020830 available!
+2026-04-20 08:29:15.207261: Invalid arguments or no game shifts data for 2025020831 available!
+2026-04-20 08:29:16.95009: Invalid arguments or no game shifts data for 2025020832 available!
+2026-04-20 08:29:19.027621: Invalid arguments or no game shifts data for 2025020833 available!
+2026-04-20 08:29:20.808969: Invalid arguments or no game shifts data for 2025020834 available!
+2026-04-20 08:29:22.50998: Invalid arguments or no game shifts data for 2025020835 available!
+2026-04-20 08:29:24.163088: Invalid arguments or no game shifts data for 2025020836 available!
+2026-04-20 08:29:25.907557: Invalid arguments or no game shifts data for 2025020837 available!
+2026-04-20 08:29:28.269624: Invalid arguments or no game shifts data for 2025020838 available!
+2026-04-20 08:29:30.183403: Invalid arguments or no game shifts data for 2025020839 available!
+2026-04-20 08:29:31.985066: Invalid arguments or no game shifts data for 2025020840 available!
+2026-04-20 08:29:33.572376: Invalid arguments or no game shifts data for 2025020841 available!
+2026-04-20 08:29:35.306557: Invalid arguments or no game shifts data for 2025020842 available!
+2026-04-20 08:29:37.037132: Invalid arguments or no game shifts data for 2025020843 available!
+2026-04-20 08:29:39.092158: Invalid arguments or no game shifts data for 2025020844 available!
+2026-04-20 08:29:40.833979: Invalid arguments or no game shifts data for 2025020845 available!
+2026-04-20 08:29:42.999708: Invalid arguments or no game shifts data for 2025020846 available!
+2026-04-20 08:29:44.815585: Invalid arguments or no game shifts data for 2025020847 available!
+2026-04-20 08:29:47.086036: Invalid arguments or no game shifts data for 2025020848 available!
+2026-04-20 08:29:48.900385: Invalid arguments or no game shifts data for 2025020849 available!
+2026-04-20 08:29:50.653222: Invalid arguments or no game shifts data for 2025020850 available!
+2026-04-20 08:29:52.379044: Invalid arguments or no game shifts data for 2025020851 available!
+ℹ   Progress: 850/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:29:53.910152: Invalid arguments or no game shifts data for 2025020852 available!
+2026-04-20 08:29:55.526221: Invalid arguments or no game shifts data for 2025020853 available!
+2026-04-20 08:29:57.258065: Invalid arguments or no game shifts data for 2025020854 available!
+2026-04-20 08:29:58.994644: Invalid arguments or no game shifts data for 2025020855 available!
+2026-04-20 08:30:00.581795: Invalid arguments or no game shifts data for 2025020856 available!
+2026-04-20 08:30:02.284872: Invalid arguments or no game shifts data for 2025020857 available!
+ℹ   Progress: 875/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 900/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:32:08.961971: Invalid arguments or no game shifts data for 2025020910 available!
+2026-04-20 08:32:10.903991: Invalid arguments or no game shifts data for 2025020911 available!
+2026-04-20 08:32:12.911288: Invalid arguments or no game shifts data for 2025020912 available!
+2026-04-20 08:32:14.456019: Invalid arguments or no game shifts data for 2025020913 available!
+2026-04-20 08:32:16.07548: Invalid arguments or no game shifts data for 2025020914 available!
+2026-04-20 08:32:18.149943: Invalid arguments or no game shifts data for 2025020915 available!
+2026-04-20 08:32:19.940382: Invalid arguments or no game shifts data for 2025020916 available!
+2026-04-20 08:32:22.004338: Invalid arguments or no game shifts data for 2025020917 available!
+2026-04-20 08:32:23.737839: Invalid arguments or no game shifts data for 2025020918 available!
+2026-04-20 08:32:25.660362: Invalid arguments or no game shifts data for 2025020919 available!
+2026-04-20 08:32:27.670879: Invalid arguments or no game shifts data for 2025020920 available!
+2026-04-20 08:32:29.788509: Invalid arguments or no game shifts data for 2025020921 available!
+2026-04-20 08:32:31.7571: Invalid arguments or no game shifts data for 2025020922 available!
+2026-04-20 08:32:33.620354: Invalid arguments or no game shifts data for 2025020923 available!
+2026-04-20 08:32:35.453094: Invalid arguments or no game shifts data for 2025020924 available!
+2026-04-20 08:32:37.260645: Invalid arguments or no game shifts data for 2025020925 available!
+2026-04-20 08:32:39.129527: Invalid arguments or no game shifts data for 2025020926 available!
+ℹ   Progress: 925/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:32:40.896579: Invalid arguments or no game shifts data for 2025020927 available!
+2026-04-20 08:32:42.921115: Invalid arguments or no game shifts data for 2025020928 available!
+2026-04-20 08:32:44.676265: Invalid arguments or no game shifts data for 2025020929 available!
+2026-04-20 08:32:46.566317: Invalid arguments or no game shifts data for 2025020930 available!
+2026-04-20 08:32:48.440868: Invalid arguments or no game shifts data for 2025020931 available!
+2026-04-20 08:32:50.09454: Invalid arguments or no game shifts data for 2025020932 available!
+2026-04-20 08:32:52.089678: Invalid arguments or no game shifts data for 2025020933 available!
+2026-04-20 08:32:53.835021: Invalid arguments or no game shifts data for 2025020934 available!
+2026-04-20 08:32:55.434954: Invalid arguments or no game shifts data for 2025020935 available!
+2026-04-20 08:32:57.160469: Invalid arguments or no game shifts data for 2025020936 available!
+2026-04-20 08:32:58.892418: Invalid arguments or no game shifts data for 2025020937 available!
+2026-04-20 08:33:00.708358: Invalid arguments or no game shifts data for 2025020938 available!
+2026-04-20 08:33:02.743516: Invalid arguments or no game shifts data for 2025020939 available!
+2026-04-20 08:33:04.445896: Invalid arguments or no game shifts data for 2025020940 available!
+2026-04-20 08:33:06.135601: Invalid arguments or no game shifts data for 2025020941 available!
+2026-04-20 08:33:07.911769: Invalid arguments or no game shifts data for 2025020942 available!
+2026-04-20 08:33:09.692295: Invalid arguments or no game shifts data for 2025020943 available!
+2026-04-20 08:33:11.347913: Invalid arguments or no game shifts data for 2025020944 available!
+2026-04-20 08:33:13.031357: Invalid arguments or no game shifts data for 2025020945 available!
+2026-04-20 08:33:14.962913: Invalid arguments or no game shifts data for 2025020946 available!
+2026-04-20 08:33:16.928365: Invalid arguments or no game shifts data for 2025020947 available!
+2026-04-20 08:33:18.63929: Invalid arguments or no game shifts data for 2025020948 available!
+2026-04-20 08:33:20.278539: Invalid arguments or no game shifts data for 2025020949 available!
+2026-04-20 08:33:22.036897: Invalid arguments or no game shifts data for 2025020950 available!
+2026-04-20 08:33:23.872647: Invalid arguments or no game shifts data for 2025020951 available!
+ℹ   Progress: 950/1319 games
+ℹ Scraping 1319 games for 2025-262026-04-20 08:33:25.978158: Invalid arguments or no game shifts data for 2025020952 available!
+2026-04-20 08:33:28.640075: Invalid arguments or no game shifts data for 2025020953 available!
+2026-04-20 08:33:30.644791: Invalid arguments or no game shifts data for 2025020954 available!
+2026-04-20 08:33:32.3863: Invalid arguments or no game shifts data for 2025020955 available!
+2026-04-20 08:33:34.149368: Invalid arguments or no game shifts data for 2025020956 available!
+2026-04-20 08:33:35.932675: Invalid arguments or no game shifts data for 2025020957 available!
+2026-04-20 08:33:37.669297: Invalid arguments or no game shifts data for 2025020958 available!
+2026-04-20 08:33:39.814603: Invalid arguments or no game shifts data for 2025020959 available!
+ℹ   Progress: 975/1319 games
+ℹ Scraping 1319 games for 2025-26Request failed [502]. Retrying in 1.6 seconds...
+ℹ   Progress: 1000/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1025/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1050/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1075/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1100/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1125/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1150/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1175/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1200/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1225/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1250/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1275/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1300/1319 games
+ℹ Scraping 1319 games for 2025-26ℹ   Progress: 1319/1319 games
+ℹ Scraping 1319 games for 2025-26✔ Scraped 1319 games for 2025-26 [48m 9.2s]
 
 ℹ Updating 2025-26 schedule with JSON links
-✔ 1315 of 1472 games linked (21829 raw, 21829 final)
+✔ 1319 of 1472 games linked (21833 raw, 21833 final)
 ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [1.4s]
 
 ℹ Building master schedule
-✔ 23535 total schedule rows, 21868 with final JSON
+✔ 23535 total schedule rows, 21872 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
 ℹ Building master scheduleerror: Your local changes to the following files would be overwritten by merge:
 	logs/fastRhockey_nhl_raw_logfile_2026.log
-	nhl/json/final/2025020219.json
-	nhl/json/final/2025020225.json
-	nhl/json/final/2025020230.json
-	nhl/json/final/2025020236.json
-	nhl/json/final/2025020255.json
-	nhl/json/raw/2025020219.json
-	nhl/json/raw/2025020225.json
-	nhl/json/raw/2025020230.json
-	nhl/json/raw/2025020236.json
-	nhl/json/raw/2025020255.json
+	nhl/json/final/2025020258.json
+	nhl/json/final/2025020259.json
+	nhl/json/final/2025020260.json
+	nhl/json/final/2025020261.json
+	nhl/json/final/2025020265.json
+	nhl/json/final/2025020269.json
+	nhl/json/final/2025020271.json
+	nhl/json/final/2025020272.json
+	nhl/json/final/2025020273.json
+	nhl/json/final/2025020274.json
+	nhl/json/final/2025020276.json
+	nhl/json/final/2025020277.json
+	nhl/json/final/2025020278.json
+	nhl/json/final/2025020281.json
+	nhl/json/final/2025030141.json
+	nhl/json/raw/2025020258.json
+	nhl/json/raw/2025020259.json
+	nhl/json/raw/2025020260.json
+	nhl/json/raw/2025020261.json
+	nhl/json/raw/2025020265.json
+	nhl/json/raw/2025020269.json
+	nhl/json/raw/2025020271.json
+	nhl/json/raw/2025020272.json
+	nhl/json/raw/2025020273.json
+	nhl/json/raw/2025020274.json
+	nhl/json/raw/2025020276.json
+	nhl/json/raw/2025020277.json
+	nhl/json/raw/2025020278.json
+	nhl/json/raw/2025020281.json
+	nhl/json/raw/2025030141.json
 	nhl/nhl_schedule_master.parquet
 	nhl/nhl_schedule_master.rds
 	nhl/schedules/parquet/nhl_schedule_2026.parquet
 	nhl/schedules/rds/nhl_schedule_2026.rds
 Please commit your changes or stash them before you merge.
 error: The following untracked working tree files would be overwritten by merge:
-	nhl/json/final/2025030131.json
-	nhl/json/final/2025030141.json
-	nhl/json/final/2025030161.json
-	nhl/json/raw/2025030131.json
-	nhl/json/raw/2025030141.json
-	nhl/json/raw/2025030161.json
+	nhl/json/final/2025030111.json
+	nhl/json/final/2025030121.json
+	nhl/json/final/2025030151.json
+	nhl/json/final/2025030171.json
+	nhl/json/raw/2025030111.json
+	nhl/json/raw/2025030121.json
+	nhl/json/raw/2025030151.json
+	nhl/json/raw/2025030171.json
 Please move or remove them before you merge.
 Aborting
 error: Your local changes to the following files would be overwritten by merge:
-  logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020219.json nhl/json/final/2025020225.json nhl/json/final/2025020230.json nhl/json/final/2025020236.json nhl/json/final/2025020255.json nhl/json/final/2025030131.json nhl/json/final/2025030141.json nhl/json/final/2025030161.json nhl/json/raw/2025020219.json nhl/json/raw/2025020225.json nhl/json/raw/2025020230.json nhl/json/raw/2025020236.json nhl/json/raw/2025020255.json nhl/json/raw/2025030131.json nhl/json/raw/2025030141.json nhl/json/raw/2025030161.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
+  logs/fastRhockey_nhl_raw_logfile_2026.log nhl/json/final/2025020258.json nhl/json/final/2025020259.json nhl/json/final/2025020260.json nhl/json/final/2025020261.json nhl/json/final/2025020265.json nhl/json/final/2025020269.json nhl/json/final/2025020271.json nhl/json/final/2025020272.json nhl/json/final/2025020273.json nhl/json/final/2025020274.json nhl/json/final/2025020276.json nhl/json/final/2025020277.json nhl/json/final/2025020278.json nhl/json/final/2025020281.json nhl/json/final/2025030111.json nhl/json/final/2025030121.json nhl/json/final/2025030141.json nhl/json/final/2025030151.json nhl/json/final/2025030171.json nhl/json/raw/2025020258.json nhl/json/raw/2025020259.json nhl/json/raw/2025020260.json nhl/json/raw/2025020261.json nhl/json/raw/2025020265.json nhl/json/raw/2025020269.json nhl/json/raw/2025020271.json nhl/json/raw/2025020272.json nhl/json/raw/2025020273.json nhl/json/raw/2025020274.json nhl/json/raw/2025020276.json nhl/json/raw/2025020277.json nhl/json/raw/2025020278.json nhl/json/raw/2025020281.json nhl/json/raw/2025030111.json nhl/json/raw/2025030121.json nhl/json/raw/2025030141.json nhl/json/raw/2025030151.json nhl/json/raw/2025030171.json nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
