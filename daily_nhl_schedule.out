@@ -199,4 +199,39 @@ To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
+ℹ Building master schedule[main 05abd7d0] NHL Raw Updated (Start: 2015 End: 2015)
+ 27 files changed, 57 insertions(+), 21 deletions(-)
+ rewrite nhl/nhl_schedule_master.parquet (80%)
+ rewrite nhl/nhl_schedule_master.rds (93%)
+ rewrite nhl/schedules/parquet/nhl_schedule_2015.parquet (94%)
+ rewrite nhl/schedules/rds/nhl_schedule_2015.rds (99%)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+   9a19140e..05abd7d0  main -> main
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+   05abd7d0..36309ba2  main -> main
+=== Processing season 2016 ===
+ℹ === NHL Raw Scraper started ===
+
+── Processing 2015-16 season ───────────────────────────────────────────────────
+ℹ Fetching 2015-16 schedule
+2026-05-11 16:05:27.084462: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-05-11 16:05:28.372599: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-05-11 16:05:28.706119: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+ℹ 1321 completed games in schedule
+ℹ Fetching 2015-16 schedule✔ Fetched 2015-16 schedule [11.3s]
+
+ℹ Scraping 0 games for 2015-16
+✔ Scraped 0 games for 2015-16 [54ms]
+
+ℹ Updating 2015-16 schedule with JSON links
+✔ 1321 of 1321 games linked (21885 raw, 21885 final)
+ℹ Updating 2015-16 schedule with JSON links✔ Updated 2015-16 schedule with JSON links [939ms]
+
+ℹ Building master schedule
+✔ 22811 total schedule rows, 21926 with final JSON
+ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
+ℹ Building master schedule
+ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
 ℹ Building master schedule
