@@ -380,4 +380,38 @@ To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
+ℹ Building master schedule[main ceaec8af] NHL Raw Updated (Start: 2020 End: 2020)
+ 28 files changed, 57 insertions(+), 22 deletions(-)
+ rewrite nhl/nhl_schedule_master.parquet (83%)
+ rewrite nhl/nhl_schedule_master.rds (93%)
+ rewrite nhl/schedules/parquet/nhl_schedule_2020.parquet (91%)
+ rewrite nhl/schedules/rds/nhl_schedule_2020.rds (100%)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+   3c184aa3..ceaec8af  main -> main
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+   ceaec8af..f79c3c50  main -> main
+=== Processing season 2021 ===
+ℹ === NHL Raw Scraper started ===
+
+── Processing 2020-21 season ───────────────────────────────────────────────────
+ℹ Fetching 2020-21 schedule
+2026-05-11 16:07:47.92136: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-05-11 16:07:49.009639: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+ℹ 952 completed games in schedule
+ℹ Fetching 2020-21 schedule✔ Fetched 2020-21 schedule [10.7s]
+
+ℹ Scraping 0 games for 2020-21
+✔ Scraped 0 games for 2020-21 [37ms]
+
+ℹ Updating 2020-21 schedule with JSON links
+✔ 952 of 952 games linked (21885 raw, 21885 final)
+ℹ Updating 2020-21 schedule with JSON links✔ Updated 2020-21 schedule with JSON links [974ms]
+
+ℹ Building master schedule
+✔ 22312 total schedule rows, 21873 with final JSON
+ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
+ℹ Building master schedule
+ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
 ℹ Building master schedule
