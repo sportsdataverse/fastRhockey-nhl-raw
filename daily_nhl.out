@@ -613,3 +613,19 @@ Please commit your changes or stash them before you merge.
 Aborting
 error: Your local changes to the following files would be overwritten by merge:
   logs/fastRhockey_nhl_raw_logfile_2026.log nhl/nhl_schedule_master.parquet nhl/nhl_schedule_master.rds nhl/schedules/parquet/nhl_schedule_2026.parquet nhl/schedules/rds/nhl_schedule_2026.rds
+[main 8380dab5] NHL Raw Updated (Start: 2026 End: 2026)
+ 6 files changed, 1228 insertions(+), 1232 deletions(-)
+ rewrite daily_nhl.out (66%)
+ rewrite logs/fastRhockey_nhl_raw_logfile_2026.log (66%)
+ rewrite nhl/schedules/rds/nhl_schedule_2026.rds (99%)
+error: Your local changes to the following files would be overwritten by merge:
+	logs/fastRhockey_nhl_raw_logfile_2026.log
+Please commit your changes or stash them before you merge.
+Aborting
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+ ! [rejected]          main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
