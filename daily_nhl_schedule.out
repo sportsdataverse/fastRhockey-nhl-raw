@@ -278,4 +278,38 @@ Request failed [500]. Retrying in 1.9 seconds...
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
+ℹ Building master schedule[main 12eabe60] NHL Raw Updated (Start: 2017 End: 2017)
+ 33 files changed, 72 insertions(+), 27 deletions(-)
+ rewrite nhl/nhl_schedule_master.parquet (70%)
+ rewrite nhl/nhl_schedule_master.rds (93%)
+ rewrite nhl/schedules/parquet/nhl_schedule_2017.parquet (89%)
+ rewrite nhl/schedules/rds/nhl_schedule_2017.rds (99%)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+   d3eec22e..12eabe60  main -> main
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
+   12eabe60..b7b13bde  main -> main
+=== Processing season 2018 ===
+ℹ === NHL Raw Scraper started ===
+
+── Processing 2017-18 season ───────────────────────────────────────────────────
+ℹ Fetching 2017-18 schedule
+2026-05-11 16:06:27.899368: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-05-11 16:06:29.186393: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+ℹ 1355 completed games in schedule
+ℹ Fetching 2017-18 schedule✔ Fetched 2017-18 schedule [11.7s]
+
+ℹ Scraping 0 games for 2017-18
+✔ Scraped 0 games for 2017-18 [34ms]
+
+ℹ Updating 2017-18 schedule with JSON links
+✔ 1355 of 1355 games linked (21885 raw, 21885 final)
+ℹ Updating 2017-18 schedule with JSON links✔ Updated 2017-18 schedule with JSON links [1s]
+
+ℹ Building master schedule
+✔ 22552 total schedule rows, 21885 with final JSON
+ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
+ℹ Building master schedule
+ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
 ℹ Building master schedule
