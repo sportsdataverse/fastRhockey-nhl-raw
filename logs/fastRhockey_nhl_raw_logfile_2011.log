@@ -1,31 +1,86 @@
+From https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   b4a82364c..085a2fd44  main       -> origin/main
 ℹ === NHL Raw Scraper started ===
 
 ── Processing 2010-11 season ───────────────────────────────────────────────────
 ℹ Fetching 2010-11 schedule
-2026-05-11 16:03:16.982856: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
-2026-05-11 16:03:18.415251: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
-2026-05-11 16:03:18.998941: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
-2026-05-11 16:03:19.2582: Could not fetch schedule for WPG: missing value where TRUE/FALSE needed
+2026-05-23 07:28:06.981681: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-05-23 07:28:08.313829: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-05-23 07:28:08.925443: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+2026-05-23 07:28:09.151679: Could not fetch schedule for WPG: missing value where TRUE/FALSE needed
 ℹ 1318 completed games in schedule
-ℹ Fetching 2010-11 schedule✔ Fetched 2010-11 schedule [12.2s]
+ℹ Fetching 2010-11 schedule✔ Fetched 2010-11 schedule [12.4s]
 
-ℹ Scraping 0 games for 2010-11
-✔ Scraped 0 games for 2010-11 [45ms]
+ℹ Scraping 1318 games for 2010-11
+ℹ   Progress: 25/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 50/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 75/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 100/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 125/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 150/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 175/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 200/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 225/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 250/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 275/1318 games
+ℹ Scraping 1318 games for 2010-11Request failed [502]. Retrying in 1 seconds...
+ℹ   Progress: 300/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 325/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 350/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 375/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 400/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 425/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 450/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 475/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 500/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 525/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 550/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 575/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 600/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 625/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 650/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 675/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 700/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 725/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 750/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 775/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 800/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 825/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 850/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 875/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 900/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 925/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 950/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 975/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1000/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1025/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1050/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1075/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1100/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1125/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1150/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1175/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1200/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1225/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1250/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1275/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1300/1318 games
+ℹ Scraping 1318 games for 2010-11ℹ   Progress: 1318/1318 games
+ℹ Scraping 1318 games for 2010-11✔ Scraped 1318 games for 2010-11 [57m 51.1s]
 
 ℹ Updating 2010-11 schedule with JSON links
-✔ 1318 of 1318 games linked (21885 raw, 21885 final)
-ℹ Updating 2010-11 schedule with JSON links✔ Updated 2010-11 schedule with JSON links [1.1s]
+✔ 1318 of 1318 games linked (21896 raw, 21896 final)
+ℹ Updating 2010-11 schedule with JSON links✔ Updated 2010-11 schedule with JSON links [1.4s]
 
 ℹ Building master schedule
-✔ 23230 total schedule rows, 21924 with final JSON
+✔ 21895 total schedule rows, 21884 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main 4cc2fe0b] NHL Raw Updated (Start: 2011 End: 2011)
- 50 files changed, 82 insertions(+), 44 deletions(-)
- rewrite nhl/nhl_schedule_master.parquet (70%)
- rewrite nhl/nhl_schedule_master.rds (91%)
- rewrite nhl/schedules/parquet/nhl_schedule_2011.parquet (92%)
- rewrite nhl/schedules/rds/nhl_schedule_2011.rds (100%)
+ℹ Building master schedule[main 2f1250271] NHL Raw Updated (Start: 2011 End: 2011)
+ 2640 files changed, 2636 insertions(+), 2636 deletions(-)
+ rewrite nhl/nhl_schedule_master.parquet (94%)
+ rewrite nhl/nhl_schedule_master.rds (76%)
+ rewrite nhl/schedules/rds/nhl_schedule_2011.rds (97%)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   ff36137c..4cc2fe0b  main -> main
+   085a2fd44..2f1250271  main -> main
