@@ -2,28 +2,60 @@
 
 ── Processing 2012-13 season ───────────────────────────────────────────────────
 ℹ Fetching 2012-13 schedule
-2026-05-11 16:04:10.085768: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
-2026-05-11 16:04:10.88451: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
-2026-05-11 16:04:11.274448: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+2026-05-23 09:38:11.105639: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-05-23 09:38:12.791913: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-05-23 09:38:13.38107: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
 ℹ 806 completed games in schedule
-ℹ Fetching 2012-13 schedule✔ Fetched 2012-13 schedule [10.5s]
+ℹ Fetching 2012-13 schedule✔ Fetched 2012-13 schedule [13.7s]
 
-ℹ Scraping 0 games for 2012-13
-✔ Scraped 0 games for 2012-13 [43ms]
+ℹ Scraping 806 games for 2012-13
+ℹ   Progress: 25/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 50/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 75/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 100/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 125/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 150/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 175/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 200/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 225/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 250/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 275/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 300/806 games
+ℹ Scraping 806 games for 2012-13Request failed [502]. Retrying in 1 seconds...
+ℹ   Progress: 325/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 350/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 375/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 400/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 425/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 450/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 475/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 500/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 525/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 550/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 575/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 600/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 625/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 650/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 675/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 700/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 725/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 750/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 775/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 800/806 games
+ℹ Scraping 806 games for 2012-13ℹ   Progress: 806/806 games
+ℹ Scraping 806 games for 2012-13✔ Scraped 806 games for 2012-13 [36m 17.7s]
 
 ℹ Updating 2012-13 schedule with JSON links
-✔ 806 of 806 games linked (21885 raw, 21885 final)
-ℹ Updating 2012-13 schedule with JSON links✔ Updated 2012-13 schedule with JSON links [1.1s]
+✔ 806 of 806 games linked (21896 raw, 21896 final)
+ℹ Updating 2012-13 schedule with JSON links✔ Updated 2012-13 schedule with JSON links [1.7s]
 
 ℹ Building master schedule
-✔ 23122 total schedule rows, 21924 with final JSON
+✔ 21895 total schedule rows, 21884 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main dcf6b77c] NHL Raw Updated (Start: 2013 End: 2013)
- 25 files changed, 55 insertions(+), 19 deletions(-)
- rewrite nhl/nhl_schedule_master.rds (74%)
- rewrite nhl/schedules/parquet/nhl_schedule_2013.parquet (64%)
- rewrite nhl/schedules/rds/nhl_schedule_2013.rds (100%)
+ℹ Building master schedule[main 2af21926a] NHL Raw Updated (Start: 2013 End: 2013)
+ 1614 files changed, 1612 insertions(+), 1612 deletions(-)
+ rewrite nhl/schedules/rds/nhl_schedule_2013.rds (99%)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   83e274e9..dcf6b77c  main -> main
+   5d884b5ef..2af21926a  main -> main
