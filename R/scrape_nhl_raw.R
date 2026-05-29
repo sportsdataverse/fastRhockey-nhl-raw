@@ -103,17 +103,21 @@ PATH_FINAL <- "nhl/json/final"
 
 
 # ═══════════════════════════════════════════════════════════════════════
-# build_raw_json: fetch 4 API endpoints, organize under old-format keys
+# build_raw_json: fetch 4 API endpoints + 1 helper, organize under old-format keys
 #
 # Mirrors the old fastRhockey-data nhl/json/*.json structure:
-#   all_plays     → raw plays array from play-by-play endpoint
-#   player_box    → raw playerByGameStats from boxscore endpoint
-#   linescore     → assembled from right-rail + landing
-#   decisions     → three stars + goalie W/L
-#   scratches     → from right-rail gameInfo
-#   team_coaches  → from right-rail gameInfo
-#   scoring       → from landing summary
-#   penalties     → from landing summary
+#   all_plays       → raw plays array from play-by-play endpoint
+#   player_box      → raw playerByGameStats from boxscore endpoint
+#   linescore       → assembled from right-rail + landing
+#   decisions       → three stars + goalie W/L
+#   scratches       → from right-rail gameInfo
+#   team_coaches    → from right-rail gameInfo
+#   scoring         → from landing summary
+#   penalties       → from landing summary
+#   officials       → from right-rail gameInfo (referees + linesmen, flattened)
+#   shots_by_period → from right-rail shotsByPeriod
+#   shootout        → from landing summary (NULL when game didn't go to shootout)
+#   shifts          → via fastRhockey::nhl_game_shifts() (separate endpoint)
 #
 # Plus raw endpoint responses for anything that doesn't map cleanly.
 # ═══════════════════════════════════════════════════════════════════════
@@ -286,6 +290,52 @@ build_raw_json <- function(gid) {
   scoring <- purrr::pluck(landing, "summary", "scoring")
   penalties <- purrr::pluck(landing, "summary", "penalties")
 
+  # ── Officials (right-rail gameInfo: referees + linesmen) ────────────
+  # Each is an array of `{default: "Name"}` (localized name objects).
+  # Flatten to a uniform list of {role, name} records so the downstream
+  # data-side `nhl_officials` dataset can bind-rows across games.
+  .build_officials <- function(rail) {
+    .role_records <- function(arr, role_label) {
+      if (is.null(arr) || length(arr) == 0) return(list())
+      if (is.data.frame(arr)) {
+        nm <- if (is.data.frame(arr$default)) arr$default[["default"]] else arr$default
+        purrr::map(nm, function(n) list(role = role_label, name = .extract_default(n)))
+      } else {
+        purrr::map(arr, function(o) list(role = role_label, name = .extract_default(o)))
+      }
+    }
+    out <- c(
+      .role_records(purrr::pluck(rail, "gameInfo", "referees"), "referee"),
+      .role_records(purrr::pluck(rail, "gameInfo", "linesmen"), "linesman")
+    )
+    if (length(out) == 0) NULL else out
+  }
+  officials <- .build_officials(rail)
+
+  # ── Shots by period (right-rail) ───────────────────────────────────
+  # Already a clean array of {periodDescriptor, home, away}. Keep as-is.
+  shots_by_period <- purrr::pluck(rail, "shotsByPeriod")
+  if (is.null(shots_by_period) || length(shots_by_period) == 0) {
+    shots_by_period <- NULL
+  }
+
+  # ── Shootout (landing summary, may be absent) ──────────────────────
+  # Present only for games that went to a shootout. The API sometimes
+  # surfaces it under `landing.summary.shootout`; otherwise NULL.
+  shootout <- purrr::pluck(landing, "summary", "shootout")
+  if (is.null(shootout) || length(shootout) == 0) shootout <- NULL
+
+  # ── Shifts (separate /v1/gamecenter/{id}/shifts endpoint) ──────────
+  # fastRhockey wraps this as nhl_game_shifts(); pull the per-shift
+  # tibble and let the data-side compile bind across games.
+  shifts <- tryCatch(
+    {
+      sh <- fastRhockey::nhl_game_shifts(game_id = gid)
+      if (is.data.frame(sh) && nrow(sh) > 0) sh else NULL
+    },
+    error = function(e) NULL
+  )
+
   # ── Assemble ───────────────────────────────────────────────────────
   list(
     # Old-format keys (raw/unprocessed data)
@@ -300,6 +350,10 @@ build_raw_json <- function(gid) {
     team_coaches = team_coaches,
     scoring = scoring,
     penalties = penalties,
+    officials = officials,
+    shots_by_period = shots_by_period,
+    shootout = shootout,
+    shifts = shifts,
 
     # Full raw API responses
     pbp_raw = pbp_raw,
