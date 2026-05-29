@@ -3,7 +3,7 @@
 ── Processing 2024-25 season ───────────────────────────────────────────────────
 ℹ Fetching 2024-25 schedule
 ℹ 1398 completed games in schedule
-ℹ Fetching 2024-25 schedule✔ Fetched 2024-25 schedule [17s]
+ℹ Fetching 2024-25 schedule✔ Fetched 2024-25 schedule [47.8s]
 
 ℹ Scraping 1398 games for 2024-25
 ℹ   Progress: 25/1398 games
@@ -51,87 +51,49 @@
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1075/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1100/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1125/1398 games
-ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1150/1398 games
+ℹ Scraping 1398 games for 2024-25Request failed [502]. Retrying in 1 seconds...
+ℹ   Progress: 1150/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1175/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1200/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1225/1398 games
-ℹ Scraping 1398 games for 2024-252026-05-22 16:28:33.21932: Invalid arguments or no game shifts data for 2024021235 available!
-2026-05-22 16:28:35.608842: Invalid arguments or no game shifts data for 2024021236 available!
-2026-05-22 16:28:37.487931: Invalid arguments or no game shifts data for 2024021237 available!
-2026-05-22 16:28:39.706627: Invalid arguments or no game shifts data for 2024021238 available!
-2026-05-22 16:28:41.83273: Invalid arguments or no game shifts data for 2024021239 available!
-2026-05-22 16:28:44.061393: Invalid arguments or no game shifts data for 2024021240 available!
-2026-05-22 16:28:46.215645: Invalid arguments or no game shifts data for 2024021241 available!
-2026-05-22 16:28:48.566776: Invalid arguments or no game shifts data for 2024021242 available!
-2026-05-22 16:28:50.901088: Invalid arguments or no game shifts data for 2024021243 available!
-2026-05-22 16:28:53.007271: Invalid arguments or no game shifts data for 2024021244 available!
-2026-05-22 16:28:55.295574: Invalid arguments or no game shifts data for 2024021245 available!
-2026-05-22 16:28:57.487673: Invalid arguments or no game shifts data for 2024021246 available!
-2026-05-22 16:29:00.274684: Invalid arguments or no game shifts data for 2024021247 available!
-2026-05-22 16:29:02.623735: Invalid arguments or no game shifts data for 2024021248 available!
-2026-05-22 16:29:04.720869: Invalid arguments or no game shifts data for 2024021249 available!
-2026-05-22 16:29:07.09542: Invalid arguments or no game shifts data for 2024021250 available!
-2026-05-22 16:29:09.580687: Invalid arguments or no game shifts data for 2024021251 available!
-ℹ   Progress: 1250/1398 games
-ℹ Scraping 1398 games for 2024-252026-05-22 16:29:12.323374: Invalid arguments or no game shifts data for 2024021252 available!
-2026-05-22 16:29:14.670196: Invalid arguments or no game shifts data for 2024021253 available!
-2026-05-22 16:29:17.042176: Invalid arguments or no game shifts data for 2024021254 available!
-2026-05-22 16:29:19.211522: Invalid arguments or no game shifts data for 2024021255 available!
-2026-05-22 16:29:21.69398: Invalid arguments or no game shifts data for 2024021256 available!
-2026-05-22 16:29:23.90702: Invalid arguments or no game shifts data for 2024021257 available!
-2026-05-22 16:29:26.163277: Invalid arguments or no game shifts data for 2024021258 available!
-2026-05-22 16:29:28.321671: Invalid arguments or no game shifts data for 2024021259 available!
-2026-05-22 16:29:30.594233: Invalid arguments or no game shifts data for 2024021260 available!
-2026-05-22 16:29:32.784163: Invalid arguments or no game shifts data for 2024021261 available!
-2026-05-22 16:29:35.007045: Invalid arguments or no game shifts data for 2024021262 available!
-2026-05-22 16:29:37.239068: Invalid arguments or no game shifts data for 2024021263 available!
-2026-05-22 16:29:39.530515: Invalid arguments or no game shifts data for 2024021264 available!
-2026-05-22 16:29:42.087392: Invalid arguments or no game shifts data for 2024021265 available!
-2026-05-22 16:29:44.291246: Invalid arguments or no game shifts data for 2024021266 available!
-2026-05-22 16:29:46.595577: Invalid arguments or no game shifts data for 2024021267 available!
-2026-05-22 16:29:49.168811: Invalid arguments or no game shifts data for 2024021268 available!
-2026-05-22 16:29:51.44937: Invalid arguments or no game shifts data for 2024021269 available!
-2026-05-22 16:29:53.608693: Invalid arguments or no game shifts data for 2024021270 available!
-2026-05-22 16:29:55.784527: Invalid arguments or no game shifts data for 2024021271 available!
-2026-05-22 16:29:57.972578: Invalid arguments or no game shifts data for 2024021272 available!
-2026-05-22 16:30:00.30763: Invalid arguments or no game shifts data for 2024021273 available!
-2026-05-22 16:30:02.571169: Invalid arguments or no game shifts data for 2024021274 available!
-2026-05-22 16:30:05.003517: Invalid arguments or no game shifts data for 2024021275 available!
-2026-05-22 16:30:06.856971: Invalid arguments or no game shifts data for 2024021276 available!
-ℹ   Progress: 1275/1398 games
-ℹ Scraping 1398 games for 2024-252026-05-22 16:30:08.318393: Invalid arguments or no game shifts data for 2024021277 available!
-2026-05-22 16:30:09.990665: Invalid arguments or no game shifts data for 2024021278 available!
-2026-05-22 16:30:12.620825: Invalid arguments or no game shifts data for 2024021279 available!
-2026-05-22 16:30:15.117481: Invalid arguments or no game shifts data for 2024021280 available!
-2026-05-22 16:30:16.664939: Invalid arguments or no game shifts data for 2024021281 available!
-2026-05-22 16:30:18.273523: Invalid arguments or no game shifts data for 2024021282 available!
-2026-05-22 16:30:20.004818: Invalid arguments or no game shifts data for 2024021283 available!
-2026-05-22 16:30:21.462751: Invalid arguments or no game shifts data for 2024021284 available!
-2026-05-22 16:30:23.848681: Invalid arguments or no game shifts data for 2024021285 available!
-2026-05-22 16:30:26.314555: Invalid arguments or no game shifts data for 2024021286 available!
-2026-05-22 16:30:28.448969: Invalid arguments or no game shifts data for 2024021287 available!
-2026-05-22 16:30:30.755273: Invalid arguments or no game shifts data for 2024021288 available!
-2026-05-22 16:30:32.901119: Invalid arguments or no game shifts data for 2024021289 available!
-2026-05-22 16:30:35.188124: Invalid arguments or no game shifts data for 2024021290 available!
-2026-05-22 16:30:37.406074: Invalid arguments or no game shifts data for 2024021291 available!
-ℹ   Progress: 1300/1398 games
+ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1250/1398 games
+ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1275/1398 games
+ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1300/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1325/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1350/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1375/1398 games
 ℹ Scraping 1398 games for 2024-25ℹ   Progress: 1398/1398 games
-ℹ Scraping 1398 games for 2024-25✔ Scraped 1398 games for 2024-25 [1h 7m 50.3s]
+ℹ Scraping 1398 games for 2024-25✔ Scraped 1398 games for 2024-25 [1h 39m 20.5s]
 
 ℹ Updating 2024-25 schedule with JSON links
-✔ 1398 of 1398 games linked (21895 raw, 21895 final)
-ℹ Updating 2024-25 schedule with JSON links✔ Updated 2024-25 schedule with JSON links [1.4s]
+✔ 1398 of 1398 games linked (21901 raw, 21901 final)
+ℹ Updating 2024-25 schedule with JSON links✔ Updated 2024-25 schedule with JSON links [1.2s]
 
 ℹ Building master schedule
-✔ 21895 total schedule rows, 21883 with final JSON
+✔ 21892 total schedule rows, 21889 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main 06615b68] NHL Raw Updated (Start: 2025 End: 2025)
- 2 files changed, 0 insertions(+), 0 deletions(-)
- rewrite nhl/schedules/rds/nhl_schedule_2025.rds (91%)
+ℹ Building master scheduleAuto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
+Auto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
+[main 44cd0765b] NHL Raw Updated (Start: 2025 End: 2025)
+ 2880 files changed, 2876 insertions(+), 2876 deletions(-)
+ rewrite nhl/json/final/2024021238.json (61%)
+ rewrite nhl/json/final/2024021239.json (60%)
+ rewrite nhl/json/final/2024021243.json (60%)
+ rewrite nhl/json/final/2024021252.json (60%)
+ rewrite nhl/json/final/2024021259.json (60%)
+ rewrite nhl/json/final/2024021262.json (60%)
+ rewrite nhl/json/final/2024021263.json (60%)
+ rewrite nhl/json/final/2024021277.json (60%)
+ rewrite nhl/json/final/2024021282.json (61%)
+ rewrite nhl/json/final/2024021286.json (61%)
+ rewrite nhl/nhl_schedule_master.parquet (94%)
+ rewrite nhl/nhl_schedule_master.rds (66%)
+ rewrite nhl/schedules/rds/nhl_schedule_2025.rds (98%)
+Auto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   a32ab6ad..06615b68  main -> main
+   b1ceff4a0..44cd0765b  main -> main
