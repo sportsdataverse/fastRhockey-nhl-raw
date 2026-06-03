@@ -2,6 +2,9 @@ on: [push, workflow_dispatch]
 
 name: fastRhockey NHL Data trigger
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
     fastRhockey_nhl_data_trigger:
         runs-on: ubuntu-latest
