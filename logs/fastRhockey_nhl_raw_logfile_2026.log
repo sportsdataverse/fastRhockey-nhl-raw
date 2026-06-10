@@ -7,7 +7,7 @@ fatal: Exiting because of an unresolved conflict.
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1391 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [14.8s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [15.2s]
 
 ℹ Scraping 1391 games for 2025-26
 ℹ   Progress: 25/1391 games
@@ -45,7 +45,8 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 825/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 850/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 875/1391 games
-ℹ Scraping 1391 games for 2025-26ℹ   Progress: 900/1391 games
+ℹ Scraping 1391 games for 2025-26Request failed [502]. Retrying in 1.7 seconds...
+ℹ   Progress: 900/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 925/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 950/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 975/1391 games
@@ -53,8 +54,7 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1025/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1050/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1075/1391 games
-ℹ Scraping 1391 games for 2025-26Request failed [502]. Retrying in 1 seconds...
-ℹ   Progress: 1100/1391 games
+ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1100/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1125/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1150/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1175/1391 games
@@ -67,7 +67,7 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1350/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1375/1391 games
 ℹ Scraping 1391 games for 2025-26ℹ   Progress: 1391/1391 games
-ℹ Scraping 1391 games for 2025-26✔ Scraped 1391 games for 2025-26 [3h 14m 43.7s]
+ℹ Scraping 1391 games for 2025-26✔ Scraped 1391 games for 2025-26 [3h 17m 56.7s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1391 of 1395 games linked (21905 raw, 21905 final)
@@ -85,11 +85,11 @@ fatal: Exiting because of an unresolved conflict.
 error: You have not concluded your merge (MERGE_HEAD exists).
 hint: Please, commit your changes before merging.
 fatal: Exiting because of unfinished merge.
-[main 4f90902d9] NHL Raw Updated (Start: 2026 End: 2026)
+[main 65d9099a5] NHL Raw Updated (Start: 2026 End: 2026)
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   db8f01e1a..21bfce85d  main       -> origin/main
-warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. 21bfce85d7b8f4822883c987f1e6e36e82093931)
-warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. 21bfce85d7b8f4822883c987f1e6e36e82093931)
+   21bfce85d..6290f8482  main       -> origin/main
+warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. 6290f84821ba771fe3771264b51363fe2b09e5ae)
+warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. 6290f84821ba771fe3771264b51363fe2b09e5ae)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
  ! [rejected]            main -> main (non-fast-forward)
 error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
