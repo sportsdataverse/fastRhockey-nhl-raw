@@ -66,11 +66,11 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1393 games for 2025-26ℹ   Progress: 1350/1393 games
 ℹ Scraping 1393 games for 2025-26ℹ   Progress: 1375/1393 games
 ℹ Scraping 1393 games for 2025-26ℹ   Progress: 1393/1393 games
-ℹ Scraping 1393 games for 2025-26✔ Scraped 1393 games for 2025-26 [3h 16m 17.5s]
+ℹ Scraping 1393 games for 2025-26✔ Scraped 1393 games for 2025-26 [3h 13m 6.7s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1393 of 1395 games linked (21907 raw, 21907 final)
-ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [1.8s]
+ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [1.9s]
 
 ℹ Building master schedule
 ✔ 21897 total schedule rows, 21895 with final JSON
@@ -84,11 +84,11 @@ fatal: Exiting because of an unresolved conflict.
 error: You have not concluded your merge (MERGE_HEAD exists).
 hint: Please, commit your changes before merging.
 fatal: Exiting because of unfinished merge.
-[main c48c8c8ec] NHL Raw Updated (Start: 2026 End: 2026)
+[main 71f20de21] NHL Raw Updated (Start: 2026 End: 2026)
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   7bad91dc7..0070f19c6  main       -> origin/main
-warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. 0070f19c69cd6c45ca4e22bd9afc9e6081c11396)
-warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. 0070f19c69cd6c45ca4e22bd9afc9e6081c11396)
+   0070f19c6..47945b80f  main       -> origin/main
+warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. 47945b80fe0b7108fd250e31e0ddc1af7c340bbd)
+warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. 47945b80fe0b7108fd250e31e0ddc1af7c340bbd)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
  ! [rejected]            main -> main (non-fast-forward)
 error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
