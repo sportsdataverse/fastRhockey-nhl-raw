@@ -3,7 +3,7 @@
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1394 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [11.2s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [15.8s]
 
 ℹ Scraping 1394 games for 2025-26
 ℹ   Progress: 25/1394 games
@@ -62,18 +62,18 @@
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1350/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1375/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1394/1394 games
-ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [1h 14m 34.5s]
+ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [1h 27m 19.9s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1394 of 1394 games linked (21908 raw, 21908 final)
-ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [478ms]
+ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [547ms]
 
 ℹ Building master schedule
 ✔ 21896 total schedule rows, 21896 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main 4d90cbd9] NHL Raw Updated (Start: 2026 End: 2026)
- 6 files changed, 2 insertions(+), 2 deletions(-)
+ℹ Building master schedule[main 5916aacd] NHL Raw Updated (Start: 2026 End: 2026)
+ 2 files changed, 0 insertions(+), 0 deletions(-)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   e28171b3..4d90cbd9  main -> main
+   ab139eb1..5916aacd  main -> main
