@@ -1,25 +1,25 @@
-error: Pulling is not possible because you have unmerged files.
-hint: Fix them up in the work tree, and then use 'git add/rm <file>'
-hint: as appropriate to mark resolution and make a commit.
-fatal: Exiting because of an unresolved conflict.
 ℹ === NHL Raw Scraper started ===
 
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1394 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [14.5s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [15.1s]
 
 ℹ Scraping 1394 games for 2025-26
 ℹ   Progress: 25/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 50/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 75/1394 games
-ℹ Scraping 1394 games for 2025-26ℹ   Progress: 100/1394 games
+ℹ Scraping 1394 games for 2025-26Request failed [524]. Retrying in 1 seconds...
+Request failed [502]. Retrying in 1 seconds...
+ℹ   Progress: 100/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 125/1394 games
-ℹ Scraping 1394 games for 2025-26ℹ   Progress: 150/1394 games
+ℹ Scraping 1394 games for 2025-26Request failed [524]. Retrying in 1 seconds...
+ℹ   Progress: 150/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 175/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 200/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 225/1394 games
-ℹ Scraping 1394 games for 2025-26ℹ   Progress: 250/1394 games
+ℹ Scraping 1394 games for 2025-26Request failed [524]. Retrying in 1 seconds...
+ℹ   Progress: 250/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 275/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 300/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 325/1394 games
@@ -30,8 +30,7 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 450/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 475/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 500/1394 games
-ℹ Scraping 1394 games for 2025-26Request failed [502]. Retrying in 1.3 seconds...
-ℹ   Progress: 525/1394 games
+ℹ Scraping 1394 games for 2025-26ℹ   Progress: 525/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 550/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 575/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 600/1394 games
@@ -49,8 +48,7 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 900/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 925/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 950/1394 games
-ℹ Scraping 1394 games for 2025-26Request failed [502]. Retrying in 1 seconds...
-ℹ   Progress: 975/1394 games
+ℹ Scraping 1394 games for 2025-26ℹ   Progress: 975/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1000/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1025/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1050/1394 games
@@ -68,24 +66,40 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1350/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1375/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1394/1394 games
-ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 20m 38.9s]
+ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 37m 2.2s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1394 of 1394 games linked (21908 raw, 21908 final)
-ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [1.8s]
+ℹ Updating 2025-26 schedule with JSON links✔ Updated 2025-26 schedule with JSON links [1.9s]
 
 ℹ Building master schedule
 ✔ 21896 total schedule rows, 21896 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master scheduleerror: Pulling is not possible because you have unmerged files.
-hint: Fix them up in the work tree, and then use 'git add/rm <file>'
-hint: as appropriate to mark resolution and make a commit.
-fatal: Exiting because of an unresolved conflict.
-error: You have not concluded your merge (MERGE_HEAD exists).
-hint: Please, commit your changes before merging.
-fatal: Exiting because of unfinished merge.
-[main 63de8e4b6] NHL Raw Updated (Start: 2026 End: 2026)
+ℹ Building master scheduleFrom https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   e28171b36..ab139eb16  main       -> origin/main
+error: Your local changes to the following files would be overwritten by merge:
+	nhl/json/final/2025020829.json
+	nhl/json/raw/2025020829.json
+	nhl/schedules/parquet/nhl_schedule_2026.parquet
+	nhl/schedules/rds/nhl_schedule_2026.rds
+Please commit your changes or stash them before you merge.
+Aborting
+error: Your local changes to the following files would be overwritten by merge:
+	nhl/schedules/parquet/nhl_schedule_2026.parquet
+	nhl/schedules/rds/nhl_schedule_2026.rds
+Please commit your changes or stash them before you merge.
+Aborting
+[main f8b4fdf19] NHL Raw Updated (Start: 2026 End: 2026)
+ 4 files changed, 2 insertions(+), 2 deletions(-)
+ rewrite nhl/schedules/rds/nhl_schedule_2026.rds (96%)
+warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. ab139eb16de44bb875ba5d8a997733a1915c8311)
+warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. ab139eb16de44bb875ba5d8a997733a1915c8311)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   47945b80f..63de8e4b6  main -> main
+ ! [rejected]            main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
