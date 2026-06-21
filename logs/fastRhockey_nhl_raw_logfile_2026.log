@@ -7,7 +7,7 @@ fatal: Exiting because of an unresolved conflict.
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1394 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [15.7s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [13.9s]
 
 ℹ Scraping 1394 games for 2025-26
 ℹ   Progress: 25/1394 games
@@ -60,13 +60,14 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1200/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1225/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1250/1394 games
-ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1275/1394 games
+ℹ Scraping 1394 games for 2025-26Request failed [502]. Retrying in 1.5 seconds...
+ℹ   Progress: 1275/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1300/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1325/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1350/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1375/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1394/1394 games
-ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 25m 11.1s]
+ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 16m 2.2s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1394 of 1394 games linked (21908 raw, 21908 final)
@@ -84,11 +85,11 @@ fatal: Exiting because of an unresolved conflict.
 error: You have not concluded your merge (MERGE_HEAD exists).
 hint: Please, commit your changes before merging.
 fatal: Exiting because of unfinished merge.
-[main d5c1f4723] NHL Raw Updated (Start: 2026 End: 2026)
+[main cae98f2e4] NHL Raw Updated (Start: 2026 End: 2026)
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   ba239ce3c..1f4d64b44  main       -> origin/main
-warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. 1f4d64b44ddde3ac202aa3b7801a8fb00eac2fc5)
-warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. 1f4d64b44ddde3ac202aa3b7801a8fb00eac2fc5)
+   1f4d64b44..728d78752  main       -> origin/main
+warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. 728d78752ea2fc6671dc45f1b2bb9d585766000e)
+warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. 728d78752ea2fc6671dc45f1b2bb9d585766000e)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
  ! [rejected]            main -> main (non-fast-forward)
 error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
