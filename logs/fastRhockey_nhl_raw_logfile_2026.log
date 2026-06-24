@@ -1,13 +1,9 @@
-error: Pulling is not possible because you have unmerged files.
-hint: Fix them up in the work tree, and then use 'git add/rm <file>'
-hint: as appropriate to mark resolution and make a commit.
-fatal: Exiting because of an unresolved conflict.
 ℹ === NHL Raw Scraper started ===
 
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1394 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [14s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [14.3s]
 
 ℹ Scraping 1394 games for 2025-26
 ℹ   Progress: 25/1394 games
@@ -66,7 +62,7 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1350/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1375/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1394/1394 games
-ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 23m 52.4s]
+ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 24m 38.9s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1394 of 1394 games linked (21908 raw, 21908 final)
@@ -77,13 +73,27 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master scheduleerror: Pulling is not possible because you have unmerged files.
-hint: Fix them up in the work tree, and then use 'git add/rm <file>'
-hint: as appropriate to mark resolution and make a commit.
-fatal: Exiting because of an unresolved conflict.
-error: You have not concluded your merge (MERGE_HEAD exists).
-hint: Please, commit your changes before merging.
-fatal: Exiting because of unfinished merge.
-[main a66db4a52] NHL Raw Updated (Start: 2026 End: 2026)
+ℹ Building master scheduleFrom https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   d5c1162ca..e3c5f382a  main       -> origin/main
+error: Your local changes to the following files would be overwritten by merge:
+	nhl/schedules/parquet/nhl_schedule_2026.parquet
+	nhl/schedules/rds/nhl_schedule_2026.rds
+Please commit your changes or stash them before you merge.
+Aborting
+error: Your local changes to the following files would be overwritten by merge:
+	nhl/schedules/parquet/nhl_schedule_2026.parquet
+	nhl/schedules/rds/nhl_schedule_2026.rds
+Please commit your changes or stash them before you merge.
+Aborting
+[main 126afee5b] NHL Raw Updated (Start: 2026 End: 2026)
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ rewrite nhl/schedules/rds/nhl_schedule_2026.rds (87%)
+warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. e3c5f382ae261990fa82a7122b65569fd90f6b47)
+warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. e3c5f382ae261990fa82a7122b65569fd90f6b47)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   d6f8377e3..a66db4a52  main -> main
+ ! [rejected]            main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
