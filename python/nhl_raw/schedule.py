@@ -10,6 +10,8 @@ does not use — that branch is intentionally omitted here.
 
 from __future__ import annotations
 
+import sys
+
 import polars as pl
 
 from nhl_raw.fetch import get_json
@@ -97,11 +99,21 @@ def nhl_schedule(season: int, *, teams: list[str] | None = None, session: object
     """Season schedule (regular + playoff) as a tidy frame; ``season`` is the end year."""
     season_str = f"{season - 1}{season}"
     by_id: dict[int, dict] = {}
+    failed: list[str] = []
     for tm in teams or _TEAMS:
         raw = get_json(_CLUB_SCHEDULE.format(team=tm, season=season_str), session=session)
-        for g in (raw or {}).get("games") or []:
+        if raw is None:  # exhausted retries — surface it, don't silently drop the team's games
+            failed.append(tm)
+            continue
+        for g in raw.get("games") or []:
             if g.get("id") is not None:
                 by_id[g["id"]] = g
+    if failed:
+        print(
+            f"nhl_schedule({season_str}): club-schedule fetch failed for {len(failed)} team(s): "
+            f"{', '.join(failed)} — schedule may be incomplete",
+            file=sys.stderr,
+        )
     if not by_id:
         return pl.DataFrame(schema=_SCHEDULE_SCHEMA)
     df = pl.DataFrame([_parse_game(g) for g in by_id.values()], schema=_SCHEDULE_SCHEMA)

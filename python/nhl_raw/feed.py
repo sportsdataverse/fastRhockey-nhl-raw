@@ -124,7 +124,9 @@ def parse_plays(
             "timeInPeriod",
             "timeRemaining",
             "situationCode",
-            "homeTeamDefendingSide",
+            # NOTE: homeTeamDefendingSide is intentionally NOT padded here — fix_coordinates
+            # keys on its presence (R's `%in% names`) to pick the API path vs the median-x
+            # fallback, so padding it would make the fallback dead for games that lack it.
             "details.reason",
             "details.secondaryReason",
             "details.shotType",

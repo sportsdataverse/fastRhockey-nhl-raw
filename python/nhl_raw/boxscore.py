@@ -232,8 +232,13 @@ def parse_team_box(data: dict) -> pl.DataFrame:
     return pl.DataFrame(rows, schema=_TEAM_SCHEMA)
 
 
-def parse_boxscore(data: dict) -> dict[str, pl.DataFrame]:
-    """Port of ``nhl_game_boxscore`` — boxscore endpoint payload -> 4 tidy frames."""
+def parse_boxscore(data: dict | None) -> dict[str, pl.DataFrame]:
+    """Port of ``nhl_game_boxscore`` — boxscore endpoint payload -> 4 tidy frames.
+
+    Tolerates ``None`` (a failed/absent boxscore fetch) by returning empty frames, so a
+    transient boxscore miss doesn't crash the final-JSON build mid-game (R's nhl_game_boxscore
+    similarly swallows the failure and leaves the boxscore keys empty)."""
+    data = data or {}
     return {
         "game_info": parse_game_info(data),
         "team_box": parse_team_box(data),

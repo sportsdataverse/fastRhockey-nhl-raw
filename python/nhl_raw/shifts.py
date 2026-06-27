@@ -225,9 +225,9 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
 def nhl_game_shifts(game_id: int, *, session: requests.Session | None = None) -> list[dict] | None:
     """Port of ``nhl_game_shifts`` — shiftcharts JSON (or HTML fallback) -> CHANGE rows."""
     site = get_json(_SHIFTCHARTS.format(game_id=game_id), session=session)
-    if site is None:
-        return None
-    data = site.get("data") or []
+    # Both a failed shiftcharts fetch (site is None) and a populated-but-empty {data: []}
+    # fall back to the HTML TOI reports, which may still carry the shifts.
+    data = (site or {}).get("data") or []
     raw = _normalize_json(data) if data else parse_toi_html(game_id, session=session)
     if raw is None or raw.height == 0:
         return None

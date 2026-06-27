@@ -21,15 +21,20 @@ def get_json(
     """GET ``url`` with exponential backoff; ``None`` on exhausted retries (R's NULL)."""
     sess = session or requests
     delay = 1.0
-    for _ in range(retries):
+    for attempt in range(retries):
         try:
             r = sess.get(url, timeout=timeout, headers=_UA)
             if r.status_code == 200:
                 return r.json()
+            # Only transient statuses are worth retrying; a permanent miss (404/403/...)
+            # — common for old-season backfills — returns immediately instead of stalling.
+            if r.status_code not in (429, 500, 502, 503, 504):
+                return None
         except requests.RequestException:
             pass
-        time.sleep(delay)
-        delay = min(delay * 2, 30.0)
+        if attempt < retries - 1:
+            time.sleep(delay)
+            delay = min(delay * 2, 30.0)
     return None
 
 
