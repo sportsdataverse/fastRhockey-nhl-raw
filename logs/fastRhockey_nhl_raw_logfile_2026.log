@@ -7,7 +7,7 @@ fatal: Exiting because of an unresolved conflict.
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1394 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [14.3s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [15.1s]
 
 ℹ Scraping 1394 games for 2025-26
 ℹ   Progress: 25/1394 games
@@ -66,7 +66,7 @@ fatal: Exiting because of an unresolved conflict.
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1350/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1375/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1394/1394 games
-ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 26m 32.9s]
+ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 23m 25.1s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1394 of 1394 games linked (21908 raw, 21908 final)
@@ -84,13 +84,11 @@ fatal: Exiting because of an unresolved conflict.
 error: You have not concluded your merge (MERGE_HEAD exists).
 hint: Please, commit your changes before merging.
 fatal: Exiting because of unfinished merge.
-[main 922abfac5] NHL Raw Updated (Start: 2026 End: 2026)
+[main aeee8d50d] NHL Raw Updated (Start: 2026 End: 2026)
 From https://github.com/sportsdataverse/fastRhockey-nhl-raw
-   1ba9718fc..ecd586014  main       -> origin/main
-warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. ecd586014ae9612c68413795acbef8ea00148d44)
-warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. ecd586014ae9612c68413795acbef8ea00148d44)
-warning: Cannot merge binary files: nhl/nhl_schedule_master.rds (HEAD vs. ecd586014ae9612c68413795acbef8ea00148d44)
-warning: Cannot merge binary files: nhl/nhl_schedule_master.parquet (HEAD vs. ecd586014ae9612c68413795acbef8ea00148d44)
+   ecd586014..f3e00cfc1  main       -> origin/main
+warning: Cannot merge binary files: nhl/schedules/rds/nhl_schedule_2026.rds (HEAD vs. f3e00cfc14a9e894e0f27215aca75fcdede902e2)
+warning: Cannot merge binary files: nhl/schedules/parquet/nhl_schedule_2026.parquet (HEAD vs. f3e00cfc14a9e894e0f27215aca75fcdede902e2)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
  ! [rejected]            main -> main (non-fast-forward)
 error: failed to push some refs to 'https://github.com/sportsdataverse/fastRhockey-nhl-raw.git'
