@@ -43,7 +43,13 @@ uv run python -m nhl_raw.scrape 2024020001 --out-dir nhl/json --models ../../fas
 - [x] **SP-E** raw-json assembly + boxscore + fetch + shifts + scrape driver
   - validated **live end-to-end** (fetch api-web + shiftcharts → final): all_plays 850/850,
     shifts 501/501, on-ice 90/90, xG 90/90
-- [ ] follow-ups: `schedule.py` season loop (`nhl_schedule`) + the HTML-TOI shift fallback
-  (`parse_toi_html`, for recent games whose shiftcharts API returns empty)
+- [x] **schedule + season loop** (`nhl_schedule` / `scrape_season`, `-s/-e` CLI) — live: FLA
+  2023-24 = 82 R + 24 playoff games
+- [x] **HTML-TOI shift fallback** (`parse_toi_html`) for empty-shiftcharts games — live: the
+  HTML path aggregates to the same 501 CHANGE rows as the JSON path
+
+The NHL **scraper** side is complete. Remaining for full NHL self-sufficiency: the
+**reshaper** port (`fastRhockey-nhl-data` → Python, 15 datasets → `sportsdataverse-data`
+`nhl_*` releases).
 
 22 hermetic parity tests (`uv run pytest`), ruff clean.

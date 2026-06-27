@@ -6,7 +6,7 @@ without R, so the NHL data pipeline can run self-sufficiently in Python.
 
 Top-level entry points::
 
-    from nhl_raw import build_final_json, download_game
+    from nhl_raw import build_final_json, download_game, scrape_season
     from nhl_raw.xg import load_xg_models
     final = build_final_json(2024020001, xg=load_xg_models("path/to/models"))
 """
@@ -23,7 +23,14 @@ from nhl_raw.feed import (
     parse_game_rosters,
     parse_plays,
 )
-from nhl_raw.scrape import build_final_from_responses, build_final_json, build_raw_json, download_game
+from nhl_raw.schedule import completed_game_ids, nhl_schedule
+from nhl_raw.scrape import (
+    build_final_from_responses,
+    build_final_json,
+    build_raw_json,
+    download_game,
+    scrape_season,
+)
 from nhl_raw.shifts import nhl_game_shifts
 
 __all__ = [
@@ -36,13 +43,16 @@ __all__ = [
     "integrate_shifts",
     "build_onice_matrix",
     "add_strength_states",
-    # boxscore + assembly + shifts
+    # boxscore + assembly + shifts + schedule
     "parse_boxscore",
     "assemble_raw",
     "nhl_game_shifts",
+    "nhl_schedule",
+    "completed_game_ids",
     # scraper driver
     "build_final_json",
     "build_raw_json",
     "download_game",
     "build_final_from_responses",
+    "scrape_season",
 ]

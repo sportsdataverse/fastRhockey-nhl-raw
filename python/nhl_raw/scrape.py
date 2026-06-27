@@ -14,6 +14,8 @@ import argparse
 import json
 from pathlib import Path
 
+import polars as pl
+
 from nhl_raw.assemble import assemble_raw
 from nhl_raw.boxscore import parse_boxscore
 from nhl_raw.feed import build_pbp, parse_game_rosters
@@ -121,23 +123,66 @@ def download_game(
     return True
 
 
+def scrape_season(
+    season: int,
+    *,
+    out_dir: str | Path = "nhl/json",
+    xg: object | None = None,
+    rescrape: bool = True,
+    limit: int = 0,
+    session: object | None = None,
+) -> dict:
+    """Port of ``scrape_nhl_raw.R``'s season loop — scrape every completed game in a season.
+
+    Fetches the season schedule, downloads each ``game_state == 'OFF'`` game to raw + final
+    JSON. ``rescrape=False`` skips games already on disk; ``limit`` caps the count.
+    """
+    from nhl_raw.schedule import nhl_schedule
+
+    completed = nhl_schedule(season, session=session).filter(pl.col("game_state") == "OFF")
+    final_dir = Path(out_dir) / "final"
+    existing = {int(p.stem) for p in final_dir.glob("*.json")} if final_dir.exists() else set()
+    ids = completed["game_id"].to_list()
+    if not rescrape:
+        ids = [g for g in ids if g not in existing]
+    if limit:
+        ids = ids[:limit]
+    scraped = sum(download_game(gid, out_dir=out_dir, xg=xg, session=session) for gid in ids)
+    return {"season": season, "completed": completed.height, "to_scrape": len(ids), "scraped": scraped}
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
-        prog="python -m nhl_raw.scrape", description="Scrape one NHL game to raw + final JSON."
+        prog="python -m nhl_raw.scrape",
+        description="Scrape NHL game(s) to raw + final JSON: one game (positional) or a season range (-s/-e).",
     )
-    ap.add_argument("game_id", type=int, help="NHL game id, e.g. 2024020001")
+    ap.add_argument("game_id", type=int, nargs="?", help="single NHL game id, e.g. 2024020001")
+    ap.add_argument("-s", "--start", type=int, help="start season end-year (e.g. 2025 = 2024-25)")
+    ap.add_argument("-e", "--end", type=int, help="end season end-year (default: --start)")
     ap.add_argument("--out-dir", default="nhl/json")
     ap.add_argument("--models", default=None, help="dir with xg_model_{5v5,st}.json (+ meta) for xG")
-    ap.add_argument("--no-process", action="store_true", help="write raw only (skip final/enrichment)")
+    ap.add_argument("--no-rescrape", action="store_true", help="season mode: skip games already on disk")
+    ap.add_argument("--limit", type=int, default=0, help="season mode: cap games scraped (0 = all)")
+    ap.add_argument("--no-process", action="store_true", help="single-game: write raw only (skip final)")
     args = ap.parse_args(argv)
+
     xg = None
     if args.models:
         from nhl_raw.xg import load_xg_models
 
         xg = load_xg_models(args.models)
-    ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)
-    print(f"{'wrote' if ok else 'FAILED'} game {args.game_id} -> {args.out_dir}")
-    return 0 if ok else 1
+
+    if args.game_id is not None:
+        ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)
+        print(f"{'wrote' if ok else 'FAILED'} game {args.game_id} -> {args.out_dir}")
+        return 0 if ok else 1
+
+    if args.start is None:
+        ap.error("provide a game_id, or -s/--start for season mode")
+    for season in range(args.start, (args.end or args.start) + 1):
+        summary = scrape_season(season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit)
+        print(f"season {season}: {summary}")
+    return 0
 
 
 if __name__ == "__main__":
