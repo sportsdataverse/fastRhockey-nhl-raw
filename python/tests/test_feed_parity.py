@@ -116,6 +116,7 @@ def test_onice_strength_parity_2024020001() -> None:
 
 # ----- SP-D1: event-player names + descriptions + finalize -----
 
+
 def test_descriptions_parity_2024020001() -> None:
     raw, final = _load(GID)
     py = build_pbp(raw["pbp_raw"], GID, shifts=raw["shifts"]).to_dicts()
@@ -124,9 +125,7 @@ def test_descriptions_parity_2024020001() -> None:
         return (p["event_type"], p["period"], p["period_seconds"], p.get("event_player_1_id"))
 
     oracle = {
-        key(p): p
-        for p in final["all_plays"]
-        if p["event_type"] != "CHANGE" and p.get("event_player_1_id") is not None
+        key(p): p for p in final["all_plays"] if p["event_type"] != "CHANGE" and p.get("event_player_1_id") is not None
     }
     checked = desc_ok = name_ok = 0
     for p in py:
@@ -166,7 +165,9 @@ def test_xg_parity_2024020001() -> None:
         return (p["event_type"], p["period"], p["period_seconds"], p.get("event_player_1_id"))
 
     shots = ["SHOT", "GOAL", "MISSED_SHOT"]
-    oracle = {key(p): p for p in final["all_plays"] if p["event_type"] in shots and p.get("event_player_1_id") is not None}
+    oracle = {
+        key(p): p for p in final["all_plays"] if p["event_type"] in shots and p.get("event_player_1_id") is not None
+    }
 
     checked = ok = 0
     worst = 0.0

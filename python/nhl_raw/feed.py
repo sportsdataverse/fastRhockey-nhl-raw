@@ -13,8 +13,8 @@ Port status (parity-gated against ``tests/fixtures/nhl_raw/final_2024020001.json
 * [x] ``parse_plays``     — event / time / coords / players / situation / penalty / secondary / empty-net
 * [x] ``fix_coordinates`` — ``homeTeamDefendingSide`` normalization (home shoots right)
 * [x] ``add_shot_metrics``— ``shot_distance`` / ``shot_angle``
-* [ ] ``integrate_shifts`` + ``add_strength_states``  (SP-C)
-* [ ] ``add_descriptions`` + ``finalize_columns`` + xG (SP-D)
+* [x] ``integrate_shifts`` + ``add_strength_states`` — on-ice cumsum matrix + strength
+* [x] ``add_descriptions`` + ``finalize_columns``; xG lives in ``nhl_raw.xg``
 """
 
 from __future__ import annotations
@@ -653,25 +653,40 @@ def add_descriptions(pbp: pl.DataFrame, home_abbr: str, away_abbr: str) -> pl.Da
     p1, p2, p3 = pl.col("event_player_1_name"), pl.col("event_player_2_name"), pl.col("event_player_3_name")
     g, st, per = pl.col("event_goalie_name"), pl.col("secondary_type"), pl.col("period")
     description = (
-        pl.when(et == "PERIOD_START").then(pl.format("Start of Period {}", per))
-        .when(et == "PERIOD_END").then(pl.format("End of Period {}", per))
-        .when(et == "GAME_END").then(pl.lit("Game End"))
-        .when(et == "FACEOFF").then(pl.format("{} faceoff won against {}", p1, p2))
-        .when(et == "BLOCKED_SHOT").then(pl.format("{} shot blocked by {}", p1, p2))
-        .when(et == "CHANGE").then(pl.format("ON: {}; OFF: {}", pl.col("players_on"), pl.col("players_off")))
-        .when(et == "GIVEAWAY").then(pl.format("Giveaway by {}", p1))
-        .when(et == "TAKEAWAY").then(pl.format("Takeaway by {}", p1))
-        .when(et == "HIT").then(pl.format("{} hit {}", p1, p2))
-        .when(et == "MISSED_SHOT").then(pl.format("{} shot missed wide of net", p1))
-        .when(et == "PENALTY").then(pl.format("{} {}", p1, st))
-        .when(et == "SHOT").then(pl.format("{} shot on goal saved by {}", p1, g))
-        .when((et == "STOP") & pl.col("reason").is_not_null()).then(pl.format("Stoppage in play ({})", pl.col("reason")))
-        .when(et == "STOP").then(pl.lit("Stoppage in play"))
+        pl.when(et == "PERIOD_START")
+        .then(pl.format("Start of Period {}", per))
+        .when(et == "PERIOD_END")
+        .then(pl.format("End of Period {}", per))
+        .when(et == "GAME_END")
+        .then(pl.lit("Game End"))
+        .when(et == "FACEOFF")
+        .then(pl.format("{} faceoff won against {}", p1, p2))
+        .when(et == "BLOCKED_SHOT")
+        .then(pl.format("{} shot blocked by {}", p1, p2))
+        .when(et == "CHANGE")
+        .then(pl.format("ON: {}; OFF: {}", pl.col("players_on"), pl.col("players_off")))
+        .when(et == "GIVEAWAY")
+        .then(pl.format("Giveaway by {}", p1))
+        .when(et == "TAKEAWAY")
+        .then(pl.format("Takeaway by {}", p1))
+        .when(et == "HIT")
+        .then(pl.format("{} hit {}", p1, p2))
+        .when(et == "MISSED_SHOT")
+        .then(pl.format("{} shot missed wide of net", p1))
+        .when(et == "PENALTY")
+        .then(pl.format("{} {}", p1, st))
+        .when(et == "SHOT")
+        .then(pl.format("{} shot on goal saved by {}", p1, g))
+        .when((et == "STOP") & pl.col("reason").is_not_null())
+        .then(pl.format("Stoppage in play ({})", pl.col("reason")))
+        .when(et == "STOP")
+        .then(pl.lit("Stoppage in play"))
         .when((et == "GOAL") & pl.col("event_player_3_id").is_not_null())
         .then(pl.format("{} {}, assists: {}, {}", p1, st, p2, p3))
         .when((et == "GOAL") & pl.col("event_player_2_id").is_not_null() & (pl.col("event_player_2_type") == "Assist"))
         .then(pl.format("{} {}, assists: {}", p1, st, p2))
-        .when(et == "GOAL").then(pl.format("{} {}, unassisted", p1, st))
+        .when(et == "GOAL")
+        .then(pl.format("{} {}, unassisted", p1, st))
         .otherwise(None)
     )
     return pbp.with_columns(description=description)
@@ -679,19 +694,75 @@ def add_descriptions(pbp: pl.DataFrame, home_abbr: str, away_abbr: str) -> pl.Da
 
 # Preferred column order (.finalize_columns); processed raw-API columns are dropped.
 _PREFERRED = [
-    "event_type", "event", "secondary_type", "event_team_abbr", "event_team_type", "description",
-    "period", "period_type", "period_time", "period_seconds", "period_seconds_remaining", "period_time_remaining",
-    "game_seconds", "game_seconds_remaining", "home_score", "away_score",
-    "event_player_1_name", "event_player_1_type", "event_player_1_id",
-    "event_player_2_name", "event_player_2_type", "event_player_2_id",
-    "event_player_3_name", "event_player_3_type", "event_player_3_id",
-    "event_goalie_name", "event_goalie_id", "penalty_severity", "penalty_minutes",
-    "strength_state", "strength_code", "strength", "empty_net", "extra_attacker",
-    "x", "y", "x_fixed", "y_fixed", "shot_distance", "shot_angle", "home_skaters", "away_skaters",
-    "home_on_1", "home_on_2", "home_on_3", "home_on_4", "home_on_5", "home_on_6", "home_on_7",
-    "away_on_1", "away_on_2", "away_on_3", "away_on_4", "away_on_5", "away_on_6", "away_on_7",
-    "home_goalie", "away_goalie", "num_on", "players_on", "num_off", "players_off",
-    "game_id", "season", "season_type", "home_abbr", "away_abbr", "event_idx", "event_id",
+    "event_type",
+    "event",
+    "secondary_type",
+    "event_team_abbr",
+    "event_team_type",
+    "description",
+    "period",
+    "period_type",
+    "period_time",
+    "period_seconds",
+    "period_seconds_remaining",
+    "period_time_remaining",
+    "game_seconds",
+    "game_seconds_remaining",
+    "home_score",
+    "away_score",
+    "event_player_1_name",
+    "event_player_1_type",
+    "event_player_1_id",
+    "event_player_2_name",
+    "event_player_2_type",
+    "event_player_2_id",
+    "event_player_3_name",
+    "event_player_3_type",
+    "event_player_3_id",
+    "event_goalie_name",
+    "event_goalie_id",
+    "penalty_severity",
+    "penalty_minutes",
+    "strength_state",
+    "strength_code",
+    "strength",
+    "empty_net",
+    "extra_attacker",
+    "x",
+    "y",
+    "x_fixed",
+    "y_fixed",
+    "shot_distance",
+    "shot_angle",
+    "home_skaters",
+    "away_skaters",
+    "home_on_1",
+    "home_on_2",
+    "home_on_3",
+    "home_on_4",
+    "home_on_5",
+    "home_on_6",
+    "home_on_7",
+    "away_on_1",
+    "away_on_2",
+    "away_on_3",
+    "away_on_4",
+    "away_on_5",
+    "away_on_6",
+    "away_on_7",
+    "home_goalie",
+    "away_goalie",
+    "num_on",
+    "players_on",
+    "num_off",
+    "players_off",
+    "game_id",
+    "season",
+    "season_type",
+    "home_abbr",
+    "away_abbr",
+    "event_idx",
+    "event_id",
 ]
 _DROP_RE = re.compile(
     r"^(details\.|periodDescriptor\.|typeDescKey|typeCode$|situationCode$|sortOrder$|eventId$"
@@ -723,8 +794,12 @@ def build_pbp(
     home_abbr, away_abbr = home.get("abbrev"), away.get("abbrev")
     df = parse_plays(
         pbp_raw.get("plays") or [],
-        home_abbr, away_abbr, home.get("id"), away.get("id"),
-        int(game_id), str(pbp_raw.get("season")),
+        home_abbr,
+        away_abbr,
+        home.get("id"),
+        away.get("id"),
+        int(game_id),
+        str(pbp_raw.get("season")),
     )
     if df.height == 0:
         return df
@@ -743,19 +818,28 @@ def build_pbp(
     st = _season_type(int(game_id))
     is_regular, is_playoff, period = st in ("R", "PR"), st == "P", pl.col("period")
     df = df.with_columns(
-        period_type=pl.when(period < 4).then(pl.lit("REGULAR"))
-        .when(pl.lit(is_regular) & (period == 4)).then(pl.lit("OVERTIME"))
-        .when(pl.lit(is_regular) & (period == 5)).then(pl.lit("SHOOTOUT"))
-        .when(pl.lit(is_playoff) & (period > 3)).then(pl.lit("OVERTIME"))
+        period_type=pl.when(period < 4)
+        .then(pl.lit("REGULAR"))
+        .when(pl.lit(is_regular) & (period == 4))
+        .then(pl.lit("OVERTIME"))
+        .when(pl.lit(is_regular) & (period == 5))
+        .then(pl.lit("SHOOTOUT"))
+        .when(pl.lit(is_playoff) & (period > 3))
+        .then(pl.lit("OVERTIME"))
         .otherwise(pl.lit("REGULAR")),
     )
     df = join_event_player_names(df, rosters)
     df = add_descriptions(df, home_abbr, away_abbr)
-    df = df.with_columns(season=pl.lit(str(pbp_raw.get("season"))), season_type=pl.lit(st),
-                         home_abbr=pl.lit(home_abbr), away_abbr=pl.lit(away_abbr))
+    df = df.with_columns(
+        season=pl.lit(str(pbp_raw.get("season"))),
+        season_type=pl.lit(st),
+        home_abbr=pl.lit(home_abbr),
+        away_abbr=pl.lit(away_abbr),
+    )
     df = finalize_columns(df)
 
     if xg is not None:
         from nhl_raw.xg import calculate_xg
+
         df = calculate_xg(df, xg)
     return df

@@ -14,6 +14,7 @@ The two boosters are plain XGBoost JSON (cross-language), and carry their
 ``feature_names`` embedded — so they are self-describing and load natively in
 Python xgboost; only the penalty-shot constant comes from ``xg_model_meta.json``.
 """
+
 from __future__ import annotations
 
 import json
@@ -28,27 +29,50 @@ _PS_DEFAULT = 0.3202197
 # secondary_type normalization spanning the 2010-2022 (Title Case) and 2023+ (lowercase
 # abbreviated) NHL APIs -> the canonical values the xG models were trained on.
 _SHOT_TYPE_NORM = {
-    "wrist": "Wrist Shot", "wrist shot": "Wrist Shot",
-    "snap": "Snap Shot", "snap shot": "Snap Shot",
-    "slap": "Slap Shot", "slap shot": "Slap Shot",
-    "backhand": "Backhand", "deflected": "Deflected",
-    "tip-in": "Tip-In", "wrap-around": "Wrap-around",
-    "bat": "Batted", "batted": "Batted", "poke": "Poke",
-    "between-legs": "Between Legs", "between legs": "Between Legs",
-    "cradle": "Cradle", "penalty shot": "Penalty Shot",
+    "wrist": "Wrist Shot",
+    "wrist shot": "Wrist Shot",
+    "snap": "Snap Shot",
+    "snap shot": "Snap Shot",
+    "slap": "Slap Shot",
+    "slap shot": "Slap Shot",
+    "backhand": "Backhand",
+    "deflected": "Deflected",
+    "tip-in": "Tip-In",
+    "wrap-around": "Wrap-around",
+    "bat": "Batted",
+    "batted": "Batted",
+    "poke": "Poke",
+    "between-legs": "Between Legs",
+    "between legs": "Between Legs",
+    "cradle": "Cradle",
+    "penalty shot": "Penalty Shot",
 }
 # Canonical shot type -> the janitor::clean_names() one-hot column the model expects.
 _SHOT_TYPE_COL = {
-    "Wrist Shot": "wrist_shot", "Snap Shot": "snap_shot", "Slap Shot": "slap_shot",
-    "Backhand": "backhand", "Wrap-around": "wrap_around", "Tip-In": "tip_in",
-    "Deflected": "deflected", "Poke": "poke", "Batted": "batted",
-    "Between Legs": "between_legs", "Cradle": "cradle",
+    "Wrist Shot": "wrist_shot",
+    "Snap Shot": "snap_shot",
+    "Slap Shot": "slap_shot",
+    "Backhand": "backhand",
+    "Wrap-around": "wrap_around",
+    "Tip-In": "tip_in",
+    "Deflected": "deflected",
+    "Poke": "poke",
+    "Batted": "batted",
+    "Between Legs": "between_legs",
+    "Cradle": "cradle",
 }
 # Valid last-event types -> the "last_" one-hot column (clean_names of "last_<TYPE>").
 _LAST_EVENT_COL = {
-    "FACEOFF": "last_faceoff", "GIVEAWAY": "last_giveaway", "TAKEAWAY": "last_takeaway",
-    "BLOCKED_SHOT": "last_blocked_shot", "HIT": "last_hit", "MISSED_SHOT": "last_missed_shot",
-    "SHOT": "last_shot", "STOP": "last_stop", "PENALTY": "last_penalty", "GOAL": "last_goal",
+    "FACEOFF": "last_faceoff",
+    "GIVEAWAY": "last_giveaway",
+    "TAKEAWAY": "last_takeaway",
+    "BLOCKED_SHOT": "last_blocked_shot",
+    "HIT": "last_hit",
+    "MISSED_SHOT": "last_missed_shot",
+    "SHOT": "last_shot",
+    "STOP": "last_stop",
+    "PENALTY": "last_penalty",
+    "GOAL": "last_goal",
 }
 _VALID_LAST = list(_LAST_EVENT_COL.keys())
 _UNBLOCKED = ["SHOT", "MISSED_SHOT", "GOAL"]
@@ -79,9 +103,12 @@ def _event_zone() -> pl.Expr:
     x, xf, eta = pl.col("x"), pl.col("x_fixed"), pl.col("event_team_abbr")
     home, away = pl.col("home_abbr"), pl.col("away_abbr")
     return (
-        pl.when((x >= -25) & (x <= 25)).then(pl.lit("NZ"))
-        .when(((xf < -25) & (eta == home)) | ((xf > 25) & (eta == away))).then(pl.lit("DZ"))
-        .when(((xf > 25) & (eta == home)) | ((xf < -25) & (eta == away))).then(pl.lit("OZ"))
+        pl.when((x >= -25) & (x <= 25))
+        .then(pl.lit("NZ"))
+        .when(((xf < -25) & (eta == home)) | ((xf > 25) & (eta == away)))
+        .then(pl.lit("DZ"))
+        .when(((xf > 25) & (eta == home)) | ((xf < -25) & (eta == away)))
+        .then(pl.lit("OZ"))
         .otherwise(None)
     )
 
@@ -104,17 +131,21 @@ def prepare_xg_data(pbp: pl.DataFrame) -> pl.DataFrame:
 
     # Lag features within (game_id, period), in time-sorted row order.
     grp = ["game_id", "period"]
-    df = df.with_columns(event_zone=_event_zone()).with_columns(
-        last_event_type=pl.col("event_type").shift(1).over(grp),
-        last_event_team=pl.col("event_team_abbr").shift(1).over(grp),
-        time_since_last=(pl.col("game_seconds") - pl.col("game_seconds").shift(1).over(grp)),
-        last_x=pl.col("x").shift(1).over(grp),
-        last_y=pl.col("y").shift(1).over(grp),
-        last_event_zone=pl.col("event_zone").shift(1).over(grp),
-    ).with_columns(
-        distance_from_last=(
-            ((pl.col("y") - pl.col("last_y")) ** 2 + (pl.col("x") - pl.col("last_x")) ** 2).sqrt().round(1)
-        ),
+    df = (
+        df.with_columns(event_zone=_event_zone())
+        .with_columns(
+            last_event_type=pl.col("event_type").shift(1).over(grp),
+            last_event_team=pl.col("event_team_abbr").shift(1).over(grp),
+            time_since_last=(pl.col("game_seconds") - pl.col("game_seconds").shift(1).over(grp)),
+            last_x=pl.col("x").shift(1).over(grp),
+            last_y=pl.col("y").shift(1).over(grp),
+            last_event_zone=pl.col("event_zone").shift(1).over(grp),
+        )
+        .with_columns(
+            distance_from_last=(
+                ((pl.col("y") - pl.col("last_y")) ** 2 + (pl.col("x") - pl.col("last_x")) ** 2).sqrt().round(1)
+            ),
+        )
     )
 
     df = df.filter(pl.col("event_type").is_in(_UNBLOCKED) & pl.col("last_event_type").is_in(_VALID_LAST))

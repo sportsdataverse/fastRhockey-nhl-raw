@@ -28,9 +28,22 @@ Canonical R sources being ported (faithful, parity-gated):
 uv run --with polars --with pandas --with pyarrow --with pytest python -m pytest -q
 ```
 
+## Run the scraper
+
+```sh
+# one game -> raw/{id}.json + final/{id}.json (enriched; --models enables xG)
+uv run python -m nhl_raw.scrape 2024020001 --out-dir nhl/json --models ../../fastRhockey-nhl-data/models
+```
+
 ## Port status (parity-gated)
 
 - [x] **SP-B** parse / coordinates / shot geometry (`test_feed_parity.py`)
-- [ ] SP-C shift integration + strength states
-- [ ] SP-D descriptions + finalize + xG
-- [ ] SP-E raw-json assembly + boxscore + schedule + scrape CLI
+- [x] **SP-C** shift integration (on-ice cumsum) + strength states — on-ice 294/294, rows 850/850
+- [x] **SP-D** descriptions + finalize + xG — xG 90/90 within 4.9e-5 (jsonlite rounding limit)
+- [x] **SP-E** raw-json assembly + boxscore + fetch + shifts + scrape driver
+  - validated **live end-to-end** (fetch api-web + shiftcharts → final): all_plays 850/850,
+    shifts 501/501, on-ice 90/90, xG 90/90
+- [ ] follow-ups: `schedule.py` season loop (`nhl_schedule`) + the HTML-TOI shift fallback
+  (`parse_toi_html`, for recent games whose shiftcharts API returns empty)
+
+22 hermetic parity tests (`uv run pytest`), ruff clean.

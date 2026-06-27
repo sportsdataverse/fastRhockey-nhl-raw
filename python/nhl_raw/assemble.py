@@ -10,6 +10,7 @@ Note: R branches on ``is.data.frame`` because ``jsonlite::fromJSON`` materialize
 nested arrays as data frames; Python's ``json`` always yields nested dicts/lists, so the
 data-frame path collapses to the list path.
 """
+
 from __future__ import annotations
 
 
@@ -86,11 +87,13 @@ def _scratches(rail: dict) -> list | None:
     out = []
     for side in ("awayTeam", "homeTeam"):
         for s in _pluck(rail, "gameInfo", side, "scratches") or []:
-            out.append({
-                "id": s.get("id"),
-                "firstName": _extract_default(s.get("firstName")),
-                "lastName": _extract_default(s.get("lastName")),
-            })
+            out.append(
+                {
+                    "id": s.get("id"),
+                    "firstName": _extract_default(s.get("firstName")),
+                    "lastName": _extract_default(s.get("lastName")),
+                }
+            )
     return out or None
 
 
@@ -108,8 +111,10 @@ def _team_coaches(rail: dict) -> dict | None:
 
 def _officials(rail: dict) -> list | None:
     out = []
-    for arr, role in ((_pluck(rail, "gameInfo", "referees"), "referee"),
-                      (_pluck(rail, "gameInfo", "linesmen"), "linesman")):
+    for arr, role in (
+        (_pluck(rail, "gameInfo", "referees"), "referee"),
+        (_pluck(rail, "gameInfo", "linesmen"), "linesman"),
+    ):
         for o in arr or []:
             out.append({"role": role, "name": _extract_default(o)})
     return out or None
@@ -120,10 +125,14 @@ def assemble_raw(pbp_raw: dict, box_raw: dict, landing: dict, rail: dict, shifts
     if pbp_raw is None:
         return None
     game_info = {
-        "id": _pluck(pbp_raw, "id"), "season": _pluck(pbp_raw, "season"),
-        "gameType": _pluck(pbp_raw, "gameType"), "gameDate": _pluck(pbp_raw, "gameDate"),
-        "venue": _pluck(pbp_raw, "venue"), "gameState": _pluck(pbp_raw, "gameState"),
-        "startTimeUTC": _pluck(pbp_raw, "startTimeUTC"), "homeTeam": _pluck(pbp_raw, "homeTeam"),
+        "id": _pluck(pbp_raw, "id"),
+        "season": _pluck(pbp_raw, "season"),
+        "gameType": _pluck(pbp_raw, "gameType"),
+        "gameDate": _pluck(pbp_raw, "gameDate"),
+        "venue": _pluck(pbp_raw, "venue"),
+        "gameState": _pluck(pbp_raw, "gameState"),
+        "startTimeUTC": _pluck(pbp_raw, "startTimeUTC"),
+        "homeTeam": _pluck(pbp_raw, "homeTeam"),
         "awayTeam": _pluck(pbp_raw, "awayTeam"),
     }
     shootout = _pluck(landing, "summary", "shootout") or None

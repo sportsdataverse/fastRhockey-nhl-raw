@@ -5,6 +5,7 @@ R's ``build_raw_json`` derived from them — so we re-derive from the stored res
 assert the assembly logic (officials / team_coaches / scratches / decisions / linescore /
 game_info) reproduces R's output exactly.
 """
+
 from __future__ import annotations
 
 import json
@@ -19,7 +20,9 @@ FIX = Path(__file__).parent / "fixtures" / "nhl_raw"
 
 def _assembled(gid: int) -> tuple[dict, dict]:
     raw = json.loads((FIX / f"raw_{gid}.json").read_text(encoding="utf-8"))
-    got = assemble_raw(raw["pbp_raw"], raw["boxscore_raw"], raw["landing_raw"], raw["right_rail_raw"], raw.get("shifts"))
+    got = assemble_raw(
+        raw["pbp_raw"], raw["boxscore_raw"], raw["landing_raw"], raw["right_rail_raw"], raw.get("shifts")
+    )
     return raw, got
 
 
