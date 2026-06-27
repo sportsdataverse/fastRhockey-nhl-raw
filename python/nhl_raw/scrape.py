@@ -160,17 +160,22 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("-s", "--start", type=int, help="start season end-year (e.g. 2025 = 2024-25)")
     ap.add_argument("-e", "--end", type=int, help="end season end-year (default: --start)")
     ap.add_argument("--out-dir", default="nhl/json")
-    ap.add_argument("--models", default=None, help="dir with xg_model_{5v5,st}.json (+ meta) for xG")
+    ap.add_argument(
+        "--models",
+        default=None,
+        help="dir with xg_model_{5v5,st}.json (+ meta); omit to download the canonical models on first use",
+    )
+    ap.add_argument("--no-xg", action="store_true", help="skip xG (no model download / computation)")
     ap.add_argument("--no-rescrape", action="store_true", help="season mode: skip games already on disk")
     ap.add_argument("--limit", type=int, default=0, help="season mode: cap games scraped (0 = all)")
     ap.add_argument("--no-process", action="store_true", help="single-game: write raw only (skip final)")
     args = ap.parse_args(argv)
 
     xg = None
-    if args.models:
+    if not args.no_xg:
         from nhl_raw.xg import load_xg_models
 
-        xg = load_xg_models(args.models)
+        xg = load_xg_models(args.models)  # args.models=None -> download-on-first-use
 
     if args.game_id is not None:
         ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)

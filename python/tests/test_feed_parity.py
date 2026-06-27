@@ -188,3 +188,21 @@ def test_xg_parity_2024020001() -> None:
     assert checked >= 80, f"only {checked} shots matched"
     # both the null pattern (invalid last-event shots) and the predicted values must agree
     assert ok / checked >= 0.98, f"xG parity {ok}/{checked} (worst abs diff {worst:.5f})"
+
+
+def test_ensure_xg_models_uses_local_without_network() -> None:
+    # An explicit dir whose 3 files exist (the fixtures) must resolve offline — no download.
+    from nhl_raw.xg import ensure_xg_models
+
+    assert ensure_xg_models(MODELS) == MODELS
+    for fn in ("xg_model_5v5.json", "xg_model_st.json", "xg_model_meta.json"):
+        assert (MODELS / fn).exists()
+
+
+def test_default_model_dir_env_override(monkeypatch, tmp_path) -> None:
+    from nhl_raw.xg import default_model_dir
+
+    monkeypatch.setenv("NHL_RAW_MODEL_DIR", str(tmp_path / "m"))
+    assert default_model_dir() == tmp_path / "m"
+    monkeypatch.delenv("NHL_RAW_MODEL_DIR", raising=False)
+    assert default_model_dir().parts[-2:] == ("nhl_raw", "xg_models")

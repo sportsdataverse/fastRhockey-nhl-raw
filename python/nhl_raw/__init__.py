@@ -8,7 +8,9 @@ Top-level entry points::
 
     from nhl_raw import build_final_json, download_game, scrape_season
     from nhl_raw.xg import load_xg_models
-    final = build_final_json(2024020001, xg=load_xg_models("path/to/models"))
+    # load_xg_models() with no arg downloads the canonical boosters on first use
+    # (from the nhl_xg_models release) and caches them under ~/.cache/nhl_raw/xg_models.
+    final = build_final_json(2024020001, xg=load_xg_models())
 """
 
 from nhl_raw.assemble import assemble_raw

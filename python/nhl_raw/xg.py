@@ -18,6 +18,7 @@ Python xgboost; only the penalty-shot constant comes from ``xg_model_meta.json``
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 
@@ -25,6 +26,11 @@ import numpy as np
 import polars as pl
 
 _PS_DEFAULT = 0.3202197
+
+# Published canonical boosters (download-on-first-use). Mirrors nflverse's
+# download-on-demand+cache pattern — the models are NOT bundled in the wheel.
+_XG_RELEASE = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nhl_xg_models"
+_XG_FILES = ("xg_model_5v5.json", "xg_model_st.json", "xg_model_meta.json")
 
 # secondary_type normalization spanning the 2010-2022 (Title Case) and 2023+ (lowercase
 # abbreviated) NHL APIs -> the canonical values the xG models were trained on.
@@ -78,11 +84,37 @@ _VALID_LAST = list(_LAST_EVENT_COL.keys())
 _UNBLOCKED = ["SHOT", "MISSED_SHOT", "GOAL"]
 
 
-def load_xg_models(model_dir: str | Path) -> dict:
-    """Load the two boosters (+ embedded feature names) and the penalty-shot constant."""
+def default_model_dir() -> Path:
+    """Local cache dir for the downloaded boosters (override via ``NHL_RAW_MODEL_DIR``)."""
+    override = os.environ.get("NHL_RAW_MODEL_DIR")
+    return Path(override) if override else Path.home() / ".cache" / "nhl_raw" / "xg_models"
+
+
+def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
+    """Return a dir holding the 3 booster files, downloading any missing ones from the
+    ``nhl_xg_models`` release. An explicit ``model_dir`` whose files already exist (e.g. the
+    test fixtures) skips the network entirely; ``None`` resolves to ``default_model_dir()``."""
+    d = Path(model_dir) if model_dir is not None else default_model_dir()
+    missing = [fn for fn in _XG_FILES if not (d / fn).exists() or (d / fn).stat().st_size == 0]
+    if missing:
+        import requests
+
+        d.mkdir(parents=True, exist_ok=True)
+        for fn in missing:
+            r = requests.get(f"{_XG_RELEASE}/{fn}", timeout=60, headers={"User-Agent": "nhl-raw/0.0.1"})
+            r.raise_for_status()
+            (d / fn).write_bytes(r.content)
+    return d
+
+
+def load_xg_models(model_dir: str | Path | None = None) -> dict:
+    """Load the two boosters (+ embedded feature names) and the penalty-shot constant.
+
+    ``model_dir=None`` downloads the canonical models from the ``nhl_xg_models`` release on
+    first use and caches them under ``default_model_dir()``; pass a dir to use local models."""
     import xgboost as xgb
 
-    d = Path(model_dir)
+    d = ensure_xg_models(model_dir)
     b5, bst = xgb.Booster(), xgb.Booster()
     b5.load_model(str(d / "xg_model_5v5.json"))
     bst.load_model(str(d / "xg_model_st.json"))
