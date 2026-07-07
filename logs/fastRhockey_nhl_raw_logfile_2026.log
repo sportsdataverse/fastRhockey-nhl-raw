@@ -3,13 +3,12 @@
 ── Processing 2025-26 season ───────────────────────────────────────────────────
 ℹ Fetching 2025-26 schedule
 ℹ 1394 completed games in schedule
-ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [14s]
+ℹ Fetching 2025-26 schedule✔ Fetched 2025-26 schedule [15.3s]
 
 ℹ Scraping 1394 games for 2025-26
 ℹ   Progress: 25/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 50/1394 games
-ℹ Scraping 1394 games for 2025-26Request failed [502]. Retrying in 1 seconds...
-ℹ   Progress: 75/1394 games
+ℹ Scraping 1394 games for 2025-26ℹ   Progress: 75/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 100/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 125/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 150/1394 games
@@ -63,7 +62,7 @@
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1350/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1375/1394 games
 ℹ Scraping 1394 games for 2025-26ℹ   Progress: 1394/1394 games
-ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 24m 13.9s]
+ℹ Scraping 1394 games for 2025-26✔ Scraped 1394 games for 2025-26 [3h 22m 6.1s]
 
 ℹ Updating 2025-26 schedule with JSON links
 ✔ 1394 of 1394 games linked (21908 raw, 21908 final)
@@ -74,8 +73,8 @@
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main a41d4332a] NHL Raw Updated (Start: 2026 End: 2026)
+ℹ Building master schedule[main cb527c795] NHL Raw Updated (Start: 2026 End: 2026)
  2 files changed, 0 insertions(+), 0 deletions(-)
- rewrite nhl/schedules/rds/nhl_schedule_2026.rds (95%)
+ rewrite nhl/schedules/rds/nhl_schedule_2026.rds (94%)
 To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   6d1898dcb..a41d4332a  main -> main
+   10bc86ad4..cb527c795  main -> main
