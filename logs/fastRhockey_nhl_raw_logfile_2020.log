@@ -2,116 +2,24 @@
 
 ── Processing 2019-20 season ───────────────────────────────────────────────────
 ℹ Fetching 2019-20 schedule
-2026-05-22 21:58:24.873963: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
-2026-05-22 21:58:26.51561: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-07-18 17:44:36.840989: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-07-18 17:44:37.6915: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
 ℹ 1200 completed games in schedule
-ℹ Fetching 2019-20 schedule✔ Fetched 2019-20 schedule [17.9s]
+ℹ Fetching 2019-20 schedule✔ Fetched 2019-20 schedule [9.6s]
 
-ℹ Scraping 1200 games for 2019-20
-ℹ   Progress: 25/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 50/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 75/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 100/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 125/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 150/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 175/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 200/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 225/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 250/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 275/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 300/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 325/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 350/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 375/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 400/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 425/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 450/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 475/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 500/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 525/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 550/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 575/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 600/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 625/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 650/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 675/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 700/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 725/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 750/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 775/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 800/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 825/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 850/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 875/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 900/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 925/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 950/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 975/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1000/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1025/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1050/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1075/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1100/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1125/1200 games
-ℹ Scraping 1200 games for 2019-20ℹ   Progress: 1150/1200 games
-ℹ Scraping 1200 games for 2019-20Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 2.2 seconds...
-Request failed [500]. Retrying in 1.8 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.5 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.4 seconds...
-Request failed [500]. Retrying in 1.7 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 2.8 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.5 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.4 seconds...
-Request failed [500]. Retrying in 1.8 seconds...
-ℹ   Progress: 1175/1200 games
-ℹ Scraping 1200 games for 2019-20Request failed [500]. Retrying in 1.3 seconds...
-Request failed [500]. Retrying in 2.4 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 3.2 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.9 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 3.2 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.6 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 1.9 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 2.7 seconds...
-Request failed [500]. Retrying in 1 seconds...
-Request failed [500]. Retrying in 3.3 seconds...
-ℹ   Progress: 1200/1200 games
-ℹ Scraping 1200 games for 2019-20✔ Scraped 1200 games for 2019-20 [54m 46.6s]
+ℹ Scraping 0 games for 2019-20
+✔ Scraped 0 games for 2019-20 [16ms]
 
 ℹ Updating 2019-20 schedule with JSON links
-✔ 1200 of 1200 games linked (21895 raw, 21895 final)
-ℹ Updating 2019-20 schedule with JSON links✔ Updated 2019-20 schedule with JSON links [1.5s]
+✔ 1200 of 1200 games linked (21908 raw, 21908 final)
+ℹ Updating 2019-20 schedule with JSON links✔ Updated 2019-20 schedule with JSON links [579ms]
 
 ℹ Building master schedule
-✔ 21895 total schedule rows, 21883 with final JSON
+✔ 21896 total schedule rows, 21896 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master scheduleAuto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-[main 991104da] NHL Raw Updated (Start: 2020 End: 2020)
- 2402 files changed, 2400 insertions(+), 2400 deletions(-)
- rewrite nhl/json/raw/2019020076.json (64%)
- rewrite nhl/json/raw/2019020176.json (63%)
- rewrite nhl/json/raw/2019020215.json (63%)
- rewrite nhl/schedules/rds/nhl_schedule_2020.rds (98%)
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   9dfc7dd6..991104da  main -> main
+ℹ Building master schedule[main da5eefe72] NHL Raw Updated (Start: 2020 End: 2020)
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   29b85ab7d..da5eefe72  main -> main
