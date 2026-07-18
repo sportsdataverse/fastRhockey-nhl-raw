@@ -2,80 +2,25 @@
 
 ── Processing 2011-12 season ───────────────────────────────────────────────────
 ℹ Fetching 2011-12 schedule
-2026-05-23 08:34:25.263472: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
-2026-05-23 08:34:26.444499: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
-2026-05-23 08:34:26.889585: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+2026-07-18 17:42:13.574401: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-07-18 17:42:14.64248: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-07-18 17:42:15.333627: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
 ℹ 1316 completed games in schedule
-ℹ Fetching 2011-12 schedule✔ Fetched 2011-12 schedule [13.4s]
+ℹ Fetching 2011-12 schedule✔ Fetched 2011-12 schedule [12.4s]
 
-ℹ Scraping 1316 games for 2011-12
-ℹ   Progress: 25/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 50/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 75/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 100/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 125/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 150/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 175/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 200/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 225/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 250/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 275/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 300/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 325/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 350/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 375/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 400/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 425/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 450/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 475/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 500/1316 games
-ℹ Scraping 1316 games for 2011-12Request failed [502]. Retrying in 1.1 seconds...
-ℹ   Progress: 525/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 550/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 575/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 600/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 625/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 650/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 675/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 700/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 725/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 750/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 775/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 800/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 825/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 850/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 875/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 900/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 925/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 950/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 975/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1000/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1025/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1050/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1075/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1100/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1125/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1150/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1175/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1200/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1225/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1250/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1275/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1300/1316 games
-ℹ Scraping 1316 games for 2011-12ℹ   Progress: 1316/1316 games
-ℹ Scraping 1316 games for 2011-12✔ Scraped 1316 games for 2011-12 [58m 19.3s]
+ℹ Scraping 0 games for 2011-12
+✔ Scraped 0 games for 2011-12 [83ms]
 
 ℹ Updating 2011-12 schedule with JSON links
-✔ 1316 of 1316 games linked (21896 raw, 21896 final)
-ℹ Updating 2011-12 schedule with JSON links✔ Updated 2011-12 schedule with JSON links [1.8s]
+✔ 1316 of 1316 games linked (21908 raw, 21908 final)
+ℹ Updating 2011-12 schedule with JSON links✔ Updated 2011-12 schedule with JSON links [2.7s]
 
 ℹ Building master schedule
-✔ 21895 total schedule rows, 21884 with final JSON
+✔ 21896 total schedule rows, 21896 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main d08f81d2d] NHL Raw Updated (Start: 2012 End: 2012)
- 1491 files changed, 1489 insertions(+), 1489 deletions(-)
- rewrite nhl/schedules/rds/nhl_schedule_2012.rds (100%)
-To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   28d2b3c32..d08f81d2d  main -> main
+ℹ Building master schedule[main 5dd06d799] NHL Raw Updated (Start: 2012 End: 2012)
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   94edf83ba..5dd06d799  main -> main
