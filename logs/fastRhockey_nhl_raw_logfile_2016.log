@@ -2,79 +2,25 @@
 
 ── Processing 2015-16 season ───────────────────────────────────────────────────
 ℹ Fetching 2015-16 schedule
-2026-05-23 12:50:58.141635: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
-2026-05-23 12:50:59.578004: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
-2026-05-23 12:51:00.058428: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
+2026-07-18 17:43:37.908495: Could not fetch schedule for SEA: missing value where TRUE/FALSE needed
+2026-07-18 17:43:38.790075: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-07-18 17:43:39.072272: Could not fetch schedule for VGK: missing value where TRUE/FALSE needed
 ℹ 1321 completed games in schedule
-ℹ Fetching 2015-16 schedule✔ Fetched 2015-16 schedule [13.9s]
+ℹ Fetching 2015-16 schedule✔ Fetched 2015-16 schedule [8.6s]
 
-ℹ Scraping 1321 games for 2015-16
-ℹ   Progress: 25/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 50/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 75/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 100/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 125/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 150/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 175/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 200/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 225/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 250/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 275/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 300/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 325/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 350/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 375/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 400/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 425/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 450/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 475/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 500/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 525/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 550/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 575/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 600/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 625/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 650/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 675/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 700/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 725/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 750/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 775/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 800/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 825/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 850/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 875/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 900/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 925/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 950/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 975/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1000/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1025/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1050/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1075/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1100/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1125/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1150/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1175/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1200/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1225/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1250/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1275/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1300/1321 games
-ℹ Scraping 1321 games for 2015-16ℹ   Progress: 1321/1321 games
-ℹ Scraping 1321 games for 2015-16✔ Scraped 1321 games for 2015-16 [58m 42s]
+ℹ Scraping 0 games for 2015-16
+✔ Scraped 0 games for 2015-16 [17ms]
 
 ℹ Updating 2015-16 schedule with JSON links
-✔ 1321 of 1321 games linked (21896 raw, 21896 final)
-ℹ Updating 2015-16 schedule with JSON links✔ Updated 2015-16 schedule with JSON links [1.1s]
+✔ 1321 of 1321 games linked (21908 raw, 21908 final)
+ℹ Updating 2015-16 schedule with JSON links✔ Updated 2015-16 schedule with JSON links [592ms]
 
 ℹ Building master schedule
-✔ 21895 total schedule rows, 21884 with final JSON
+✔ 21896 total schedule rows, 21896 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main e1d6b694e] NHL Raw Updated (Start: 2016 End: 2016)
- 2644 files changed, 2642 insertions(+), 2642 deletions(-)
- rewrite nhl/schedules/rds/nhl_schedule_2016.rds (79%)
-To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   9b5df64ab..e1d6b694e  main -> main
+ℹ Building master schedule[main 1f305804e] NHL Raw Updated (Start: 2016 End: 2016)
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   464f19b1c..1f305804e  main -> main
