@@ -2,81 +2,23 @@
 
 ── Processing 2021-22 season ───────────────────────────────────────────────────
 ℹ Fetching 2021-22 schedule
-2026-05-22 23:56:05.54051: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
+2026-07-18 17:45:07.979521: Could not fetch schedule for UTA: missing value where TRUE/FALSE needed
 ℹ 1401 completed games in schedule
-ℹ Fetching 2021-22 schedule✔ Fetched 2021-22 schedule [14.7s]
+ℹ Fetching 2021-22 schedule✔ Fetched 2021-22 schedule [9s]
 
-ℹ Scraping 1401 games for 2021-22
-ℹ   Progress: 25/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 50/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 75/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 100/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 125/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 150/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 175/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 200/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 225/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 250/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 275/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 300/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 325/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 350/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 375/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 400/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 425/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 450/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 475/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 500/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 525/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 550/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 575/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 600/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 625/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 650/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 675/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 700/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 725/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 750/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 775/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 800/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 825/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 850/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 875/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 900/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 925/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 950/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 975/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1000/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1025/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1050/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1075/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1100/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1125/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1150/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1175/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1200/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1225/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1250/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1275/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1300/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1325/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1350/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1375/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1400/1401 games
-ℹ Scraping 1401 games for 2021-22ℹ   Progress: 1401/1401 games
-ℹ Scraping 1401 games for 2021-22✔ Scraped 1401 games for 2021-22 [1h 4m 31.7s]
+ℹ Scraping 0 games for 2021-22
+✔ Scraped 0 games for 2021-22 [16ms]
 
 ℹ Updating 2021-22 schedule with JSON links
-✔ 1401 of 1401 games linked (21895 raw, 21895 final)
-ℹ Updating 2021-22 schedule with JSON links✔ Updated 2021-22 schedule with JSON links [1s]
+✔ 1401 of 1401 games linked (21908 raw, 21908 final)
+ℹ Updating 2021-22 schedule with JSON links✔ Updated 2021-22 schedule with JSON links [581ms]
 
 ℹ Building master schedule
-✔ 21895 total schedule rows, 21883 with final JSON
+✔ 21896 total schedule rows, 21896 with final JSON
 ℹ Building master scheduleℹ === NHL Raw Scraper complete ===
 ℹ Building master schedule
 ℹ Building master schedule── All done! ───────────────────────────────────────────────────────────────────
-ℹ Building master schedule[main 588cbee9] NHL Raw Updated (Start: 2022 End: 2022)
- 2804 files changed, 2802 insertions(+), 2802 deletions(-)
- rewrite nhl/schedules/rds/nhl_schedule_2022.rds (99%)
-To https://github.com/sportsdataverse/fastRhockey-nhl-raw.git
-   b9f212e5..588cbee9  main -> main
+ℹ Building master schedule[main 8ea17e01e] NHL Raw Updated (Start: 2022 End: 2022)
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+To https://github.com/sportsdataverse/fastRhockey-nhl-raw
+   69b59c8dc..8ea17e01e  main -> main
