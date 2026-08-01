@@ -50,3 +50,6 @@ rsconnect/
 
 # Outer stdout capture from cron-style 'bash scripts/daily_nhl_scraper.sh ... > daily_nhl.out'
 daily_nhl.out
+
+# omc session state
+.omc/
