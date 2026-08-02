@@ -22,6 +22,11 @@ on:
         required: false
         type: boolean
         default: true
+      use_python_scraper:
+        description: 'Use the python/nhl_raw scraper instead of R (default: R)'
+        required: false
+        type: boolean
+        default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -71,6 +76,17 @@ jobs:
         run: |
           echo RESCRAPE=TRUE >> $GITHUB_ENV
 
+      - name: Set up uv (python scraper)
+        if: ${{ inputs.use_python_scraper }}
+        uses: astral-sh/setup-uv@v6
+
       - name: Scrape NHL Raw Data ${{ env.START_YEAR }}-${{ env.END_YEAR }}
         run: |
-          bash scripts/daily_nhl_scraper.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }} -r ${{ env.RESCRAPE }}
+          # R is the default (cron and unchecked dispatch). use_python_scraper=true
+          # routes to the parity-tested python/nhl_raw port; both drivers take the
+          # same END-year seasons and -r flag.
+          if [ "${{ inputs.use_python_scraper }}" = "true" ]; then
+            bash scripts/daily_nhl_python_scraper.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }} -r ${{ env.RESCRAPE }}
+          else
+            bash scripts/daily_nhl_scraper.sh -s ${{ env.START_YEAR }} -e ${{ env.END_YEAR }} -r ${{ env.RESCRAPE }}
+          fi

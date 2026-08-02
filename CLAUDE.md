@@ -76,9 +76,12 @@ Rscript R/scrape_nhl_raw.R -s 2026 -r TRUE        # rescrape existing files
 
 - **`scrape_nhl_raw.yml`** — daily scrape. Cron `0 8 UTC` over the NHL
   calendar (`* 10-12 *`, `* 1-4 *` regular season; `* 5-6 *` playoffs)
-  plus `workflow_dispatch` (`start_year` / `end_year` / `rescrape`
-  inputs). Empty inputs fall back to `fastRhockey:::most_recent_nhl_season()`.
-  Installs `sportsdataverse/fastRhockey`; runs `daily_nhl_scraper.sh`.
+  plus `workflow_dispatch` (`start_year` / `end_year` / `rescrape` /
+  `use_python_scraper` inputs). Empty inputs fall back to
+  `fastRhockey:::most_recent_nhl_season()`. Installs
+  `sportsdataverse/fastRhockey`; runs `daily_nhl_scraper.sh` (R, the
+  default) or `daily_nhl_python_scraper.sh` (the `python/nhl_raw` port)
+  when `use_python_scraper=true` — cron always takes the R path.
 - **`fastRhockey_nhl_data_trigger.yml`** — on `[push, workflow_dispatch]`,
   fires a `repository_dispatch` (event-type `daily_nhl_data`, token
   `secrets.SDV_GH_TOKEN`) at `sportsdataverse/fastRhockey-nhl-data`,
