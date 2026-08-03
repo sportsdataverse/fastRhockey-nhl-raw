@@ -53,3 +53,10 @@ daily_nhl.out
 
 # omc session state
 .omc/
+
+# uv-managed project virtualenv (now at the repo root).
+.venv/
+
+# Python bytecode (9 .pyc files were tracked until 2026-08-03).
+__pycache__/
+*.pyc
