@@ -11,7 +11,6 @@ import json
 from pathlib import Path
 
 import polars as pl
-
 from nhl_raw.boxscore import parse_boxscore
 
 FIX = Path(__file__).parent / "fixtures" / "nhl_raw"

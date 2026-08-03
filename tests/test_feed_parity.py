@@ -15,7 +15,6 @@ import json
 from pathlib import Path
 
 import polars as pl
-
 from nhl_raw.feed import build_pbp
 
 FIX = Path(__file__).parent / "fixtures" / "nhl_raw"

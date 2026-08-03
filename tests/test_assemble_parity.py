@@ -12,7 +12,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 from nhl_raw.assemble import assemble_raw
 
 FIX = Path(__file__).parent / "fixtures" / "nhl_raw"
