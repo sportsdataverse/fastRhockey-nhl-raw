@@ -68,19 +68,33 @@ flowchart TB;
 | [`nhl_rosters`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/nhl_rosters) | NHL rosters |
 | [`nhl_schedules`](https://github.com/sportsdataverse/sportsdataverse-data/releases/tag/nhl_schedules) | NHL schedules |
 
-## Structure
+## Repository layout
+
+<!-- BEGIN GENERATED: layout -->
 
 ```
-nhl/
-├── json/
-│   ├── raw/              # Raw NHL API responses per game
-│   └── final/            # Processed via fastRhockey pipeline (PBP, box scores, game info)
-├── schedules/
-│   ├── rds/              # Season schedules (nhl_schedule_{year}.rds)
-│   └── parquet/          # Season schedules in parquet format
-├── nhl_schedule_master.rds       # Combined schedule across all seasons
-└── nhl_schedule_master.parquet
+fastRhockey-nhl-raw/
+├── R/   # R pipeline stages and publish toolchain
+│   └── scrape_nhl_raw.R
+├── logs/   # per-run logs (gitignored where large)
+├── nhl/
+│   ├── json/
+│   └── schedules/
+├── python/   # Python pipeline stages, numbered in build order
+│   ├── nhl_raw/
+│   └── nhl_raw_01_scrape.py
+├── scripts/   # bash drivers (the daily/weekly entry points)
+│   ├── daily_nhl_scraper.sh
+│   └── nhl_raw.sh
+└── tests/   # test suite
+    ├── fixtures/
+    ├── test_assemble_parity.py
+    ├── test_boxscore_parity.py
+    ├── test_feed_parity.py
+    └── test_scrape_parity.py
 ```
+
+<!-- END GENERATED: layout -->
 
 ## Reports & explainers
 
