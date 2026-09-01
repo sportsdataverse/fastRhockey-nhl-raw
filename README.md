@@ -25,7 +25,8 @@ flowchart TB;
 
     subgraph B[fastRhockey-nhl-data];
         direction TB;
-        B1[scripts/daily_nhl_R_processor.sh]-->B2[R/nhl_data_creation.R];
+        B1[scripts/daily_nhl_python_processor.sh]-->B2[python -m nhl_data_build.season];
+        B3[scripts/daily_nhl_R_processor.sh]-.unscheduled twin.->B4[R/nhl_data_creation.R];
     end;
 
     subgraph C[sportsdataverse Releases];
@@ -80,8 +81,18 @@ nhl/
 └── nhl_schedule_master.parquet
 ```
 
-## Automation
+## Automation & status
 
+<!-- BEGIN GENERATED: status -->
+
+| workflow | schedule | last run |
+|---|---|---|
+| [![fastRhockey_nhl_data_trigger.yml](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/fastRhockey_nhl_data_trigger.yml/badge.svg)](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/fastRhockey_nhl_data_trigger.yml) | on push / dispatch | 2026-07-22 |
+| [![orphan_scripts.yml](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/orphan_scripts.yml/badge.svg)](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/orphan_scripts.yml) | on push / PR / dispatch | 2026-08-19 |
+| [![scrape_nhl_raw.yml](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/scrape_nhl_raw.yml/badge.svg)](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/scrape_nhl_raw.yml) | daily 08:00 UTC in Oct-Dec; daily 08:00 UTC in Jan-Apr; daily 08:00 UTC in May-Jun | 2026-07-18 |
+| [![tests.yml](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/tests.yml/badge.svg)](https://github.com/sportsdataverse/fastRhockey-nhl-raw/actions/workflows/tests.yml) | on push / PR / dispatch | 2026-08-19 |
+
+<!-- END GENERATED: status -->
 - **Scraping workflow** runs daily during the NHL season
 - On push, triggers the [fastRhockey-nhl-data](https://github.com/sportsdataverse/fastRhockey-nhl-data) repo to compile datasets
 
