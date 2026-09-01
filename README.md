@@ -21,6 +21,7 @@ flowchart TB;
     subgraph A[fastRhockey-nhl-raw];
         direction TB;
         A1[scripts/daily_nhl_scraper.sh]-->A2[R/scrape_nhl_raw.R];
+        A3[scripts/nhl_raw.sh]-->A4[python/nhl_raw_01_scrape.py];
     end;
 
     subgraph B[fastRhockey-nhl-data];
