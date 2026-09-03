@@ -1,0 +1,93 @@
+name: Scrape NHL Player Bio
+
+# Per-player bio capture (stage 02) -- `shootsCatches` and the stable identity
+# fields, one payload per player under nhl/players/.
+#
+# WEEKLY, not daily, and that is the whole design: handedness never changes, so
+# the only thing a run discovers is players who debuted since the last one. The
+# stage is presence-plus-validity resumable, so a run with no new players fetches
+# nothing and commits nothing -- the cost of scheduling it is a no-op, and the
+# cost of NOT scheduling it is a roster join that silently degrades as rookies
+# arrive.
+#
+# In-season months only (Oct-Jun), matching scrape_nhl_raw.yml's windows.
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # Mondays 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Refetch every player, even those already captured'
+        type: boolean
+        default: false
+      limit:
+        description: 'Cap the run at N players (blank = no cap)'
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  # Never let two capture runs write the same tree; a queued run is pointless
+  # anyway since resume makes the next one pick up whatever this one missed.
+  group: scrape-nhl-players
+  cancel-in-progress: false
+
+jobs:
+  players:
+    name: Capture NHL player bio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The work list comes from the sibling -data roster parquet, which this
+          # runner cannot check out (that repo is large). Fetch the ids over HTTP
+          # instead -- see the --rosters default in the stage.
+          sparse-checkout: |
+            python
+            tests
+            scripts
+            pyproject.toml
+            uv.lock
+            nhl/players
+          sparse-checkout-cone-mode: false
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          cache-dependency-glob: uv.lock
+
+      - name: Install
+        run: uv sync --frozen --dev
+
+      - name: Capture
+        env:
+          # Pace is env-only so it can be retuned here without a code change.
+          NHL_PLAYERS_SLEEP: '0.25'
+          PYTHONUNBUFFERED: '1'
+        run: |
+          set -uo pipefail
+          ARGS=""
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ -n "${{ inputs.limit }}" ]; then ARGS="$ARGS --limit ${{ inputs.limit }}"; fi
+          # Roster ids over HTTP: the -data repo is not checked out here.
+          ROSTERS="https://raw.githubusercontent.com/sportsdataverse/fastRhockey-nhl-data/main/nhl/game_rosters/parquet"
+          uv run --no-sync python -m nhl_raw_02_players_scrape \
+            --root nhl --rosters "$ROSTERS" $ARGS
+          echo "EXIT=$?"
+
+      - name: Commit new payloads
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Explicit path, never `git add -A`: this job owns nhl/players/ only.
+          git add nhl/players
+          if git diff --cached --quiet; then
+            echo "no new players -- nothing to commit (expected on most weeks)"
+            exit 0
+          fi
+          n=$(git diff --cached --name-only | wc -l)
+          git commit -m "feat(raw): nhl player bio refresh (${n} payload(s))"
+          git push
