@@ -196,3 +196,54 @@ def player_ids_from_rosters(roster_src: str, *, seasons: Optional[Iterable[int]]
             _take(f)
 
     return sorted(ids, key=lambda s: (len(s), s))
+
+
+#: One-GET bio index beside the payloads, mirroring ``nhl_schedule_master.parquet``.
+#:
+#: The consumer (`fastRhockey-nhl-data`) does NOT check this repo out -- it fetches
+#: over raw.githubusercontent. Reading 3,000+ per-player JSONs that way would be
+#: 3,000+ requests on every daily build, so the capture stage derives one compact
+#: table and the consumer reads exactly one file. Rebuilt on every run, so it can
+#: never drift behind the payloads that are its only source of truth.
+BIO_INDEX = "nhl_player_bio.parquet"
+
+#: index column -> landing-payload key. Deliberately narrow: this feeds a roster
+#: join, not a player-profile dataset. ``shoots_catches`` is the reason it exists.
+BIO_COLUMNS: dict[str, str] = {
+    "player_id": "playerId",
+    "shoots_catches": "shootsCatches",
+    "position_code": "position",
+    "height_inches": "heightInInches",
+    "weight_pounds": "weightInPounds",
+    "birth_date": "birthDate",
+    "birth_country": "birthCountry",
+}
+
+
+def build_bio_index(root: Path):
+    """Every captured payload as one tidy row. Empty frame still carries the schema."""
+    import polars as pl
+
+    schema = {c: (pl.Int64 if c in ("height_inches", "weight_pounds") else pl.Utf8) for c in BIO_COLUMNS}
+    rows = []
+    for f in sorted((Path(root) / "players").glob("*.json")):
+        try:
+            doc = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue  # a payload that will not parse is not a bio row; the next sweep refetches it
+        if doc.get("playerId") is None or doc.get("shootsCatches") is None:
+            continue
+        rows.append({c: (str(doc[k]) if c == "player_id" else doc.get(k)) for c, k in BIO_COLUMNS.items()})
+    if not rows:
+        return pl.DataFrame(schema=schema)
+    return pl.DataFrame(rows, schema_overrides=schema).unique(subset=["player_id"], keep="first").sort("player_id")
+
+
+def write_bio_index(root: Path, *, log: Callable[[str], None] = print) -> int:
+    """Write ``<root>/nhl_player_bio.parquet``. Returns the row count."""
+    df = build_bio_index(root)
+    out = Path(root) / BIO_INDEX
+    out.parent.mkdir(parents=True, exist_ok=True)
+    df.write_parquet(out, compression="zstd")
+    log(f"bio index: {df.height:,} players -> {out}")
+    return df.height

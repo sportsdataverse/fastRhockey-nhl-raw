@@ -52,6 +52,7 @@ jobs:
             pyproject.toml
             uv.lock
             nhl/players
+            nhl/nhl_player_bio.parquet
           sparse-checkout-cone-mode: false
 
       - name: Set up uv
@@ -82,12 +83,15 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Explicit path, never `git add -A`: this job owns nhl/players/ only.
-          git add nhl/players
+          # Explicit paths, never `git add -A`: this job owns the payloads AND the
+          # index derived from them. The index is a SEPARATE path outside
+          # nhl/players/ -- staging only the directory would leave the consumer
+          # reading a stale index forever while the payloads moved underneath it.
+          git add nhl/players nhl/nhl_player_bio.parquet
           if git diff --cached --quiet; then
             echo "no new players -- nothing to commit (expected on most weeks)"
             exit 0
           fi
           n=$(git diff --cached --name-only | wc -l)
-          git commit -m "feat(raw): nhl player bio refresh (${n} payload(s))"
+          git commit -m "feat(raw): nhl player bio refresh (${n} file(s))"
           git push
