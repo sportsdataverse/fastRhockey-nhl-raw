@@ -64,6 +64,7 @@ jobs:
         run: uv sync --frozen --dev
 
       - name: Capture
+        id: capture
         env:
           # Pace is env-only so it can be retuned here without a code change.
           NHL_PLAYERS_SLEEP: '0.25'
@@ -75,9 +76,17 @@ jobs:
           if [ -n "${{ inputs.limit }}" ]; then ARGS="$ARGS --limit ${{ inputs.limit }}"; fi
           # Roster ids over HTTP: the -data repo is not checked out here.
           ROSTERS="https://raw.githubusercontent.com/sportsdataverse/fastRhockey-nhl-data/main/nhl/game_rosters/parquet"
+          # `set -uo pipefail` has no -e, and a trailing `echo` of $? always
+          # succeeds -- so the stage's exit code was thrown away and a total
+          # fetch failure would have left this step, and the job, GREEN. Capture
+          # it instead: payloads that DID land are still committed below (capture
+          # is resumable, partial progress is worth keeping), and a step after the
+          # commit turns the job red so the failure is never silent.
+          rc=0
           uv run --no-sync python -m nhl_raw_02_players_scrape \
-            --root nhl --rosters "$ROSTERS" $ARGS
-          echo "EXIT=$?"
+            --root nhl --rosters "$ROSTERS" $ARGS || rc=$?
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          echo "EXIT=$rc"
 
       - name: Commit new payloads
         run: |
@@ -95,3 +104,10 @@ jobs:
           n=$(git diff --cached --name-only | wc -l)
           git commit -m "feat(raw): nhl player bio refresh (${n} file(s))"
           git push
+
+      - name: Fail on capture errors
+        if: steps.capture.outputs.rc != '0'
+        run: |
+          echo "capture exited ${{ steps.capture.outputs.rc }} -- any payloads that landed were committed above;" >&2
+          echo "the FETCH failures are why this job is red. Re-run: capture is resumable." >&2
+          exit 1

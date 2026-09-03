@@ -17,10 +17,12 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
 
 from nhl_raw.players import (  # noqa: E402
+    BIO_INDEX,
     MIN_BYTES,
     already_captured,
     player_path,
     scrape_players,
+    write_bio_index,
 )
 
 
@@ -114,7 +116,7 @@ def test_bio_index_is_derived_only_from_valid_payloads(tmp_path):
     import json as _json
 
     import polars as pl
-    from nhl_raw.players import BIO_INDEX, write_bio_index
+    from nhl_raw.players import write_bio_index
 
     d = tmp_path / "players"
     d.mkdir(parents=True)
@@ -136,9 +138,29 @@ def test_bio_index_is_written_even_when_no_players_are_captured(tmp_path):
     """Derived state gets rebuilt unconditionally: a run that captures nothing must
     still repair an index that is missing or behind the payloads on disk."""
     import polars as pl
-    from nhl_raw.players import BIO_INDEX, write_bio_index
+    from nhl_raw.players import write_bio_index
 
     (tmp_path / "players").mkdir(parents=True)
     assert write_bio_index(tmp_path, log=lambda *_: None) == 0
     assert (tmp_path / BIO_INDEX).is_file()
     assert pl.read_parquet(tmp_path / BIO_INDEX).height == 0
+
+
+def test_index_uses_the_same_validity_rule_as_the_resume(tmp_path):
+    """A payload the resume considers UNUSABLE must not become an index row.
+
+    The two checks used to be stated separately, and a small-but-well-formed
+    payload fell through the gap: ``already_captured`` rejects it on MIN_BYTES so
+    the next sweep refetches it, while a local field-only check in the index
+    accepted it -- publishing downstream exactly the payloads the capture stage
+    considers invalid. They now share one function; this pins that they agree.
+    """
+    d = tmp_path / "players"
+    d.mkdir(parents=True)
+    tiny = d / "8478402.json"
+    tiny.write_text(json.dumps({"playerId": 8478402, "shootsCatches": "L"}), encoding="utf-8")
+
+    assert tiny.stat().st_size < MIN_BYTES
+    assert already_captured(tiny) is False  # outstanding for refetch ...
+    assert write_bio_index(tmp_path, log=lambda *_: None) == 0  # ... so NOT an index row
+

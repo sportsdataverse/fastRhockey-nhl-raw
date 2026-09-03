@@ -24,10 +24,17 @@ from typing import Callable, Iterable, Optional
 
 LANDING = "https://api-web.nhle.com/v1/player/{player_id}/landing"
 
-#: A landing payload smaller than this is an error body, not a player. The
-#: smallest real one measured is ~11 KB (a one-game callup with no season
-#: totals); 800 bytes is far below that and above any error envelope.
-MIN_BYTES = 800
+#: Floor below which a file cannot be a real landing payload. Belt-and-braces:
+#: writes are atomic (tmp + rename) and the payload must parse AND carry
+#: :data:`REQUIRED`, so a truncated file is already excluded three other ways.
+#:
+#: Measured across the full 2010-2026 capture, NOT estimated. An earlier 800 was
+#: written from a guess that the smallest payload was ~11 KB; the true minimum is
+#: **571 bytes** -- five players (8472158, 8477799, 8479137, 8479155, 8483203)
+#: have complete 20-25 key payloads that small because they have almost no career
+#: rows. At 800 they were permanently outstanding: refetched by every weekly run,
+#: never converging, and dropped from the bio index once it shared this rule.
+MIN_BYTES = 300
 
 #: Fields a payload must carry to count as captured. ``shootsCatches`` is the
 #: reason this stage exists, so a payload without it is NOT a valid capture even
@@ -125,21 +132,26 @@ def scrape_players(
     for i, pid in enumerate(todo, 1):
         try:
             doc = fetch_player(pid, session=session)
+            if not doc or any(doc.get(k) is None for k in REQUIRED):
+                # No landing record, or one without the field this stage exists for.
+                # Nothing is written: an empty payload on disk would read as captured.
+                missing += 1
+                continue
+            n = _write_atomic(player_path(root, pid), doc)
+            done += 1
+            if i % 100 == 0 or i == len(todo):
+                log(f"  [{i}/{len(todo)}] {pid} ok ({n:,}B)  done={done} missing={missing} failed={failed}")
         except Exception as exc:  # pragma: no cover - upstream state
             failed += 1
             log(f"  [{i}/{len(todo)}] {pid} FAILED {type(exc).__name__}: {exc}")
-            continue
-        if not doc or any(doc.get(k) is None for k in REQUIRED):
-            # No landing record, or one without the field this stage exists for.
-            # Nothing is written: an empty payload on disk would read as captured.
-            missing += 1
-            continue
-        n = _write_atomic(player_path(root, pid), doc)
-        done += 1
-        if i % 100 == 0 or i == len(todo):
-            log(f"  [{i}/{len(todo)}] {pid} ok ({n:,}B)  done={done} missing={missing} failed={failed}")
-        if sleep_s:
-            time.sleep(sleep_s)
+        finally:
+            # Pace EVERY attempt, including the ones that skipped ahead. Sleeping
+            # only after a SUCCESS means a run of no-record ids or transport
+            # failures hammers the endpoint completely unpaced -- exactly the
+            # moment backoff matters most, and a good way to turn a transient
+            # error into a rate limit.
+            if sleep_s:
+                time.sleep(sleep_s)
 
     log(f"players: captured={done} no-record={missing} failed={failed}")
     return {"captured": done, "missing": missing, "failed": failed, "known": len(ids)}
@@ -227,11 +239,16 @@ def build_bio_index(root: Path):
     schema = {c: (pl.Int64 if c in ("height_inches", "weight_pounds") else pl.Utf8) for c in BIO_COLUMNS}
     rows = []
     for f in sorted((Path(root) / "players").glob("*.json")):
+        # ONE validity rule, shared with the resume rather than restated. A second
+        # definition here drifts: a small-but-well-formed payload would be
+        # outstanding for refetch (already_captured says no) yet still become a
+        # downstream bio row (a local check would say yes), so the index would
+        # publish exactly the payloads the capture stage considers unusable.
+        if not already_captured(f):
+            continue
         try:
             doc = json.loads(f.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            continue  # a payload that will not parse is not a bio row; the next sweep refetches it
-        if doc.get("playerId") is None or doc.get("shootsCatches") is None:
+        except (OSError, ValueError):  # pragma: no cover - already_captured parsed it
             continue
         rows.append({c: (str(doc[k]) if c == "player_id" else doc.get(k)) for c, k in BIO_COLUMNS.items()})
     if not rows:
