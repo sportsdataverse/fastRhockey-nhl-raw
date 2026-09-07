@@ -219,9 +219,8 @@ def test_a_truncated_roster_span_is_refused_not_silently_shrunk(monkeypatch):
     monkeypatching a closure with raising=False silently sets an unused module
     attribute, the real code runs, and the test does live DNS for 17 seasons.
     """
-    import polars as pl
-
     import nhl_raw.players as P
+    import polars as pl
 
     calls = {"n": 0}
 
