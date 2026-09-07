@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import polars as pl
@@ -19,7 +20,7 @@ import polars as pl
 from nhl_raw.assemble import assemble_raw
 from nhl_raw.boxscore import parse_boxscore
 from nhl_raw.feed import build_pbp, parse_game_rosters
-from nhl_raw.fetch import fetch_endpoint
+from nhl_raw.fetch import FetchError, fetch_endpoint
 from nhl_raw.shifts import nhl_game_shifts
 
 _GAME_TYPE = {1: "PR", 2: "R", 3: "P", 4: "A"}
@@ -72,11 +73,24 @@ def build_final_from_responses(
 
 def fetch_responses(game_id: int, *, session: object | None = None) -> dict:
     """Fetch the four endpoints + shifts for one game (the live inputs to assembly)."""
+    # strict on all four: these Nones get WRITTEN into the payload, and the resume
+    # is presence-based, so a fetch failure that arrives as None banks a permanently
+    # incomplete game that is never refetched. A real 404 still returns None -- that
+    # component genuinely does not exist for this game -- and is written as null.
+    pbp_raw = fetch_endpoint(game_id, "play-by-play", session=session, strict=True)
+    if pbp_raw is None:
+        # Play-by-play 404'd, so the game is ABSENT and nothing will be written.
+        # Short-circuit: fetching the other four strictly would let a 503 on any of
+        # them raise, and scrape_season would then count a genuinely absent game as
+        # a FAILURE -- misclassifying it in the one direction that matters, since
+        # `failed` is what turns the job red. It also spares four requests per
+        # absent game.
+        return {"pbp_raw": None, "box_raw": None, "landing": None, "rail": None, "shifts": None}
     return {
-        "pbp_raw": fetch_endpoint(game_id, "play-by-play", session=session),
-        "box_raw": fetch_endpoint(game_id, "boxscore", session=session),
-        "landing": fetch_endpoint(game_id, "landing", session=session),
-        "rail": fetch_endpoint(game_id, "right-rail", session=session),
+        "pbp_raw": pbp_raw,
+        "box_raw": fetch_endpoint(game_id, "boxscore", session=session, strict=True),
+        "landing": fetch_endpoint(game_id, "landing", session=session, strict=True),
+        "rail": fetch_endpoint(game_id, "right-rail", session=session, strict=True),
         "shifts": nhl_game_shifts(game_id, session=session),
     }
 
@@ -147,8 +161,57 @@ def scrape_season(
         ids = [g for g in ids if g not in existing]
     if limit:
         ids = ids[:limit]
-    scraped = sum(download_game(gid, out_dir=out_dir, xg=xg, session=session) for gid in ids)
-    return {"season": season, "completed": completed.height, "to_scrape": len(ids), "scraped": scraped}
+    scraped = failed = absent = 0
+    for gid in ids:
+        try:
+            if download_game(gid, out_dir=out_dir, xg=xg, session=session):
+                scraped += 1
+            else:
+                # download_game returns False only when play-by-play 404s, which
+                # under strict means the game genuinely has no pbp -- absent, not
+                # broken. Counted separately so scraped + failed + absent always
+                # equals to_scrape: an uncounted outcome is a gap nobody can see,
+                # but calling it a failure would redden the job over real 404s.
+                absent += 1
+                print(f"  game {gid}: no play-by-play (404) -- skipped", file=sys.stderr)
+        except FetchError as exc:
+            # One unreachable game must not abort the season -- but it must be
+            # COUNTED, so the caller's exit code can tell a quiet season from a
+            # broken one. Nothing was written, so the resume retries it.
+            failed += 1
+            print(f"  game {gid} FAILED: {exc}", file=sys.stderr)
+        except Exception as exc:  # pragma: no cover - upstream payload shapes
+            # Anything else (a schema drift raising ColumnNotFoundError, an OSError
+            # on write) would otherwise propagate and abort the whole season: no
+            # summary, no exit code, remaining games never attempted. The player
+            # stage already counts-and-continues; these two now agree, and the
+            # scraped + failed + absent == to_scrape invariant is actually true.
+            failed += 1
+            print(f"  game {gid} FAILED ({type(exc).__name__}): {exc}", file=sys.stderr)
+    # Only meaningful when the run ATTEMPTED a full season. On --no-rescrape the
+    # remainder is whatever never succeeded, so one permanently-404 game would make
+    # this fire forever and turn the weekly cron permanently red -- self-reinforcing,
+    # since an absent game is never written and so never leaves the list. --limit
+    # slices arbitrarily. A handful of ids also carries no outage evidence.
+    full_season_attempt = rescrape and not limit and len(ids) >= 100
+    if full_season_attempt and absent == len(ids):
+        # Per game a 404 is genuinely absent; a season where EVERY game 404s is an
+        # outage wearing absence as a costume (a gid-scheme change, a season
+        # api-web stopped serving). Without this it reports scraped=0 absent=1312
+        # and exits 0 having written nothing -- the same silent total outage the
+        # schedule path already refuses.
+        raise FetchError(
+            f"season {season}: all {len(ids)} game(s) returned 404 for play-by-play -- "
+            "refusing to call that a quiet season"
+        )
+    return {
+        "season": season,
+        "completed": completed.height,
+        "to_scrape": len(ids),
+        "scraped": scraped,
+        "failed": failed,
+        "absent": absent,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -178,16 +241,42 @@ def main(argv: list[str] | None = None) -> int:
         xg = load_xg_models(args.models)  # args.models=None -> download-on-first-use
 
     if args.game_id is not None:
-        ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)
+        try:
+            ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)
+        except FetchError as exc:
+            # download_game now raises on a non-404 endpoint failure; without this
+            # the CLI prints a traceback instead of its normal FAILED line.
+            print(f"FAILED game {args.game_id}: {exc}", file=sys.stderr)
+            return 1
         print(f"{'wrote' if ok else 'FAILED'} game {args.game_id} -> {args.out_dir}")
         return 0 if ok else 1
 
     if args.start is None:
         ap.error("provide a game_id, or -s/--start for season mode")
+    failures = 0
     for season in range(args.start, (args.end or args.start) + 1):
-        summary = scrape_season(season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit)
+        try:
+            summary = scrape_season(
+                season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit
+            )
+        except FetchError as exc:
+            # Not always the schedule: the all-404 game guard raises here too, and
+            # labelling that "SCHEDULE FAILED" sends an operator to the wrong endpoint.
+            print(f"season {season}: FAILED: {exc}", file=sys.stderr)
+            failures += 1
+            continue
+        except Exception as exc:  # pragma: no cover - upstream payload shapes
+            # nhl_schedule runs INSIDE scrape_season, outside the per-game try, so a
+            # polars/schema error there propagated past `except FetchError` and killed
+            # every remaining season in the range -- the exact abort the per-game broad
+            # except was added to prevent, one level up.
+            print(f"season {season}: FAILED ({type(exc).__name__}): {exc}", file=sys.stderr)
+            failures += 1
+            continue
         print(f"season {season}: {summary}")
-    return 0
+        failures += summary["failed"]
+    # Season mode used to return 0 unconditionally, so a total outage exited green.
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":

@@ -195,6 +195,13 @@ def player_ids_from_rosters(
     datasets can join to -- never a blind id walk, which is how an unrelated
     scraper burned 8,400+ requests on 404s.
 
+    KNOWN LIMIT, and it has bitten: the work list is bootstrapped from the
+    CONSUMER's published output, so a season the consumer has not published is
+    invisible here. Season 2015 was missing from the ``nhl_game_rosters`` tag, so
+    29 players who appear ONLY in 2015 were never captured, and the rebuilt 2015
+    came out at 99.7% handedness until they were topped up by ``--ids``. Whenever
+    a season is added to that tag, re-run this stage before trusting coverage.
+
     Two source shapes, because CI cannot use the local one:
       * a local glob (``.../game_rosters/parquet/*.parquet``) -- dev boxes with
         the sibling checkout;

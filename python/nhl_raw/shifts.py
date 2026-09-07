@@ -18,7 +18,7 @@ import polars as pl
 import requests
 
 from nhl_raw.boxscore import parse_boxscore
-from nhl_raw.fetch import _UA, fetch_endpoint, get_json
+from nhl_raw.fetch import _UA, FetchError, fetch_endpoint, get_json
 
 _SHIFTCHARTS = "https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId={game_id}"
 _TOI = "https://www.nhl.com/scores/htmlreports/{season}/T{side}{gameno}.HTM"
@@ -145,16 +145,28 @@ def _parse_toi_side(season: str, gameno: str, side: str, session: requests.Sessi
     from bs4 import BeautifulSoup
 
     url = _TOI.format(season=season, side=side, gameno=gameno)
+    # An empty list here means "this report has no shift rows". A transport failure
+    # must NOT produce that same value: when shiftcharts legitimately 404s, the JSON
+    # failure flag is false, so an HTML 503 or connection reset would flow back as
+    # "this game has no shifts" and download_game would persist it permanently.
     try:
         r = (session or requests).get(url, timeout=45, headers=_UA)
-    except requests.RequestException:
-        return []
+    except requests.RequestException as exc:
+        raise FetchError(f"TOI report {url} failed: {type(exc).__name__}: {exc}") from exc
+    if r.status_code == 404:
+        return []  # no TOI report for this game/side -- genuinely absent
     if r.status_code != 200:
-        return []
+        raise FetchError(f"TOI report {url} -> HTTP {r.status_code}")
     soup = BeautifulSoup(r.text, "html.parser")
     head = soup.find("td", class_="teamHeading")
     if head is None or not head.get_text(strip=True):
-        return []
+        # The FOURTH instance of this collapse, four lines below the fix for the
+        # third. A 200 without teamHeading is never "a report with no rows": the
+        # host hard-404s every missing report (verified against live nhl.com for a
+        # bogus gameno, a malformed side and pre-2010 seasons). So this body is a
+        # CDN/WAF error page or an interstitial -- a failure, and get_json's own
+        # strict contract already says a body that will not parse raises.
+        raise FetchError(f"TOI report {url}: HTTP 200 but no teamHeading (not a TOI report)")
     team_name = _smart_titlecase(head.get_text(strip=True))
 
     def is_node(t: object) -> bool:
@@ -187,6 +199,13 @@ def _parse_toi_side(season: str, gameno: str, side: str, session: requests.Sessi
                 "duration": cells[4],
             }
         )
+    if not rows:
+        # FIFTH instance. The guard above only covers a MISSING teamHeading; a page
+        # that has one but yields no rows (an HTML re-template renaming
+        # oddColor/evenColor/playerHeading, a cell-count change) returns the same []
+        # a 404 returns. Same trigger and blast radius as the join-side guard below,
+        # one function higher and firing before any boxscore work.
+        raise FetchError(f"TOI report {url}: teamHeading present but no shift rows parsed (schema drift?)")
     return rows
 
 
@@ -201,12 +220,29 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
     season = f"{gid[:4]}{int(gid[:4]) + 1}"
     gameno = gid[4:10]
 
-    rows = _parse_toi_side(season, gameno, "H", session) + _parse_toi_side(season, gameno, "V", session)
+    home = _parse_toi_side(season, gameno, "H", session)
+    away = _parse_toi_side(season, gameno, "V", session)
+    if bool(home) != bool(away):
+        # The two reports are generated together upstream, so exactly one arriving is
+        # a CDN flake, not a game where one team took no shifts. Accepting it banks
+        # ONE team's shifts as the game's complete shift set, permanently.
+        side = "visitor" if home else "home"
+        raise FetchError(f"game {game_id}: TOI report present for one side only ({side} missing)")
+    rows = home + away
     if not rows:
         return None
-    box_raw = fetch_endpoint(game_id, "boxscore", session=session)
+    # strict: the HTML fallback needs the boxscore to map sweater numbers to
+    # player ids. Non-strict, a transient boxscore failure returned None here,
+    # nhl_game_shifts saw fetch_failed=False (shiftcharts had legitimately 404'd)
+    # and returned None, and download_game persisted a permanently shift-less
+    # game. The failure has to reach scrape_season to stay eligible for retry.
+    box_raw = fetch_endpoint(game_id, "boxscore", session=session, strict=True)
     if box_raw is None:
-        return None
+        # We got here only because the TOI reports HAD rows, so shift data
+        # demonstrably exists for this game. Returning None would discard it and
+        # bank shifts: null permanently. A game with TOI reports but no boxscore is
+        # an upstream anomaly, not an absence -- keep it eligible for retry.
+        raise FetchError(f"game {game_id}: {len(rows)} TOI shift rows parsed but the boxscore 404'd")
     box = parse_boxscore(box_raw)
     cols = ["home_away", "sweater_number", "player_id", "team_id", "team_abbrev"]
     lookup = pl.concat([box["skater_stats"].select(cols), box["goalie_stats"].select(cols)], how="vertical")
@@ -218,17 +254,50 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
     )
     df = df.join(lookup, on=["home_away", "sweater_number"], how="left").filter(pl.col("player_id").is_not_null())
     if df.height == 0:
-        return None
+        # Same shape on the parse side: rows in, zero mapped out is a contradiction
+        # (a schema drift in parse_boxscore, an empty playerByGameStats), not an
+        # absence. Silently returning None would bank shifts: null for EVERY game
+        # at 100% green.
+        raise FetchError(
+            f"game {game_id}: {len(rows)} TOI shift rows parsed but none mapped to a player_id"
+        )
     return _with_seconds(df).select(_RAW_COLS)
 
 
 def nhl_game_shifts(game_id: int, *, session: requests.Session | None = None) -> list[dict] | None:
     """Port of ``nhl_game_shifts`` — shiftcharts JSON (or HTML fallback) -> CHANGE rows."""
-    site = get_json(_SHIFTCHARTS.format(game_id=game_id), session=session)
-    # Both a failed shiftcharts fetch (site is None) and a populated-but-empty {data: []}
-    # fall back to the HTML TOI reports, which may still carry the shifts.
+    # strict: a 404 still returns None (that game genuinely has no shiftchart), but a
+    # 403 / exhausted budget / reset / timeout raises instead of masquerading as one.
+    fetch_failed = False
+    try:
+        site = get_json(_SHIFTCHARTS.format(game_id=game_id), session=session, strict=True)
+    except FetchError:
+        # The HTML TOI fallback exists precisely for this, so still try it -- but
+        # remember the JSON leg failed, because an empty result now means "we could
+        # not tell", not "this game has no shifts".
+        site, fetch_failed = None, True
+
     data = (site or {}).get("data") or []
     raw = _normalize_json(data) if data else parse_toi_html(game_id, session=session)
+    if data and (raw is None or raw.height == 0):
+        # `data` is non-empty but nothing normalised -- a duration arriving as "45"
+        # rather than "MM:SS", or a payload of only typeCode 505 goal rows (which
+        # carry duration: null). Shift data may still exist, so USE THE FALLBACK
+        # before refusing: that is the contingency it is there for, and the HTML TOI
+        # reports parse for every season 2007-08 onward. Raise only if it is also
+        # empty -- never return None, which would bank shifts: null permanently.
+        raw = parse_toi_html(game_id, session=session)
+        if raw is None or raw.height == 0:
+            raise FetchError(
+                f"game {game_id}: shiftcharts returned {len(data)} record(s), none normalised, "
+                "and the HTML TOI fallback was empty"
+            )
     if raw is None or raw.height == 0:
+        if fetch_failed:
+            # Never return None here. download_game writes the game with
+            # ``shifts: null`` and the resume is presence-based, so a transient
+            # blip would bake a permanently shift-less game into the raw store --
+            # the same defect that let 3,347 empty payloads block refetch.
+            raise FetchError(f"game {game_id}: shiftcharts fetch failed and the HTML TOI fallback was empty")
         return None
     return _aggregate(raw).to_dicts()
