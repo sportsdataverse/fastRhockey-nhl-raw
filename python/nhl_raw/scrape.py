@@ -198,7 +198,13 @@ def main(argv: list[str] | None = None) -> int:
         xg = load_xg_models(args.models)  # args.models=None -> download-on-first-use
 
     if args.game_id is not None:
-        ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)
+        try:
+            ok = download_game(args.game_id, out_dir=args.out_dir, process=not args.no_process, xg=xg)
+        except FetchError as exc:
+            # download_game now raises on a non-404 endpoint failure; without this
+            # the CLI prints a traceback instead of its normal FAILED line.
+            print(f"FAILED game {args.game_id}: {exc}", file=sys.stderr)
+            return 1
         print(f"{'wrote' if ok else 'FAILED'} game {args.game_id} -> {args.out_dir}")
         return 0 if ok else 1
 

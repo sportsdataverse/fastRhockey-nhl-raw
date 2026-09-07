@@ -204,7 +204,12 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
     rows = _parse_toi_side(season, gameno, "H", session) + _parse_toi_side(season, gameno, "V", session)
     if not rows:
         return None
-    box_raw = fetch_endpoint(game_id, "boxscore", session=session)
+    # strict: the HTML fallback needs the boxscore to map sweater numbers to
+    # player ids. Non-strict, a transient boxscore failure returned None here,
+    # nhl_game_shifts saw fetch_failed=False (shiftcharts had legitimately 404'd)
+    # and returned None, and download_game persisted a permanently shift-less
+    # game. The failure has to reach scrape_season to stay eligible for retry.
+    box_raw = fetch_endpoint(game_id, "boxscore", session=session, strict=True)
     if box_raw is None:
         return None
     box = parse_boxscore(box_raw)

@@ -120,3 +120,36 @@ def test_a_component_failure_writes_nothing_and_is_counted(tmp_path, monkeypatch
     with pytest.raises(FetchError):
         scrape.download_game(2024020001, out_dir=tmp_path, process=False, session=sess)
     assert not (Path(tmp_path) / "raw" / "2024020001.json").exists()
+
+
+def test_a_boxscore_failure_inside_the_html_fallback_is_not_no_shifts(monkeypatch):
+    """The narrow gap the first pass left open.
+
+    When shiftcharts legitimately 404s, the HTML TOI fallback runs and needs the
+    boxscore to map sweater numbers to player ids. With that fetch non-strict, a
+    transient boxscore failure returned None from parse_toi_html; nhl_game_shifts
+    saw fetch_failed=False (the 404 was legitimate) and returned None; and
+    download_game persisted a permanently shift-less game.
+    """
+    from nhl_raw import shifts
+
+    monkeypatch.setattr(shifts, "_parse_toi_side", lambda *a, **k: [{"last_first": "A, B"}])
+    sess = _Session(rules={"shiftcharts": _Resp(404), "boxscore": _Resp(503)})
+    with pytest.raises(FetchError):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_single_game_cli_reports_a_failure_instead_of_a_traceback(capsys, monkeypatch):
+    """download_game raises now, so the CLI must translate that into its FAILED
+    line and exit 1 rather than dumping a stack trace at an operator."""
+    from nhl_raw import scrape
+
+    def boom(*a, **k):
+        raise FetchError("right-rail -> HTTP 503")
+
+    monkeypatch.setattr(scrape, "download_game", boom)
+    monkeypatch.setattr(scrape, "load_xg_models", lambda *a, **k: None, raising=False)
+    rc = scrape.main(["2024020001", "--no-xg"])
+    assert rc == 1
+    assert "FAILED game 2024020001" in capsys.readouterr().err
+
