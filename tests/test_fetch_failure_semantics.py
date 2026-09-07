@@ -90,6 +90,8 @@ def test_a_team_that_did_not_exist_yet_is_absent_not_failed(capsys):
     from nhl_raw import schedule
 
     sess = _Session(rules={"/SEA/": _Resp(404)}, default={"games": []})
+    # An explicit subset is a question about THAT subset: zero games is a legitimate
+    # answer for it, and must not trip the full-league outage guard.
     out = schedule.nhl_schedule(2015, teams=["SEA", "BOS"], session=sess)
     assert out.height == 0
     assert "expected pre-expansion" in capsys.readouterr().err
@@ -266,14 +268,24 @@ def test_a_toi_page_with_a_heading_but_no_rows_is_drift_not_emptiness():
         shifts.nhl_game_shifts(2024020001, session=sess)
 
 
-def test_shiftcharts_records_that_all_fail_to_normalise_is_drift_not_no_shifts(monkeypatch):
-    """SIXTH instance, and on the PRIMARY leg: `data` is non-empty, so shift data
-    demonstrably exists. Dropping every row is a contradiction, not an absence."""
+def test_shiftcharts_records_that_all_fail_to_normalise_try_the_fallback_then_refuse(monkeypatch):
+    """`data` non-empty but nothing normalised means shift data may still exist, so
+    the HTML fallback runs FIRST -- refusing outright would skip the contingency the
+    fallback is there for. It raises only when that is also empty; it must never
+    return None, which would bank shifts: null permanently."""
     from nhl_raw import shifts
 
     monkeypatch.setattr(shifts, "_normalize_json", lambda data: pl.DataFrame())
     sess = _Session(rules={"shiftcharts": _Resp(200, {"data": [{"x": 1}]})})
-    with pytest.raises(FetchError, match="none normalised"):
+
+    # fallback yields rows -> the game is recovered, not refused
+    monkeypatch.setattr(shifts, "parse_toi_html", lambda *a, **k: pl.DataFrame({"x": [1]}))
+    monkeypatch.setattr(shifts, "_aggregate", lambda df: pl.DataFrame({"ok": [1]}))
+    assert shifts.nhl_game_shifts(2024020001, session=sess) == [{"ok": 1}]
+
+    # fallback also empty -> refuse, never None
+    monkeypatch.setattr(shifts, "parse_toi_html", lambda *a, **k: None)
+    with pytest.raises(FetchError, match="HTML TOI fallback was empty"):
         shifts.nhl_game_shifts(2024020001, session=sess)
 
 
@@ -345,6 +357,21 @@ def test_the_all_404_guard_does_not_fire_on_a_resumed_or_capped_run(tmp_path, mo
     assert s["absent"] == 1 and s["failed"] == 0
 
 
+def test_a_schedule_with_no_games_at_all_is_refused_however_it_arrived():
+    """Pins the shape the host ACTUALLY emits.
+
+    nhl.com does not 404 a pre-expansion team-season -- SEA/20142015 and
+    UTA/20222023 return 200 with `games: []`. An earlier version of this guard
+    counted 404s, so it pinned a shape the host never produces and missed the real
+    one. Zero games across the whole league is the refusal, however it arrived.
+    """
+    from nhl_raw import schedule
+
+    empty200 = _Session(default={"games": []})
+    with pytest.raises(FetchError, match="refusing to report an empty season"):
+        schedule.nhl_schedule(2025, session=empty200)  # full-league scan
+
+
 def test_a_schedule_where_every_team_is_absent_is_refused():
     """The likelier outage shape, and it exited 0. nhl_schedule refused all-FAILED
     but returned an empty frame for all-ABSENT, so scrape_season got ids=[], its own
@@ -353,5 +380,5 @@ def test_a_schedule_where_every_team_is_absent_is_refused():
     from nhl_raw import schedule
 
     with pytest.raises(FetchError, match="refusing to report an empty season"):
-        schedule.nhl_schedule(2025, teams=["BOS", "TOR"], session=_Session(default=_Resp(404)))
+        schedule.nhl_schedule(2025, session=_Session(default=_Resp(404)))  # full-league scan
 

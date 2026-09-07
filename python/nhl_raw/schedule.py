@@ -128,19 +128,27 @@ def nhl_schedule(season: int, *, teams: list[str] | None = None, session: object
             f"nhl_schedule({season_str}): club-schedule fetch FAILED for {len(failed)} team(s): "
             f"{'; '.join(failed)}. Refusing to return a partial schedule."
         )
-    if absent and len(absent) == len(teams or _TEAMS):
-        # Every team absent is an outage, not an empty season. _TEAMS is the current
-        # 32, so in any season worth scraping some of them existed. Without this the
-        # frame comes back empty, scrape_season gets ids=[], its own all-404 guard is
-        # skipped by the empty list, and the run exits 0 having written nothing --
-        # and this is the LIKELIER outage shape, since the schedule and the
-        # play-by-play are the same host.
+    if not by_id and teams is None:
+        # Only on a FULL-LEAGUE scan. An explicit `teams=` subset can legitimately
+        # have no games (SEA in 2015), and concluding "the league is down" from a
+        # sample of one is the same flaw the game loop just fixed with `>= 100 ids`.
+        #
+        # ZERO games across every team is the refusal -- NOT "every team 404'd". The
+        # host does not 404 a pre-expansion team-season: SEA/20142015, VGK/20142015
+        # and UTA/20222023 all return 200 with `games: []`. An absent-count guard
+        # therefore misses the shape that actually occurs, which is exactly what an
+        # earlier version of this guard did. A genuinely unpublished future season is
+        # already covered elsewhere -- those return 500, so the all-FAILED refusal
+        # above fires first.
+        #
+        # Refusing matters because the alternative is an empty frame, ids=[], the
+        # game loop's own guard skipped by that empty list, and a run that exits 0
+        # having written nothing. The schedule and the play-by-play are the same
+        # host, so this is where an outage lands first.
         raise FetchError(
-            f"nhl_schedule({season_str}): all {len(absent)} team(s) returned no club schedule -- "
-            "refusing to report an empty season"
+            f"nhl_schedule({season_str}): no games from any of {len(teams or _TEAMS)} team(s) "
+            f"({len(absent)} returned no schedule) -- refusing to report an empty season"
         )
-    if not by_id:
-        return pl.DataFrame(schema=_SCHEDULE_SCHEMA)
     df = pl.DataFrame([_parse_game(g) for g in by_id.values()], schema=_SCHEDULE_SCHEMA)
     # Keep regular + playoff (drop preseason PR / all-star A), mirror R's regular+playoff union.
     return df.filter(pl.col("game_type").is_in(["R", "P"])).sort(["game_date", "game_id"])

@@ -280,13 +280,18 @@ def nhl_game_shifts(game_id: int, *, session: requests.Session | None = None) ->
     data = (site or {}).get("data") or []
     raw = _normalize_json(data) if data else parse_toi_html(game_id, session=session)
     if data and (raw is None or raw.height == 0):
-        # SIXTH instance, and on the PRIMARY leg. `data` is non-empty, so shift data
-        # demonstrably exists; if _normalize_json drops every row (a duration arriving
-        # as "45" rather than "MM:SS", all-null startTime) that is a contradiction, not
-        # an absence -- and it would bank shifts: null for every game at 100% green.
-        raise FetchError(
-            f"game {game_id}: shiftcharts returned {len(data)} record(s) but none normalised (schema drift?)"
-        )
+        # `data` is non-empty but nothing normalised -- a duration arriving as "45"
+        # rather than "MM:SS", or a payload of only typeCode 505 goal rows (which
+        # carry duration: null). Shift data may still exist, so USE THE FALLBACK
+        # before refusing: that is the contingency it is there for, and the HTML TOI
+        # reports parse for every season 2007-08 onward. Raise only if it is also
+        # empty -- never return None, which would bank shifts: null permanently.
+        raw = parse_toi_html(game_id, session=session)
+        if raw is None or raw.height == 0:
+            raise FetchError(
+                f"game {game_id}: shiftcharts returned {len(data)} record(s), none normalised, "
+                "and the HTML TOI fallback was empty"
+            )
     if raw is None or raw.height == 0:
         if fetch_failed:
             # Never return None here. download_game writes the game with
