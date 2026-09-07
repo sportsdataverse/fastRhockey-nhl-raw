@@ -18,7 +18,7 @@ import polars as pl
 import requests
 
 from nhl_raw.boxscore import parse_boxscore
-from nhl_raw.fetch import _UA, fetch_endpoint, get_json
+from nhl_raw.fetch import _UA, FetchError, fetch_endpoint, get_json
 
 _SHIFTCHARTS = "https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId={game_id}"
 _TOI = "https://www.nhl.com/scores/htmlreports/{season}/T{side}{gameno}.HTM"
@@ -224,11 +224,25 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
 
 def nhl_game_shifts(game_id: int, *, session: requests.Session | None = None) -> list[dict] | None:
     """Port of ``nhl_game_shifts`` — shiftcharts JSON (or HTML fallback) -> CHANGE rows."""
-    site = get_json(_SHIFTCHARTS.format(game_id=game_id), session=session)
-    # Both a failed shiftcharts fetch (site is None) and a populated-but-empty {data: []}
-    # fall back to the HTML TOI reports, which may still carry the shifts.
+    # strict: a 404 still returns None (that game genuinely has no shiftchart), but a
+    # 403 / exhausted budget / reset / timeout raises instead of masquerading as one.
+    fetch_failed = False
+    try:
+        site = get_json(_SHIFTCHARTS.format(game_id=game_id), session=session, strict=True)
+    except FetchError:
+        # The HTML TOI fallback exists precisely for this, so still try it -- but
+        # remember the JSON leg failed, because an empty result now means "we could
+        # not tell", not "this game has no shifts".
+        site, fetch_failed = None, True
+
     data = (site or {}).get("data") or []
     raw = _normalize_json(data) if data else parse_toi_html(game_id, session=session)
     if raw is None or raw.height == 0:
+        if fetch_failed:
+            # Never return None here. download_game writes the game with
+            # ``shifts: null`` and the resume is presence-based, so a transient
+            # blip would bake a permanently shift-less game into the raw store --
+            # the same defect that let 3,347 empty payloads block refetch.
+            raise FetchError(f"game {game_id}: shiftcharts fetch failed and the HTML TOI fallback was empty")
         return None
     return _aggregate(raw).to_dicts()

@@ -75,6 +75,12 @@ def get_json(
     return None
 
 
-def fetch_endpoint(game_id: int, endpoint: str, *, session: requests.Session | None = None) -> dict | None:
-    """Fetch one ``/v1/gamecenter/{game_id}/{endpoint}`` payload."""
-    return get_json(_GAMECENTER.format(gid=game_id, ep=endpoint), session=session)
+def fetch_endpoint(
+    game_id: int, endpoint: str, *, session: requests.Session | None = None, strict: bool = False
+) -> dict | None:
+    """Fetch one ``/v1/gamecenter/{game_id}/{endpoint}`` payload.
+
+    Pass ``strict=True`` when a ``None`` would be BANKED -- written to disk, or
+    used to decide there is nothing to do. See :func:`get_json`.
+    """
+    return get_json(_GAMECENTER.format(gid=game_id, ep=endpoint), session=session, strict=strict)

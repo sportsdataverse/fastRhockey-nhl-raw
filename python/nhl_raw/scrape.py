@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import polars as pl
@@ -19,7 +20,7 @@ import polars as pl
 from nhl_raw.assemble import assemble_raw
 from nhl_raw.boxscore import parse_boxscore
 from nhl_raw.feed import build_pbp, parse_game_rosters
-from nhl_raw.fetch import fetch_endpoint
+from nhl_raw.fetch import FetchError, fetch_endpoint
 from nhl_raw.shifts import nhl_game_shifts
 
 _GAME_TYPE = {1: "PR", 2: "R", 3: "P", 4: "A"}
@@ -72,11 +73,15 @@ def build_final_from_responses(
 
 def fetch_responses(game_id: int, *, session: object | None = None) -> dict:
     """Fetch the four endpoints + shifts for one game (the live inputs to assembly)."""
+    # strict on all four: these Nones get WRITTEN into the payload, and the resume
+    # is presence-based, so a fetch failure that arrives as None banks a permanently
+    # incomplete game that is never refetched. A real 404 still returns None -- that
+    # component genuinely does not exist for this game -- and is written as null.
     return {
-        "pbp_raw": fetch_endpoint(game_id, "play-by-play", session=session),
-        "box_raw": fetch_endpoint(game_id, "boxscore", session=session),
-        "landing": fetch_endpoint(game_id, "landing", session=session),
-        "rail": fetch_endpoint(game_id, "right-rail", session=session),
+        "pbp_raw": fetch_endpoint(game_id, "play-by-play", session=session, strict=True),
+        "box_raw": fetch_endpoint(game_id, "boxscore", session=session, strict=True),
+        "landing": fetch_endpoint(game_id, "landing", session=session, strict=True),
+        "rail": fetch_endpoint(game_id, "right-rail", session=session, strict=True),
         "shifts": nhl_game_shifts(game_id, session=session),
     }
 
@@ -147,8 +152,23 @@ def scrape_season(
         ids = [g for g in ids if g not in existing]
     if limit:
         ids = ids[:limit]
-    scraped = sum(download_game(gid, out_dir=out_dir, xg=xg, session=session) for gid in ids)
-    return {"season": season, "completed": completed.height, "to_scrape": len(ids), "scraped": scraped}
+    scraped = failed = 0
+    for gid in ids:
+        try:
+            scraped += bool(download_game(gid, out_dir=out_dir, xg=xg, session=session))
+        except FetchError as exc:
+            # One unreachable game must not abort the season -- but it must be
+            # COUNTED, so the caller's exit code can tell a quiet season from a
+            # broken one. Nothing was written, so the resume retries it.
+            failed += 1
+            print(f"  game {gid} FAILED: {exc}", file=sys.stderr)
+    return {
+        "season": season,
+        "completed": completed.height,
+        "to_scrape": len(ids),
+        "scraped": scraped,
+        "failed": failed,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -184,10 +204,20 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.start is None:
         ap.error("provide a game_id, or -s/--start for season mode")
+    failures = 0
     for season in range(args.start, (args.end or args.start) + 1):
-        summary = scrape_season(season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit)
+        try:
+            summary = scrape_season(
+                season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit
+            )
+        except FetchError as exc:  # a partial schedule refuses rather than under-scraping
+            print(f"season {season}: SCHEDULE FAILED: {exc}", file=sys.stderr)
+            failures += 1
+            continue
         print(f"season {season}: {summary}")
-    return 0
+        failures += summary["failed"]
+    # Season mode used to return 0 unconditionally, so a total outage exited green.
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":

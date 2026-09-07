@@ -14,7 +14,7 @@ import sys
 
 import polars as pl
 
-from nhl_raw.fetch import get_json
+from nhl_raw.fetch import FetchError, get_json
 
 _CLUB_SCHEDULE = "https://api-web.nhle.com/v1/club-schedule-season/{team}/{season}"
 _GAME_TYPE = {1: "PR", 2: "R", 3: "P", 4: "A"}
@@ -100,19 +100,33 @@ def nhl_schedule(season: int, *, teams: list[str] | None = None, session: object
     season_str = f"{season - 1}{season}"
     by_id: dict[int, dict] = {}
     failed: list[str] = []
+    absent: list[str] = []
     for tm in teams or _TEAMS:
-        raw = get_json(_CLUB_SCHEDULE.format(team=tm, season=season_str), session=session)
-        if raw is None:  # exhausted retries — surface it, don't silently drop the team's games
-            failed.append(tm)
+        # strict: _TEAMS is the CURRENT 32, so a 404 is expected for a franchise that
+        # did not exist in this season (SEA before 2022, UTA before 2025, VGK before
+        # 2018) -- that is an absent team, not a failure, and must not be reported as
+        # one. Anything else raises.
+        try:
+            raw = get_json(_CLUB_SCHEDULE.format(team=tm, season=season_str), session=session, strict=True)
+        except FetchError as exc:
+            failed.append(f"{tm} ({exc})")
+            continue
+        if raw is None:
+            absent.append(tm)
             continue
         for g in raw.get("games") or []:
             if g.get("id") is not None:
                 by_id[g["id"]] = g
+    if absent:
+        print(f"nhl_schedule({season_str}): no club schedule for {', '.join(absent)} (expected pre-expansion)",
+              file=sys.stderr)
     if failed:
-        print(
-            f"nhl_schedule({season_str}): club-schedule fetch failed for {len(failed)} team(s): "
-            f"{', '.join(failed)} — schedule may be incomplete",
-            file=sys.stderr,
+        # RAISE, do not warn-and-continue. This schedule decides which games get
+        # scraped, so returning it short means those teams' games are never fetched
+        # and the run still reports success -- a silently incomplete season.
+        raise FetchError(
+            f"nhl_schedule({season_str}): club-schedule fetch FAILED for {len(failed)} team(s): "
+            f"{'; '.join(failed)}. Refusing to return a partial schedule."
         )
     if not by_id:
         return pl.DataFrame(schema=_SCHEDULE_SCHEMA)
