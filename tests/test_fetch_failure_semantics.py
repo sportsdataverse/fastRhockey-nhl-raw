@@ -382,3 +382,19 @@ def test_a_schedule_where_every_team_is_absent_is_refused():
     with pytest.raises(FetchError, match="refusing to report an empty season"):
         schedule.nhl_schedule(2025, session=_Session(default=_Resp(404)))  # full-league scan
 
+
+def test_an_absent_game_is_not_reclassified_as_failed_by_a_later_endpoint():
+    """A 404 on play-by-play means the game is absent and nothing gets written.
+
+    All four endpoints used to be fetched eagerly and strictly, so a 503 on any
+    later one raised and scrape_season counted a genuinely ABSENT game as FAILED --
+    misclassification in the direction that matters, since `failed` is what turns
+    the job red.
+    """
+    from nhl_raw import scrape
+
+    sess = _Session(rules={"play-by-play": _Resp(404), "right-rail": _Resp(503)})
+    r = scrape.fetch_responses(2024020001, session=sess)
+    assert r == {"pbp_raw": None, "box_raw": None, "landing": None, "rail": None, "shifts": None}
+    assert len(sess.urls) == 1, "the other endpoints must not be fetched for an absent game"
+

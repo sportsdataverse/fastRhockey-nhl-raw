@@ -77,8 +77,17 @@ def fetch_responses(game_id: int, *, session: object | None = None) -> dict:
     # is presence-based, so a fetch failure that arrives as None banks a permanently
     # incomplete game that is never refetched. A real 404 still returns None -- that
     # component genuinely does not exist for this game -- and is written as null.
+    pbp_raw = fetch_endpoint(game_id, "play-by-play", session=session, strict=True)
+    if pbp_raw is None:
+        # Play-by-play 404'd, so the game is ABSENT and nothing will be written.
+        # Short-circuit: fetching the other four strictly would let a 503 on any of
+        # them raise, and scrape_season would then count a genuinely absent game as
+        # a FAILURE -- misclassifying it in the one direction that matters, since
+        # `failed` is what turns the job red. It also spares four requests per
+        # absent game.
+        return {"pbp_raw": None, "box_raw": None, "landing": None, "rail": None, "shifts": None}
     return {
-        "pbp_raw": fetch_endpoint(game_id, "play-by-play", session=session, strict=True),
+        "pbp_raw": pbp_raw,
         "box_raw": fetch_endpoint(game_id, "boxscore", session=session, strict=True),
         "landing": fetch_endpoint(game_id, "landing", session=session, strict=True),
         "rail": fetch_endpoint(game_id, "right-rail", session=session, strict=True),
