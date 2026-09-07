@@ -66,7 +66,13 @@ def main(argv: list[str] | None = None) -> int:
             )
             return 2
 
-    res = scrape_players(ids, Path(args.root), limit=args.limit, force=args.force)
+    # One Session for the whole sweep: without it each of 3,000+ sequential GETs
+    # to a single host pays a fresh TCP + TLS handshake. The parameter was
+    # already plumbed end to end; nothing was passing it.
+    import requests
+
+    with requests.Session() as sess:
+        res = scrape_players(ids, Path(args.root), limit=args.limit, force=args.force, session=sess)
     # Rebuilt unconditionally, not only when this run captured something: the
     # index is derived state, and a run that fetches nothing must still repair an
     # index that is missing or behind the payloads on disk.

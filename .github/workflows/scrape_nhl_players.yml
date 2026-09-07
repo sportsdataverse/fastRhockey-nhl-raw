@@ -30,9 +30,13 @@ permissions:
   contents: write
 
 concurrency:
-  # Never let two capture runs write the same tree; a queued run is pointless
-  # anyway since resume makes the next one pick up whatever this one missed.
-  group: scrape-nhl-players
+  # The REPO-WIDE commit lock, shared with scrape_nhl_raw.yml -- not a private
+  # per-workflow group. Both workflows push to main and their schedules are one
+  # hour apart (raw 08:00 daily in-season, this 09:00 Mondays), which a full
+  # season scrape routinely overruns. Two jobs committing concurrently is how a
+  # push gets rejected and a run goes green having published nothing; see that
+  # workflow's header for three real worked examples.
+  group: ${{ github.repository }}-commit
   cancel-in-progress: false
 
 jobs:
@@ -69,11 +73,16 @@ jobs:
           # Pace is env-only so it can be retuned here without a code change.
           NHL_PLAYERS_SLEEP: '0.25'
           PYTHONUNBUFFERED: '1'
+          IN_FORCE: ${{ inputs.force }}
+          IN_LIMIT: ${{ inputs.limit }}
         run: |
           set -uo pipefail
+          # Inputs come through env, never interpolated into the script body:
+          # `${{ inputs.limit }}` expands BEFORE bash parses, so a dispatch value
+          # of `1; curl ...` would execute with this job's contents: write token.
           ARGS=""
-          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
-          if [ -n "${{ inputs.limit }}" ]; then ARGS="$ARGS --limit ${{ inputs.limit }}"; fi
+          if [ "$IN_FORCE" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ -n "$IN_LIMIT" ]; then ARGS="$ARGS --limit $IN_LIMIT"; fi
           # Roster ids over HTTP: the -data repo is not checked out here.
           ROSTERS="https://raw.githubusercontent.com/sportsdataverse/fastRhockey-nhl-data/main/nhl/game_rosters/parquet"
           # `set -uo pipefail` has no -e, and a trailing `echo` of $? always
@@ -103,7 +112,17 @@ jobs:
           fi
           n=$(git diff --cached --name-only | wc -l)
           git commit -m "feat(raw): nhl player bio refresh (${n} file(s))"
-          git push
+          # Rebase-and-retry: the concurrency lock serialises OUR two workflows,
+          # but anything else landing on main between checkout and push still
+          # rejects it as non-fast-forward -- and with bash -e that reds the job
+          # with this week's payloads committed locally and never pushed.
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "push rejected (attempt ${attempt}) -- rebasing on origin/main" >&2
+            git pull --rebase --autostash origin main || break
+          done
+          echo "push failed after 3 attempts" >&2
+          exit 1
 
       - name: Fail on capture errors
         if: steps.capture.outputs.rc != '0'
