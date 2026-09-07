@@ -153,7 +153,6 @@ def test_single_game_cli_reports_a_failure_instead_of_a_traceback(capsys, monkey
         raise FetchError("right-rail -> HTTP 503")
 
     monkeypatch.setattr(scrape, "download_game", boom)
-    monkeypatch.setattr(scrape, "load_xg_models", lambda *a, **k: None, raising=False)
     rc = scrape.main(["2024020001", "--no-xg"])
     assert rc == 1
     assert "FAILED game 2024020001" in capsys.readouterr().err
@@ -237,11 +236,122 @@ def test_a_season_where_every_game_404s_is_an_outage_not_a_quiet_season(tmp_path
     from nhl_raw import schedule as _sched
     from nhl_raw import scrape
 
+    # >= 100 ids on purpose: the guard fires only on a FULL-SEASON attempt, because a
+    # handful of absent games carries no outage evidence and firing on them would
+    # redden the cron forever (an absent game is never written, so it never leaves
+    # the work list). See the --no-rescrape / --limit test below.
+    ids = list(range(1, 1301))
     monkeypatch.setattr(scrape, "download_game", lambda gid, **kw: False)
     monkeypatch.setattr(
         _sched, "nhl_schedule",
-        lambda *a, **k: pl.DataFrame({"game_id": [1, 2], "game_state": ["OFF"] * 2}),
+        lambda *a, **k: pl.DataFrame({"game_id": ids, "game_state": ["OFF"] * len(ids)}),
     )
     with pytest.raises(FetchError, match="refusing to call that a quiet season"):
         scrape.scrape_season(2025, out_dir=tmp_path, session=None)
+
+
+_ROW = [{"side": "H", "sweater_number": 8, "last_first": "A, B", "period": 1,
+         "start_time": "0:00", "end_time": "0:45", "duration": "0:45"}]
+
+
+def test_a_toi_page_with_a_heading_but_no_rows_is_drift_not_emptiness():
+    """FIFTH instance. The teamHeading guard only covers a MISSING heading; a page
+    that HAS one but yields no rows (an HTML re-template) returned the same [] a
+    404 returns."""
+    from nhl_raw import shifts
+
+    page = _Resp(200, text='<html><td class="teamHeading">Boston Bruins</td></html>')
+    sess = _Session(rules={"shiftcharts": _Resp(404), "htmlreports": page})
+    with pytest.raises(FetchError, match="no shift rows parsed"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_shiftcharts_records_that_all_fail_to_normalise_is_drift_not_no_shifts(monkeypatch):
+    """SIXTH instance, and on the PRIMARY leg: `data` is non-empty, so shift data
+    demonstrably exists. Dropping every row is a contradiction, not an absence."""
+    from nhl_raw import shifts
+
+    monkeypatch.setattr(shifts, "_normalize_json", lambda data: pl.DataFrame())
+    sess = _Session(rules={"shiftcharts": _Resp(200, {"data": [{"x": 1}]})})
+    with pytest.raises(FetchError, match="none normalised"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_one_sided_toi_report_is_refused(monkeypatch):
+    """The two reports are generated together upstream, so exactly one arriving is a
+    flake -- and accepting it banks ONE team's shifts as the whole game."""
+    from nhl_raw import shifts
+
+    monkeypatch.setattr(shifts, "_parse_toi_side",
+                        lambda season, gameno, side, sess: _ROW if side == "H" else [])
+    sess = _Session(rules={"shiftcharts": _Resp(404)})
+    with pytest.raises(FetchError, match="one side only"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_a_boxscore_404_after_rows_were_parsed_is_refused(monkeypatch):
+    """Previously unpinned by any test. Rows parsed = the shift data exists, so
+    returning None discards it and banks shifts: null permanently."""
+    from nhl_raw import shifts
+
+    monkeypatch.setattr(shifts, "_parse_toi_side", lambda *a, **k: _ROW)
+    sess = _Session(rules={"shiftcharts": _Resp(404), "boxscore": _Resp(404)})
+    with pytest.raises(FetchError, match="TOI shift rows parsed but the boxscore"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_rows_that_map_to_no_player_is_refused(monkeypatch):
+    """Also previously unpinned. Rows in, zero mapped out is a contradiction (a
+    parse_boxscore schema drift), not an absence."""
+    from nhl_raw import shifts
+
+    empty = pl.DataFrame(schema={"home_away": pl.Utf8, "sweater_number": pl.Int64,
+                                 "player_id": pl.Int64, "team_id": pl.Int64, "team_abbrev": pl.Utf8})
+    monkeypatch.setattr(shifts, "_parse_toi_side", lambda *a, **k: _ROW)
+    monkeypatch.setattr(shifts, "parse_boxscore", lambda raw: {"skater_stats": empty, "goalie_stats": empty})
+    sess = _Session(rules={"shiftcharts": _Resp(404), "boxscore": _Resp(200, {})})
+    with pytest.raises(FetchError, match="none mapped to a player_id"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_a_non_fetch_exception_is_counted_not_fatal(tmp_path, monkeypatch):
+    """Previously unpinned. A ColumnNotFoundError from a schema drift, or an OSError
+    on write, would otherwise abort the whole season."""
+    from nhl_raw import schedule as _sched
+    from nhl_raw import scrape
+
+    def boom(gid, **kw):
+        raise ValueError("schema drift")
+
+    monkeypatch.setattr(scrape, "download_game", boom)
+    monkeypatch.setattr(_sched, "nhl_schedule",
+                        lambda *a, **k: pl.DataFrame({"game_id": [1, 2], "game_state": ["OFF"] * 2}))
+    s = scrape.scrape_season(2025, out_dir=tmp_path, session=None)
+    assert (s["failed"], s["scraped"], s["absent"]) == (2, 0, 0)
+
+
+@pytest.mark.parametrize("kw", [{"rescrape": False}, {"limit": 1}], ids=["no-rescrape", "limit"])
+def test_the_all_404_guard_does_not_fire_on_a_resumed_or_capped_run(tmp_path, monkeypatch, kw):
+    """The guard as first written was self-reinforcing: an absent game is never
+    written, so it stays in the work list, and ONE permanently-404 game would turn
+    the weekly cron permanently red with no way to clear it."""
+    from nhl_raw import schedule as _sched
+    from nhl_raw import scrape
+
+    monkeypatch.setattr(scrape, "download_game", lambda gid, **kw2: False)
+    monkeypatch.setattr(_sched, "nhl_schedule",
+                        lambda *a, **k: pl.DataFrame({"game_id": [1], "game_state": ["OFF"]}))
+    s = scrape.scrape_season(2025, out_dir=tmp_path, session=None, **kw)
+    assert s["absent"] == 1 and s["failed"] == 0
+
+
+def test_a_schedule_where_every_team_is_absent_is_refused():
+    """The likelier outage shape, and it exited 0. nhl_schedule refused all-FAILED
+    but returned an empty frame for all-ABSENT, so scrape_season got ids=[], its own
+    guard was skipped by the empty list, and the run went green having written
+    nothing. Same host serves both endpoints."""
+    from nhl_raw import schedule
+
+    with pytest.raises(FetchError, match="refusing to report an empty season"):
+        schedule.nhl_schedule(2025, teams=["BOS", "TOR"], session=_Session(default=_Resp(404)))
 

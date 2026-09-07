@@ -128,6 +128,17 @@ def nhl_schedule(season: int, *, teams: list[str] | None = None, session: object
             f"nhl_schedule({season_str}): club-schedule fetch FAILED for {len(failed)} team(s): "
             f"{'; '.join(failed)}. Refusing to return a partial schedule."
         )
+    if absent and len(absent) == len(teams or _TEAMS):
+        # Every team absent is an outage, not an empty season. _TEAMS is the current
+        # 32, so in any season worth scraping some of them existed. Without this the
+        # frame comes back empty, scrape_season gets ids=[], its own all-404 guard is
+        # skipped by the empty list, and the run exits 0 having written nothing --
+        # and this is the LIKELIER outage shape, since the schedule and the
+        # play-by-play are the same host.
+        raise FetchError(
+            f"nhl_schedule({season_str}): all {len(absent)} team(s) returned no club schedule -- "
+            "refusing to report an empty season"
+        )
     if not by_id:
         return pl.DataFrame(schema=_SCHEDULE_SCHEMA)
     df = pl.DataFrame([_parse_game(g) for g in by_id.values()], schema=_SCHEDULE_SCHEMA)

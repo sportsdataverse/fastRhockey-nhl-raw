@@ -199,6 +199,13 @@ def _parse_toi_side(season: str, gameno: str, side: str, session: requests.Sessi
                 "duration": cells[4],
             }
         )
+    if not rows:
+        # FIFTH instance. The guard above only covers a MISSING teamHeading; a page
+        # that has one but yields no rows (an HTML re-template renaming
+        # oddColor/evenColor/playerHeading, a cell-count change) returns the same []
+        # a 404 returns. Same trigger and blast radius as the join-side guard below,
+        # one function higher and firing before any boxscore work.
+        raise FetchError(f"TOI report {url}: teamHeading present but no shift rows parsed (schema drift?)")
     return rows
 
 
@@ -213,7 +220,15 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
     season = f"{gid[:4]}{int(gid[:4]) + 1}"
     gameno = gid[4:10]
 
-    rows = _parse_toi_side(season, gameno, "H", session) + _parse_toi_side(season, gameno, "V", session)
+    home = _parse_toi_side(season, gameno, "H", session)
+    away = _parse_toi_side(season, gameno, "V", session)
+    if bool(home) != bool(away):
+        # The two reports are generated together upstream, so exactly one arriving is
+        # a CDN flake, not a game where one team took no shifts. Accepting it banks
+        # ONE team's shifts as the game's complete shift set, permanently.
+        side = "visitor" if home else "home"
+        raise FetchError(f"game {game_id}: TOI report present for one side only ({side} missing)")
+    rows = home + away
     if not rows:
         return None
     # strict: the HTML fallback needs the boxscore to map sweater numbers to
@@ -264,6 +279,14 @@ def nhl_game_shifts(game_id: int, *, session: requests.Session | None = None) ->
 
     data = (site or {}).get("data") or []
     raw = _normalize_json(data) if data else parse_toi_html(game_id, session=session)
+    if data and (raw is None or raw.height == 0):
+        # SIXTH instance, and on the PRIMARY leg. `data` is non-empty, so shift data
+        # demonstrably exists; if _normalize_json drops every row (a duration arriving
+        # as "45" rather than "MM:SS", all-null startTime) that is a contradiction, not
+        # an absence -- and it would bank shifts: null for every game at 100% green.
+        raise FetchError(
+            f"game {game_id}: shiftcharts returned {len(data)} record(s) but none normalised (schema drift?)"
+        )
     if raw is None or raw.height == 0:
         if fetch_failed:
             # Never return None here. download_game writes the game with

@@ -179,7 +179,13 @@ def scrape_season(
             # scraped + failed + absent == to_scrape invariant is actually true.
             failed += 1
             print(f"  game {gid} FAILED ({type(exc).__name__}): {exc}", file=sys.stderr)
-    if ids and absent == len(ids):
+    # Only meaningful when the run ATTEMPTED a full season. On --no-rescrape the
+    # remainder is whatever never succeeded, so one permanently-404 game would make
+    # this fire forever and turn the weekly cron permanently red -- self-reinforcing,
+    # since an absent game is never written and so never leaves the list. --limit
+    # slices arbitrarily. A handful of ids also carries no outage evidence.
+    full_season_attempt = rescrape and not limit and len(ids) >= 100
+    if full_season_attempt and absent == len(ids):
         # Per game a 404 is genuinely absent; a season where EVERY game 404s is an
         # outage wearing absence as a costume (a gid-scheme change, a season
         # api-web stopped serving). Without this it reports scraped=0 absent=1312
@@ -244,8 +250,18 @@ def main(argv: list[str] | None = None) -> int:
             summary = scrape_season(
                 season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit
             )
-        except FetchError as exc:  # a partial schedule refuses rather than under-scraping
-            print(f"season {season}: SCHEDULE FAILED: {exc}", file=sys.stderr)
+        except FetchError as exc:
+            # Not always the schedule: the all-404 game guard raises here too, and
+            # labelling that "SCHEDULE FAILED" sends an operator to the wrong endpoint.
+            print(f"season {season}: FAILED: {exc}", file=sys.stderr)
+            failures += 1
+            continue
+        except Exception as exc:  # pragma: no cover - upstream payload shapes
+            # nhl_schedule runs INSIDE scrape_season, outside the per-game try, so a
+            # polars/schema error there propagated past `except FetchError` and killed
+            # every remaining season in the range -- the exact abort the per-game broad
+            # except was added to prevent, one level up.
+            print(f"season {season}: FAILED ({type(exc).__name__}): {exc}", file=sys.stderr)
             failures += 1
             continue
         print(f"season {season}: {summary}")
