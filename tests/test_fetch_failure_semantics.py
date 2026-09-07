@@ -12,6 +12,7 @@ import sys
 import time
 from pathlib import Path
 
+import polars as pl
 import pytest
 import requests
 
@@ -43,6 +44,8 @@ class _Session:
                 if isinstance(resp, Exception):
                     raise resp
                 return resp
+        if isinstance(self.default, _Resp):
+            return self.default
         return _Resp(200, self.default)
 
 
@@ -152,4 +155,61 @@ def test_single_game_cli_reports_a_failure_instead_of_a_traceback(capsys, monkey
     rc = scrape.main(["2024020001", "--no-xg"])
     assert rc == 1
     assert "FAILED game 2024020001" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("bad", [_Resp(503), requests.exceptions.ConnectionError("reset")], ids=["503", "reset"])
+def test_a_failed_html_toi_report_is_not_no_shifts(monkeypatch, bad):
+    """Third instance of the same hole, on the last path that had it.
+
+    _parse_toi_side returned [] for BOTH a transport failure and a report with no
+    rows. When shiftcharts legitimately 404s the JSON failure flag is false, so an
+    HTML 503 or connection reset flowed back as "this game has no shifts" and
+    download_game persisted it permanently.
+    """
+    from nhl_raw import shifts
+
+    sess = _Session(rules={"shiftcharts": _Resp(404), "html/reports": bad, "TH": bad, "TV": bad})
+    with pytest.raises(FetchError, match="TOI report"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_a_missing_toi_report_is_still_absent_not_a_failure(monkeypatch):
+    """404 on the TOI report keeps meaning 'no report for this game'."""
+    from nhl_raw import shifts
+
+    sess = _Session(rules={"shiftcharts": _Resp(404)}, default=_Resp(404))
+    assert shifts.nhl_game_shifts(2024020001, session=sess) is None
+
+
+def test_season_accounting_covers_every_outcome(tmp_path, monkeypatch):
+    """scraped + failed + absent must equal to_scrape.
+
+    download_game returns False when play-by-play 404s — genuinely absent, not
+    broken. That outcome was counted in neither bucket, so the summary silently
+    failed to add up and a gap was invisible. It is also NOT a failure: calling it
+    one would redden the job over real 404s.
+    """
+    from nhl_raw import scrape
+
+    outcomes = {1: True, 2: False, 3: FetchError("right-rail -> HTTP 503")}
+
+    def fake_download(gid, **kw):
+        r = outcomes[gid]
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+    monkeypatch.setattr(scrape, "download_game", fake_download)
+    # Patch it where it is LOOKED UP: scrape_season imports nhl_schedule inside the
+    # function body, so patching scrape.nhl_schedule binds nothing and the real
+    # fetch runs (this test hit the network until that was fixed).
+    from nhl_raw import schedule as _sched
+
+    monkeypatch.setattr(
+        _sched, "nhl_schedule",
+        lambda *a, **k: pl.DataFrame({"game_id": [1, 2, 3], "game_state": ["OFF"] * 3}),
+    )
+    s = scrape.scrape_season(2025, out_dir=tmp_path, session=None)
+    assert (s["scraped"], s["absent"], s["failed"]) == (1, 1, 1)
+    assert s["scraped"] + s["absent"] + s["failed"] == s["to_scrape"]
 

@@ -145,12 +145,18 @@ def _parse_toi_side(season: str, gameno: str, side: str, session: requests.Sessi
     from bs4 import BeautifulSoup
 
     url = _TOI.format(season=season, side=side, gameno=gameno)
+    # An empty list here means "this report has no shift rows". A transport failure
+    # must NOT produce that same value: when shiftcharts legitimately 404s, the JSON
+    # failure flag is false, so an HTML 503 or connection reset would flow back as
+    # "this game has no shifts" and download_game would persist it permanently.
     try:
         r = (session or requests).get(url, timeout=45, headers=_UA)
-    except requests.RequestException:
-        return []
+    except requests.RequestException as exc:
+        raise FetchError(f"TOI report {url} failed: {type(exc).__name__}: {exc}") from exc
+    if r.status_code == 404:
+        return []  # no TOI report for this game/side -- genuinely absent
     if r.status_code != 200:
-        return []
+        raise FetchError(f"TOI report {url} -> HTTP {r.status_code}")
     soup = BeautifulSoup(r.text, "html.parser")
     head = soup.find("td", class_="teamHeading")
     if head is None or not head.get_text(strip=True):

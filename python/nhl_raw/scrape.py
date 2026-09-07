@@ -152,10 +152,19 @@ def scrape_season(
         ids = [g for g in ids if g not in existing]
     if limit:
         ids = ids[:limit]
-    scraped = failed = 0
+    scraped = failed = absent = 0
     for gid in ids:
         try:
-            scraped += bool(download_game(gid, out_dir=out_dir, xg=xg, session=session))
+            if download_game(gid, out_dir=out_dir, xg=xg, session=session):
+                scraped += 1
+            else:
+                # download_game returns False only when play-by-play 404s, which
+                # under strict means the game genuinely has no pbp -- absent, not
+                # broken. Counted separately so scraped + failed + absent always
+                # equals to_scrape: an uncounted outcome is a gap nobody can see,
+                # but calling it a failure would redden the job over real 404s.
+                absent += 1
+                print(f"  game {gid}: no play-by-play (404) -- skipped", file=sys.stderr)
         except FetchError as exc:
             # One unreachable game must not abort the season -- but it must be
             # COUNTED, so the caller's exit code can tell a quiet season from a
@@ -168,6 +177,7 @@ def scrape_season(
         "to_scrape": len(ids),
         "scraped": scraped,
         "failed": failed,
+        "absent": absent,
     }
 
 
