@@ -22,8 +22,10 @@ from nhl_raw.fetch import FetchError, get_json  # noqa: E402
 
 
 class _Resp:
-    def __init__(self, status, body=None):
-        self.status_code, self._body = status, body
+    def __init__(self, status, body=None, text=""):
+        # `text` matters: the HTML TOI leg reads r.text, so without it the fake
+        # session cannot serve a 200 whose body is not a TOI report.
+        self.status_code, self._body, self.text = status, body, text
 
     def json(self):
         return self._body
@@ -158,7 +160,7 @@ def test_single_game_cli_reports_a_failure_instead_of_a_traceback(capsys, monkey
 
 
 @pytest.mark.parametrize("bad", [_Resp(503), requests.exceptions.ConnectionError("reset")], ids=["503", "reset"])
-def test_a_failed_html_toi_report_is_not_no_shifts(monkeypatch, bad):
+def test_a_failed_html_toi_report_is_not_no_shifts(bad):
     """Third instance of the same hole, on the last path that had it.
 
     _parse_toi_side returned [] for BOTH a transport failure and a report with no
@@ -168,12 +170,12 @@ def test_a_failed_html_toi_report_is_not_no_shifts(monkeypatch, bad):
     """
     from nhl_raw import shifts
 
-    sess = _Session(rules={"shiftcharts": _Resp(404), "html/reports": bad, "TH": bad, "TV": bad})
+    sess = _Session(rules={"shiftcharts": _Resp(404), "htmlreports": bad})
     with pytest.raises(FetchError, match="TOI report"):
         shifts.nhl_game_shifts(2024020001, session=sess)
 
 
-def test_a_missing_toi_report_is_still_absent_not_a_failure(monkeypatch):
+def test_a_missing_toi_report_is_still_absent_not_a_failure():
     """404 on the TOI report keeps meaning 'no report for this game'."""
     from nhl_raw import shifts
 
@@ -212,4 +214,34 @@ def test_season_accounting_covers_every_outcome(tmp_path, monkeypatch):
     s = scrape.scrape_season(2025, out_dir=tmp_path, session=None)
     assert (s["scraped"], s["absent"], s["failed"]) == (1, 1, 1)
     assert s["scraped"] + s["absent"] + s["failed"] == s["to_scrape"]
+
+
+def test_a_200_that_is_not_a_toi_report_is_a_failure():
+    """The FOURTH instance of the collapse, found four lines below the third.
+
+    The host hard-404s every missing report, so a 200 without `teamHeading` is
+    never "a report with no rows" -- it is a CDN/WAF error page. Returning [] for
+    it banked `shifts: null` permanently, exactly like the bug above.
+    """
+    from nhl_raw import shifts
+
+    junk = _Resp(200, text="<html><body>Access Denied</body></html>")
+    sess = _Session(rules={"shiftcharts": _Resp(404), "htmlreports": junk})
+    with pytest.raises(FetchError, match="not a TOI report"):
+        shifts.nhl_game_shifts(2024020001, session=sess)
+
+
+def test_a_season_where_every_game_404s_is_an_outage_not_a_quiet_season(tmp_path, monkeypatch):
+    """Per game a 404 is absence; for a whole season it is an outage wearing
+    absence as a costume, and it used to exit 0 having written nothing."""
+    from nhl_raw import schedule as _sched
+    from nhl_raw import scrape
+
+    monkeypatch.setattr(scrape, "download_game", lambda gid, **kw: False)
+    monkeypatch.setattr(
+        _sched, "nhl_schedule",
+        lambda *a, **k: pl.DataFrame({"game_id": [1, 2], "game_state": ["OFF"] * 2}),
+    )
+    with pytest.raises(FetchError, match="refusing to call that a quiet season"):
+        scrape.scrape_season(2025, out_dir=tmp_path, session=None)
 

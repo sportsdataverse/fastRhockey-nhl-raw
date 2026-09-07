@@ -171,6 +171,24 @@ def scrape_season(
             # broken one. Nothing was written, so the resume retries it.
             failed += 1
             print(f"  game {gid} FAILED: {exc}", file=sys.stderr)
+        except Exception as exc:  # pragma: no cover - upstream payload shapes
+            # Anything else (a schema drift raising ColumnNotFoundError, an OSError
+            # on write) would otherwise propagate and abort the whole season: no
+            # summary, no exit code, remaining games never attempted. The player
+            # stage already counts-and-continues; these two now agree, and the
+            # scraped + failed + absent == to_scrape invariant is actually true.
+            failed += 1
+            print(f"  game {gid} FAILED ({type(exc).__name__}): {exc}", file=sys.stderr)
+    if ids and absent == len(ids):
+        # Per game a 404 is genuinely absent; a season where EVERY game 404s is an
+        # outage wearing absence as a costume (a gid-scheme change, a season
+        # api-web stopped serving). Without this it reports scraped=0 absent=1312
+        # and exits 0 having written nothing -- the same silent total outage the
+        # schedule path already refuses.
+        raise FetchError(
+            f"season {season}: all {len(ids)} game(s) returned 404 for play-by-play -- "
+            "refusing to call that a quiet season"
+        )
     return {
         "season": season,
         "completed": completed.height,
