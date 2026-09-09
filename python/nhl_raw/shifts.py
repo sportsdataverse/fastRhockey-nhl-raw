@@ -40,8 +40,18 @@ _RAW_COLS = [
 
 
 def _to_seconds(col: str) -> pl.Expr:
+    # strict=False, not strict_cast: some seasons' shiftcharts (confirmed live,
+    # 2019-20) leave end_time "" for a shift still active at a period/game
+    # boundary -- a real, legitimate value, not malformed data. R's ms()/
+    # period_to_seconds() silently produce NA for this; a strict Rust cast
+    # instead raises, which the shifts backfill hit on every single 2019-20
+    # game. _with_seconds' `duration_seconds > 0` filter already drops these
+    # rows (null > 0 is null, and Polars treats a null filter predicate as
+    # False), so the null here is inert, not silently wrong data downstream.
     parts = pl.col(col).str.split(":")
-    return parts.list.get(0, null_on_oob=True).cast(pl.Int64) * 60 + parts.list.get(1, null_on_oob=True).cast(pl.Int64)
+    return parts.list.get(0, null_on_oob=True).cast(pl.Int64, strict=False) * 60 + parts.list.get(
+        1, null_on_oob=True
+    ).cast(pl.Int64, strict=False)
 
 
 def _with_seconds(df: pl.DataFrame) -> pl.DataFrame:
@@ -258,9 +268,7 @@ def parse_toi_html(game_id: int, session: requests.Session | None = None) -> pl.
         # (a schema drift in parse_boxscore, an empty playerByGameStats), not an
         # absence. Silently returning None would bank shifts: null for EVERY game
         # at 100% green.
-        raise FetchError(
-            f"game {game_id}: {len(rows)} TOI shift rows parsed but none mapped to a player_id"
-        )
+        raise FetchError(f"game {game_id}: {len(rows)} TOI shift rows parsed but none mapped to a player_id")
     return _with_seconds(df).select(_RAW_COLS)
 
 
