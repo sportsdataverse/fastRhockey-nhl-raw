@@ -73,6 +73,15 @@ jobs:
           # Pace is env-only so it can be retuned here without a code change.
           NHL_PLAYERS_SLEEP: '0.25'
           PYTHONUNBUFFERED: '1'
+          # The stages live in python/ and NOTHING installs them: pyproject has
+          # no [build-system] and no [tool.setuptools], and `python/` reaches
+          # sys.path through `[tool.pytest.ini_options] pythonpath` -- for
+          # pytest, and only pytest. So the suite imports this stage happily
+          # while `python -m` from the repo root never could, and every run of
+          # this job died on `No module named nhl_raw_02_players_scrape`.
+          # PYTHONPATH rather than `working-directory: python`, which would
+          # re-root --root/--rosters and the commit paths below along with it.
+          PYTHONPATH: python
           IN_FORCE: ${{ inputs.force }}
           IN_LIMIT: ${{ inputs.limit }}
         run: |
@@ -119,7 +128,11 @@ jobs:
           for attempt in 1 2 3; do
             if git push; then exit 0; fi
             echo "push rejected (attempt ${attempt}) -- rebasing on origin/main" >&2
-            git pull --rebase --autostash origin main || break
+            # fetch + `rebase --merge`, never `pull --rebase`: the default am
+            # backend replays commits as patches and base64-encodes every
+            # parquet/JSON blob in this repo's payload tree.
+            git fetch --quiet origin main || break
+            git rebase --merge origin/main || { git rebase --abort >/dev/null 2>&1 || true; break; }
           done
           echo "push failed after 3 attempts" >&2
           exit 1
@@ -128,5 +141,7 @@ jobs:
         if: steps.capture.outputs.rc != '0'
         run: |
           echo "capture exited ${{ steps.capture.outputs.rc }} -- any payloads that landed were committed above;" >&2
-          echo "the FETCH failures are why this job is red. Re-run: capture is resumable." >&2
+          echo "read the Capture step's output for the cause -- do NOT assume fetch" >&2
+          echo "failures: this message claimed them for months while the real error was an" >&2
+          echo "import that never resolved. If it WAS fetches, capture is resumable: re-run." >&2
           exit 1
