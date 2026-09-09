@@ -153,7 +153,22 @@ def scrape_season(
     """
     from nhl_raw.schedule import nhl_schedule
 
-    completed = nhl_schedule(season, session=session).filter(pl.col("game_state") == "OFF")
+    schedule = nhl_schedule(season, session=session)
+    # fastRhockey-nhl-data's Python compile enumerates games from THIS file
+    # (nhl/schedules/parquet/nhl_schedule_{end_year}.parquet, game_id column
+    # only -- a directory listing hits GitHub's 1000-entry API cap) and
+    # raises FileNotFoundError if it's missing. The R original always wrote
+    # it; this port never did, which is exactly the gap that would have
+    # broken the downstream compile the day this scraper went live on a
+    # schedule. Written unfiltered (the whole season, not just completed
+    # games) and BEFORE the per-game loop below, so an enumeration consumer
+    # sees upcoming games too and a partially-failed scrape still leaves a
+    # correct, current schedule file behind.
+    sched_dir = Path("nhl/schedules/parquet")
+    sched_dir.mkdir(parents=True, exist_ok=True)
+    schedule.write_parquet(sched_dir / f"nhl_schedule_{season}.parquet")
+
+    completed = schedule.filter(pl.col("game_state") == "OFF")
     final_dir = Path(out_dir) / "final"
     existing = {int(p.stem) for p in final_dir.glob("*.json")} if final_dir.exists() else set()
     ids = completed["game_id"].to_list()

@@ -1,9 +1,9 @@
 """Stage 01 — NHL raw scrape (python port; raw + processed final per game).
 
-Thin numbered entry over ``nhl_raw.scrape``; args forward verbatim. The R
-scraper (``R/scrape_nhl_raw.R`` via ``scripts/daily_nhl_scraper.sh``) remains
-the scheduled production path; this is the numbered python pipeline over the
-ported package (fetch/feed/boxscore/shifts/assemble/xg).
+Thin numbered entry over ``nhl_raw.scrape``; args forward verbatim. This is
+the scheduled production path (``scripts/daily_nhl_scraper.sh``, droplet
+cron) as of the 2026-09 R retirement -- the R scraper
+(``R/scrape_nhl_raw.R``) is no longer invoked by anything scheduled.
 
 Usage::
 
@@ -11,6 +11,7 @@ Usage::
     python -m nhl_raw_01_scrape 2024020001        # single game
     scripts/nhl_raw.sh 01
 """
+
 from __future__ import annotations
 
 import sys

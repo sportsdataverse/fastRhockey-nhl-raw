@@ -52,6 +52,19 @@ done
 RESCRAPE=${RESCRAPE:-TRUE}
 echo "Rescrape set to: $RESCRAPE"
 mkdir -p logs
+
+PY="${NHL_RAW_PYTHON:-}"
+if [ -z "${PY}" ]; then
+  for cand in .venv/Scripts/python.exe .venv/bin/python; do
+    if [ -x "${cand}" ]; then PY="${cand}"; break; fi
+  done
+fi
+if [ -z "${PY}" ]; then
+  echo "FATAL: no venv python found (uv sync first, or set NHL_RAW_PYTHON)" >&2
+  exit 1
+fi
+RESCRAPE_FLAG=""
+[ "$RESCRAPE" != "TRUE" ] && RESCRAPE_FLAG="--no-rescrape"
 for i in $(seq "${START_YEAR}" "${END_YEAR}")
 do
     LOGFILE="logs/fastRhockey_nhl_raw_logfile_${i}.log"
@@ -63,7 +76,7 @@ do
         git pull >> /dev/null
         git config --local user.email "action@github.com"
         git config --local user.name "Github Action"
-        Rscript R/scrape_nhl_raw.R -s $i -e $i -r $RESCRAPE
+        PYTHONPATH=python "${PY}" -m nhl_raw_01_scrape -s $i -e $i $RESCRAPE_FLAG
         sdv_commit_push "NHL Raw Updated (Start: $i End: $i)" nhl || PUSH_RC=1
     } 2>&1 | tee "$TMPLOG"
 
