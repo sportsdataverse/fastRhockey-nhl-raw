@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "Python port of the fastRhockey NHL raw scraper + PBP enrichment pipeline"
 requires-python = ">=3.10"
 dependencies = [
-    "polars>=1.0,<2.0",
+    "polars>=1.0",
     "pandas>=2.0",
     "pyarrow>=14.0",
     "requests>=2.31",
