@@ -164,7 +164,9 @@ def scrape_season(
     # games) and BEFORE the per-game loop below, so an enumeration consumer
     # sees upcoming games too and a partially-failed scrape still leaves a
     # correct, current schedule file behind.
-    sched_dir = Path("nhl/schedules/parquet")
+    # Beside out_dir (default nhl/json -> nhl/schedules/parquet), never relative to
+    # the CWD: a test run from the repo root overwrote the committed schedule.
+    sched_dir = Path(out_dir).parent / "schedules" / "parquet"
     sched_dir.mkdir(parents=True, exist_ok=True)
     schedule.write_parquet(sched_dir / f"nhl_schedule_{season}.parquet")
 

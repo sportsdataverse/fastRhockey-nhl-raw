@@ -212,8 +212,10 @@ def test_season_accounting_covers_every_outcome(tmp_path, monkeypatch):
         _sched, "nhl_schedule",
         lambda *a, **k: pl.DataFrame({"game_id": [1, 2, 3], "game_state": ["OFF"] * 3}),
     )
-    s = scrape.scrape_season(2025, out_dir=tmp_path, session=None)
+    s = scrape.scrape_season(2025, out_dir=tmp_path / "json", session=None)
     assert (s["scraped"], s["absent"], s["failed"]) == (1, 1, 1)
+    # The schedule lands beside out_dir, not in the CWD (which clobbered the repo's copy).
+    assert (tmp_path / "schedules" / "parquet" / "nhl_schedule_2025.parquet").exists()
     assert s["scraped"] + s["absent"] + s["failed"] == s["to_scrape"]
 
 
