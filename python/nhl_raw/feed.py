@@ -620,6 +620,10 @@ def integrate_shifts(
     ]
     if any(c not in shifts.columns for c in needed):
         return pbp
+    # R subsets the shift rows to the PBP's columns (`shifts[, names(pbp)]`) before
+    # bind_rows, so shift-only fields (the CHANGE rows' `event_team`) never reach the
+    # output; diagonal_relaxed alone would carry them through as new columns.
+    shifts = shifts.select([c for c in shifts.columns if c in pbp.columns or c in needed])
     # Bind pbp (API order) then shifts; stable tiebreak via the bound index (R's bind_rows + arrange).
     bound = (
         pl.concat([pbp, shifts], how="diagonal_relaxed")
@@ -844,4 +848,31 @@ def build_pbp(
         from nhl_raw.xg import calculate_xg
 
         df = calculate_xg(df, xg)
-    return df
+    return _integral_to_int64(df)
+
+
+# Whole-number columns: a MM:SS clock and the API's integer rink coordinates. R computed
+# them as doubles too, but jsonlite writes a whole double as `120`, so every season the R
+# stack built compiled these as Int64; Python's json writes `120.0`, which made the
+# 2026-27 release (the first Python-scraped season) infer Float64. Emit Int64 at the
+# source so final JSON keeps R's on-disk shape.
+_INTEGRAL_COLS = (
+    "period_seconds",
+    "period_seconds_remaining",
+    "game_seconds",
+    "game_seconds_remaining",
+    "x",
+    "y",
+    "x_fixed",
+    "y_fixed",
+)
+
+
+def _integral_to_int64(df: pl.DataFrame) -> pl.DataFrame:
+    cols = [c for c in _INTEGRAL_COLS if c in df.columns and df.schema[c].is_float()]
+    if not cols:
+        return df
+    frac = df.select(pl.any_horizontal([(pl.col(c) % 1 != 0).any() for c in cols])).item()
+    if frac:
+        raise ValueError(f"non-integral value in {cols}; refusing to truncate to Int64")
+    return df.with_columns(pl.col(c).cast(pl.Int64) for c in cols)

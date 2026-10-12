@@ -59,3 +59,15 @@ def test_direct_pluck_keys_passthrough() -> None:
     # scoring/penalties/shots_by_period are direct plucks — must equal the stored values
     for key in ("scoring", "penalties", "shots_by_period"):
         assert got[key] == raw.get(key), key
+
+
+def test_officials_2026_27_fullname_shape() -> None:
+    # 2026-27 right-rail: {fullName: {default}, sweaterNumber} instead of {default}.
+    rail = {
+        "gameInfo": {
+            "referees": [{"fullName": {"default": "Chris Rooney"}, "sweaterNumber": 5}],
+            "linesmen": [{"fullName": {"default": "Ryan Daisy", "es": "Ryan Daisy"}, "sweaterNumber": 81}],
+        }
+    }
+    got = assemble_raw({"id": 1}, {}, {}, rail, None)["officials"]
+    assert got == [{"role": "referee", "name": "Chris Rooney"}, {"role": "linesman", "name": "Ryan Daisy"}]

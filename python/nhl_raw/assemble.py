@@ -116,6 +116,10 @@ def _officials(rail: dict) -> list | None:
         (_pluck(rail, "gameInfo", "linesmen"), "linesman"),
     ):
         for o in arr or []:
+            # 2026-27 api-web nests the name one level down ({fullName: {default},
+            # sweaterNumber}); earlier seasons are {default}. Keep `name` a string.
+            if isinstance(o, dict) and isinstance(o.get("fullName"), dict):
+                o = o["fullName"]
             out.append({"role": role, "name": _extract_default(o)})
     return out or None
 

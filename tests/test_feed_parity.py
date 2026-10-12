@@ -205,3 +205,23 @@ def test_default_model_dir_env_override(monkeypatch, tmp_path) -> None:
     assert default_model_dir() == tmp_path / "m"
     monkeypatch.delenv("NHL_RAW_MODEL_DIR", raising=False)
     assert default_model_dir().parts[-2:] == ("nhl_raw", "xg_models")
+
+
+def test_output_columns_match_r_shape_2024020001() -> None:
+    # R wrote these whole numbers as JSON integers (every pre-2027 release is Int64), and
+    # R drops shift-only columns (event_team) before binding CHANGE rows.
+    raw, final = _load(GID)
+    got = build_pbp(raw["pbp_raw"], GID, shifts=raw.get("shifts"))
+    for c in (
+        "period_seconds",
+        "period_seconds_remaining",
+        "game_seconds",
+        "game_seconds_remaining",
+        "x",
+        "y",
+        "x_fixed",
+        "y_fixed",
+    ):
+        assert got.schema[c] == pl.Int64, c
+    assert "event_team" not in got.columns
+    assert set(got.columns) <= set().union(*(r.keys() for r in final["all_plays"])) | {"event_team_abbr"}
