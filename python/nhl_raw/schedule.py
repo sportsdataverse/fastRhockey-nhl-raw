@@ -5,12 +5,14 @@ Canonical R source: ``fastRhockey/R/nhl_schedule.R`` — ``nhl_schedule`` /
 this ports the per-team ``club-schedule-season`` union (regular + playoff games appear in
 the participating teams' club schedules). R fetches playoffs separately via the playoff
 carousel for richer series context (``series_letter`` / ``playoff_round``) the scraper
-does not use — that branch is intentionally omitted here.
+does not use -- those three columns are derived from the playoff game id instead
+(``_playoff_context_exprs``).
 """
 
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 
 import polars as pl
 
@@ -55,8 +57,10 @@ _TEAMS = [
     "WSH",
 ]
 
+# R's nhl_schedule() types (integer -> int32) -- every R-written season is int32, and
+# write_schedule_parquet keeps that on disk.
 _SCHEDULE_SCHEMA = {
-    "game_id": pl.Int64,
+    "game_id": pl.Int32,
     "season_full": pl.Utf8,
     "game_type": pl.Utf8,
     "game_date": pl.Utf8,
@@ -65,8 +69,8 @@ _SCHEDULE_SCHEMA = {
     "away_team_abbr": pl.Utf8,
     "home_team_name": pl.Utf8,
     "away_team_name": pl.Utf8,
-    "home_score": pl.Int64,
-    "away_score": pl.Int64,
+    "home_score": pl.Int32,
+    "away_score": pl.Int32,
     "game_state": pl.Utf8,
     "venue": pl.Utf8,
 }
@@ -118,8 +122,10 @@ def nhl_schedule(season: int, *, teams: list[str] | None = None, session: object
             if g.get("id") is not None:
                 by_id[g["id"]] = g
     if absent:
-        print(f"nhl_schedule({season_str}): no club schedule for {', '.join(absent)} (expected pre-expansion)",
-              file=sys.stderr)
+        print(
+            f"nhl_schedule({season_str}): no club schedule for {', '.join(absent)} (expected pre-expansion)",
+            file=sys.stderr,
+        )
     if failed:
         # RAISE, do not warn-and-continue. This schedule decides which games get
         # scraped, so returning it short means those teams' games are never fetched
@@ -151,7 +157,71 @@ def nhl_schedule(season: int, *, teams: list[str] | None = None, session: object
         )
     df = pl.DataFrame([_parse_game(g) for g in by_id.values()], schema=_SCHEDULE_SCHEMA)
     # Keep regular + playoff (drop preseason PR / all-star A), mirror R's regular+playoff union.
-    return df.filter(pl.col("game_type").is_in(["R", "P"])).sort(["game_date", "game_id"])
+    df = df.filter(pl.col("game_type").is_in(["R", "P"])).sort(["game_date", "game_id"])
+    return df.with_columns(_playoff_context_exprs())
+
+
+# Round -> offset of its first series letter (R1 A-H, R2 I-L, R3 M-N, Final O; the 2020
+# bubble's qualifying round 0 starts at R). Matches R's carousel-derived values on every
+# playoff game 2011-2026.
+_ROUND_LETTER_OFFSET = {0: 17, 1: 0, 2: 8, 3: 12, 4: 14}
+_LETTERS = {i: chr(ord("A") + i) for i in range(26)}
+
+
+def _playoff_context_exprs() -> list[pl.Expr]:
+    """R's series_letter / playoff_round / series_game_number, read off the playoff
+    game id (``SSSS03RMG``: round, matchup, game) instead of R's carousel + per-series
+    fetches -- the id carries all three. Null on non-playoff rows, as in R."""
+    gid = pl.col("game_id").cast(pl.Utf8)
+    is_p = pl.col("game_type") == "P"
+    rnd = gid.str.slice(7, 1).cast(pl.Int32)
+    matchup = gid.str.slice(8, 1).cast(pl.Int32)
+    letter_code = rnd.replace_strict(_ROUND_LETTER_OFFSET, default=None, return_dtype=pl.Int32) + matchup - 1
+    return [
+        pl.when(is_p)
+        .then(letter_code.replace_strict(_LETTERS, default=None, return_dtype=pl.Utf8))
+        .alias("series_letter"),
+        pl.when(is_p).then(rnd).alias("playoff_round"),
+        pl.when(is_p).then(gid.str.slice(9, 1).cast(pl.Int32)).alias("series_game_number"),
+    ]
+
+
+_RAW_FINAL_URL = "https://raw.githubusercontent.com/sportsdataverse/fastRhockey-nhl-raw/main/nhl/json/final"
+
+
+def write_schedule_parquet(schedule: pl.DataFrame, path: Path, season: int, final_ids: set[int]) -> None:
+    """Port of ``scrape_nhl_raw.R``'s schedule write: add ``season`` + the
+    ``game_json`` / ``game_json_url`` links, and keep R's arrow types (int32, string)
+    so the 2026-27+ files match every R-written season."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    df = schedule.with_columns(season=pl.lit(season, dtype=pl.Int32)).with_columns(
+        game_json=pl.col("game_id").is_in(sorted(final_ids)),
+    )
+    df = df.with_columns(
+        game_json_url=pl.when(pl.col("game_json")).then(
+            pl.format("{}/{}.json", pl.lit(_RAW_FINAL_URL), pl.col("game_id"))
+        )
+    )
+    tbl = df.to_arrow()
+    tbl = tbl.cast(
+        pa.schema(
+            [
+                pa.field(
+                    f.name,
+                    pa.string()
+                    if pa.types.is_large_string(f.type)
+                    else pa.int32()
+                    if pa.types.is_integer(f.type)
+                    else f.type,
+                )
+                for f in tbl.schema
+            ]
+        )
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pq.write_table(tbl, path, compression="gzip")
 
 
 def completed_game_ids(season: int, *, session: object | None = None) -> list[int]:

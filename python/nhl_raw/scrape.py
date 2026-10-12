@@ -151,7 +151,7 @@ def scrape_season(
     Fetches the season schedule, downloads each ``game_state == 'OFF'`` game to raw + final
     JSON. ``rescrape=False`` skips games already on disk; ``limit`` caps the count.
     """
-    from nhl_raw.schedule import nhl_schedule
+    from nhl_raw.schedule import nhl_schedule, write_schedule_parquet
 
     schedule = nhl_schedule(season, session=session)
     # fastRhockey-nhl-data's Python compile enumerates games from THIS file
@@ -166,13 +166,16 @@ def scrape_season(
     # correct, current schedule file behind.
     # Beside out_dir (default nhl/json -> nhl/schedules/parquet), never relative to
     # the CWD: a test run from the repo root overwrote the committed schedule.
-    sched_dir = Path(out_dir).parent / "schedules" / "parquet"
-    sched_dir.mkdir(parents=True, exist_ok=True)
-    schedule.write_parquet(sched_dir / f"nhl_schedule_{season}.parquet")
+    sched_path = Path(out_dir).parent / "schedules" / "parquet" / f"nhl_schedule_{season}.parquet"
+    final_dir = Path(out_dir) / "final"
+
+    def finals() -> set[int]:
+        return {int(p.stem) for p in final_dir.glob("*.json")} if final_dir.exists() else set()
+
+    existing = finals()
+    write_schedule_parquet(schedule, sched_path, season, existing)
 
     completed = schedule.filter(pl.col("game_state") == "OFF")
-    final_dir = Path(out_dir) / "final"
-    existing = {int(p.stem) for p in final_dir.glob("*.json")} if final_dir.exists() else set()
     ids = completed["game_id"].to_list()
     if not rescrape:
         ids = [g for g in ids if g not in existing]
@@ -210,6 +213,8 @@ def scrape_season(
     # this fire forever and turn the weekly cron permanently red -- self-reinforcing,
     # since an absent game is never written and so never leaves the list. --limit
     # slices arbitrarily. A handful of ids also carries no outage evidence.
+    # R's STEP 3: re-link game_json / game_json_url to the finals this run wrote.
+    write_schedule_parquet(schedule, sched_path, season, finals())
     full_season_attempt = rescrape and not limit and len(ids) >= 100
     if full_season_attempt and absent == len(ids):
         # Per game a 404 is genuinely absent; a season where EVERY game 404s is an
