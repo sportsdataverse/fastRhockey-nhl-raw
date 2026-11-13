@@ -75,7 +75,24 @@ def test_download_not_matching_the_manifest_is_refused(release):
     with pytest.raises(RuntimeError, match="does not match"):
         ensure_xg_models()
     assert (release.dir / "xg_model_5v5.json").read_bytes() == b"2026-04 booster"
-    assert sorted(p.name for p in release.dir.iterdir()) == ["xg_model_5v5.json", MANIFEST]  # no temp file left
+    # nothing committed: neither the new manifest nor a temp file
+    assert sorted(p.name for p in release.dir.iterdir()) == ["xg_model_5v5.json"]
+
+
+def test_a_refresh_that_fails_part_way_keeps_the_previous_set_usable_offline(release, monkeypatch):
+    """Manifest A + boosters A cached; release B's second booster fails its hash. The cache must
+    still hold the complete A set (manifest written last), so the next offline load works."""
+    ensure_xg_models()  # set A
+    before = {p.name: p.read_bytes() for p in release.dir.iterdir()}
+    new = {fn: b"B " + fn.encode() for fn in BOOSTERS}
+    pins = {fn: _sha(b) for fn, b in new.items()} | {"feats_5v5.txt": "2" * 64, "feats_st.txt": "3" * 64}
+    release.served.update({"xg_model_5v5.json": new["xg_model_5v5.json"], "xg_model_st.json": b"truncated"})
+    release.served[MANIFEST] = json.dumps({"xg_model_ps": 0.32, "version": "B", "files": pins}).encode()
+    with pytest.raises(RuntimeError, match="does not match"):
+        ensure_xg_models()
+    assert {p.name: p.read_bytes() for p in release.dir.iterdir()} == before
+    _offline(monkeypatch)
+    assert ensure_xg_models() == release.dir
 
 
 def test_offline_falls_back_to_the_cached_manifest(release, monkeypatch):

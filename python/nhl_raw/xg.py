@@ -134,7 +134,8 @@ def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
 
     Each call fetches the ``nhl_xg_models`` release's ``xg_model_meta.json`` manifest and
     re-downloads any cached booster whose sha256 differs from it, so a retrained release
-    replaces an old cache; a download that does not match the manifest is refused. Offline,
+    replaces an old cache once its manifest is fetched (a refresh commits only a complete,
+    verified set, manifest last); a download that does not match the manifest is refused. Offline,
     the cached manifest is used. An explicit ``model_dir`` that already holds both boosters
     (e.g. the test fixtures) is used as-is and never touches the network; ``None`` resolves
     to ``default_model_dir()``."""
@@ -153,14 +154,16 @@ def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
         return r.content
 
     cached = d / _XG_MANIFEST
+    raw: bytes | None
     try:
         raw = get(_XG_MANIFEST)
         manifest = _read_manifest(raw)
-        _write_atomic(d, _XG_MANIFEST, raw)
     except (requests.RequestException, ValueError) as exc:
         if not cached.is_file():
             raise RuntimeError(f"could not fetch the nhl_xg_models release manifest: {exc}") from exc
+        raw = None
         manifest = _read_manifest(cached.read_bytes())  # offline: the last manifest seen
+    staged: dict[str, bytes] = {}
     for fn in _XG_BOOSTERS:
         pin = manifest["files"][fn]
         if _sha256(d / fn) == pin:
@@ -171,7 +174,13 @@ def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
                 f"the downloaded {fn} does not match the nhl_xg_models release manifest; "
                 "the release may be mid-update, try again shortly"
             )
+        staged[fn] = data
+    # Commit only a complete, verified set -- boosters first, the manifest last -- so a refresh
+    # that fails part-way leaves the previous manifest and boosters intact for offline use.
+    for fn, data in staged.items():
         _write_atomic(d, fn, data)
+    if raw is not None:
+        _write_atomic(d, _XG_MANIFEST, raw)
     return d
 
 
