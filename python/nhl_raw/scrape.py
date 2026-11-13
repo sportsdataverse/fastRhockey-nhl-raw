@@ -137,6 +137,52 @@ def download_game(
     return True
 
 
+def rebuild_final_from_raw(game_id: int, *, out_dir: str | Path = "nhl/json", xg: object | None = None) -> bool:
+    """Rebuild ``final/{gid}.json`` from the committed ``raw/{gid}.json`` -- no network.
+
+    The raw JSON keeps all five API responses (``pbp_raw``, ``boxscore_raw``, ``landing_raw``,
+    ``right_rail_raw``, ``shifts``), so the final is reproducible from it with the current
+    parser and xG models. Returns False when the raw file or its play-by-play is missing.
+    """
+    out = Path(out_dir)
+    src = out / "raw" / f"{game_id}.json"
+    if not src.is_file():
+        return False
+    raw = json.loads(src.read_text(encoding="utf-8"))
+    if raw is None or raw.get("pbp_raw") is None:
+        return False
+    final = build_final_from_responses(
+        raw["pbp_raw"],
+        raw.get("boxscore_raw"),
+        raw.get("landing_raw"),
+        raw.get("right_rail_raw"),
+        raw.get("shifts"),
+        int(game_id),
+        xg=xg,
+    )
+    _write_json(final, out / "final" / f"{game_id}.json")
+    return True
+
+
+def rebuild_season(season: int, *, out_dir: str | Path = "nhl/json", xg: object | None = None, limit: int = 0) -> dict:
+    """Rebuild every final of a season (end-year) from the raw JSONs on disk -- no API traffic."""
+    ids = sorted(int(p.stem) for p in (Path(out_dir) / "raw").glob(f"{season - 1}*.json"))
+    if limit:
+        ids = ids[:limit]
+    rebuilt = failed = absent = 0
+    for gid in ids:
+        try:
+            if rebuild_final_from_raw(gid, out_dir=out_dir, xg=xg):
+                rebuilt += 1
+            else:
+                absent += 1
+        except Exception as exc:  # pragma: no cover - historical payload shapes
+            # counted, not raised: one odd game must not stop the season (scrape_season's contract)
+            failed += 1
+            print(f"  game {gid} REBUILD FAILED ({type(exc).__name__}): {exc}", file=sys.stderr)
+    return {"season": season, "to_rebuild": len(ids), "rebuilt": rebuilt, "failed": failed, "absent": absent}
+
+
 def scrape_season(
     season: int,
     *,
@@ -254,6 +300,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-rescrape", action="store_true", help="season mode: skip games already on disk")
     ap.add_argument("--limit", type=int, default=0, help="season mode: cap games scraped (0 = all)")
     ap.add_argument("--no-process", action="store_true", help="single-game: write raw only (skip final)")
+    ap.add_argument(
+        "--from-raw",
+        action="store_true",
+        help="season mode: rebuild final JSONs from the committed raw JSONs (no API calls)",
+    )
     args = ap.parse_args(argv)
 
     xg = None
@@ -278,9 +329,12 @@ def main(argv: list[str] | None = None) -> int:
     failures = 0
     for season in range(args.start, (args.end or args.start) + 1):
         try:
-            summary = scrape_season(
-                season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit
-            )
+            if args.from_raw:
+                summary = rebuild_season(season, out_dir=args.out_dir, xg=xg, limit=args.limit)
+            else:
+                summary = scrape_season(
+                    season, out_dir=args.out_dir, xg=xg, rescrape=not args.no_rescrape, limit=args.limit
+                )
         except FetchError as exc:
             # Not always the schedule: the all-404 game guard raises here too, and
             # labelling that "SCHEDULE FAILED" sends an operator to the wrong endpoint.
