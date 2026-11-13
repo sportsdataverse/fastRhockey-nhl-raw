@@ -117,16 +117,26 @@ def _read_manifest(raw: bytes) -> dict:
     return m
 
 
-def _write_atomic(d: Path, fn: str, data: bytes) -> None:
-    # Its own temp file per write, so two processes loading at once never read a partial file.
-    fd, tmp = tempfile.mkstemp(prefix=f"{fn}-", dir=d)
+def _commit_set(d: Path, files: dict[str, bytes]) -> None:
+    """Write ``files`` into ``d`` as one set, in order (put the manifest last).
+
+    Every file is first written in full to its own temp file -- where a full disk or a write
+    error surfaces -- and only then moved over the cached copies, so a failed write leaves
+    the previous set intact, and a process loading at the same time never reads a partial file.
+    """
+    staged: list[tuple[str, str]] = []
     try:
-        with os.fdopen(fd, "wb") as f:
-            f.write(data)
-        os.replace(tmp, d / fn)
+        for fn, data in files.items():
+            fd, tmp = tempfile.mkstemp(prefix=f"{fn}-", dir=d)
+            staged.append((fn, tmp))
+            with os.fdopen(fd, "wb") as f:
+                f.write(data)
+        for fn, tmp in staged:
+            os.replace(tmp, d / fn)
     finally:
-        if os.path.exists(tmp):
-            os.unlink(tmp)
+        for _, tmp in staged:
+            if os.path.exists(tmp):
+                os.unlink(tmp)
 
 
 def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
@@ -134,7 +144,8 @@ def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
 
     Each call fetches the ``nhl_xg_models`` release's ``xg_model_meta.json`` manifest and
     re-downloads any cached booster whose sha256 differs from it, so a retrained release
-    replaces an old cache; a download that does not match the manifest is refused. Offline,
+    replaces an old cache once its manifest is fetched (a refresh commits only a complete,
+    verified set, manifest last); a download that does not match the manifest is refused. Offline,
     the cached manifest is used. An explicit ``model_dir`` that already holds both boosters
     (e.g. the test fixtures) is used as-is and never touches the network; ``None`` resolves
     to ``default_model_dir()``."""
@@ -153,14 +164,16 @@ def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
         return r.content
 
     cached = d / _XG_MANIFEST
+    raw: bytes | None
     try:
         raw = get(_XG_MANIFEST)
         manifest = _read_manifest(raw)
-        _write_atomic(d, _XG_MANIFEST, raw)
     except (requests.RequestException, ValueError) as exc:
         if not cached.is_file():
             raise RuntimeError(f"could not fetch the nhl_xg_models release manifest: {exc}") from exc
+        raw = None
         manifest = _read_manifest(cached.read_bytes())  # offline: the last manifest seen
+    staged: dict[str, bytes] = {}
     for fn in _XG_BOOSTERS:
         pin = manifest["files"][fn]
         if _sha256(d / fn) == pin:
@@ -171,7 +184,9 @@ def ensure_xg_models(model_dir: str | Path | None = None) -> Path:
                 f"the downloaded {fn} does not match the nhl_xg_models release manifest; "
                 "the release may be mid-update, try again shortly"
             )
-        _write_atomic(d, fn, data)
+        staged[fn] = data
+    # Commit only a complete, verified set, the manifest last (see _commit_set).
+    _commit_set(d, staged | ({_XG_MANIFEST: raw} if raw is not None else {}))
     return d
 
 

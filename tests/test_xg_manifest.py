@@ -75,7 +75,24 @@ def test_download_not_matching_the_manifest_is_refused(release):
     with pytest.raises(RuntimeError, match="does not match"):
         ensure_xg_models()
     assert (release.dir / "xg_model_5v5.json").read_bytes() == b"2026-04 booster"
-    assert sorted(p.name for p in release.dir.iterdir()) == ["xg_model_5v5.json", MANIFEST]  # no temp file left
+    # nothing committed: neither the new manifest nor a temp file
+    assert sorted(p.name for p in release.dir.iterdir()) == ["xg_model_5v5.json"]
+
+
+def test_a_refresh_that_fails_part_way_keeps_the_previous_set_usable_offline(release, monkeypatch):
+    """Manifest A + boosters A cached; release B's second booster fails its hash. The cache must
+    still hold the complete A set (manifest written last), so the next offline load works."""
+    ensure_xg_models()  # set A
+    before = {p.name: p.read_bytes() for p in release.dir.iterdir()}
+    new = {fn: b"B " + fn.encode() for fn in BOOSTERS}
+    pins = {fn: _sha(b) for fn, b in new.items()} | {"feats_5v5.txt": "2" * 64, "feats_st.txt": "3" * 64}
+    release.served.update({"xg_model_5v5.json": new["xg_model_5v5.json"], "xg_model_st.json": b"truncated"})
+    release.served[MANIFEST] = json.dumps({"xg_model_ps": 0.32, "version": "B", "files": pins}).encode()
+    with pytest.raises(RuntimeError, match="does not match"):
+        ensure_xg_models()
+    assert {p.name: p.read_bytes() for p in release.dir.iterdir()} == before
+    _offline(monkeypatch)
+    assert ensure_xg_models() == release.dir
 
 
 def test_offline_falls_back_to_the_cached_manifest(release, monkeypatch):
@@ -104,3 +121,32 @@ def test_explicit_model_dir_is_network_free(monkeypatch):
     _offline(monkeypatch)
     assert ensure_xg_models(MODELS) == MODELS
     assert load_xg_models(MODELS)["ps"] == pytest.approx(0.3202197)
+
+
+def test_a_write_that_fails_mid_commit_keeps_the_previous_set(release, monkeypatch):
+    """Release B verifies, but writing its second file fails (a full disk): the cached set A
+    must be untouched and still load offline -- nothing is moved until every file is written."""
+    import os
+
+    ensure_xg_models()  # set A
+    before = {p.name: p.read_bytes() for p in release.dir.iterdir()}
+    new = {fn: b"B " + fn.encode() for fn in BOOSTERS}
+    pins = {fn: _sha(b) for fn, b in new.items()} | {"feats_5v5.txt": "4" * 64, "feats_st.txt": "5" * 64}
+    release.served.update(new)
+    release.served[MANIFEST] = json.dumps({"xg_model_ps": 0.33, "version": "B", "files": pins}).encode()
+    real_fdopen, calls = os.fdopen, []
+
+    def flaky_fdopen(fd, *a, **k):
+        calls.append(fd)
+        if len(calls) == 2:
+            os.close(fd)
+            raise OSError(28, "No space left on device")
+        return real_fdopen(fd, *a, **k)
+
+    monkeypatch.setattr(os, "fdopen", flaky_fdopen)
+    with pytest.raises(OSError, match="No space"):
+        ensure_xg_models()
+    monkeypatch.setattr(os, "fdopen", real_fdopen)
+    assert {p.name: p.read_bytes() for p in release.dir.iterdir()} == before
+    _offline(monkeypatch)
+    assert ensure_xg_models() == release.dir
