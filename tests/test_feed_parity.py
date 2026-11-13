@@ -44,23 +44,74 @@ def _norm(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def test_shot_geometry_parity_2024020001() -> None:
+    """Geometry vs the R oracle, partitioned: the oracle carries R's ``abs(x)`` mirror bug.
+
+    * an unblocked attempt from the shooter's attacking half: identical to the oracle;
+    * an unblocked attempt from the shooter's own half: the oracle mirrored it into the
+      attacking zone (``x_fixed = -ours``, a 159 ft shot measured as 20 ft), so ours differs;
+    * a blocked shot: distance/angle identical (the oracle's mirror gave the right number by
+      accident; ours measures to the shooter's net), ``x_fixed`` rotated, not mirrored.
+    """
     raw, final = _load(GID)
-    py = _norm(build_pbp(raw["pbp_raw"], GID).filter(pl.col("event_type").is_in(_FENWICK)).select(_KEY + _GEOMETRY))
-    # Project final.all_plays to just the asserted keys before building the frame — the
-    # full 93-col tibble has mixed-type columns (e.g. reason='tv-timeout') that break
-    # schema inference.
+    py = _norm(
+        build_pbp(raw["pbp_raw"], GID)
+        .filter(pl.col("event_type").is_in(_FENWICK))
+        .select([*_KEY, *_GEOMETRY, "event_team_abbr", "home_abbr"])
+    )
     cols = _KEY + _GEOMETRY
     rows = [{k: p.get(k) for k in cols} for p in final["all_plays"] if p.get("event_type") in _FENWICK]
     oracle = _norm(pl.DataFrame(rows, infer_schema_length=None))
-
-    # Keyed join (robust to the shift-integration reordering that happens later).
     matched = py.drop_nulls("event_player_1_id").join(oracle, on=_KEY, how="inner", suffix="_o")
     keyed = py.drop_nulls("event_player_1_id").height
     assert matched.height >= 0.9 * keyed, f"only {matched.height}/{keyed} shot events matched the oracle"
 
-    for col in _GEOMETRY:
-        diff = (matched[col] - matched[f"{col}_o"]).abs().max()
-        assert diff is not None and diff < 0.11, f"{col}: max abs diff {diff} vs oracle (rounding tol 0.1)"
+    home = matched["home_abbr"][0]
+    blocked = pl.col("event_type") == "BLOCKED_SHOT"
+    attacking = pl.when(pl.col("event_team_abbr") == home).then(pl.col("x_fixed") > 0).otherwise(pl.col("x_fixed") < 0)
+    near = lambda c: (pl.col(c) - pl.col(f"{c}_o")).abs() < 0.11  # noqa: E731  (rounding tol 0.1)
+    att = matched.filter(~blocked & attacking)
+    own = matched.filter(~blocked & ~attacking)
+    blk = matched.filter(blocked)
+    assert att.height >= 80 and blk.height >= 30, (att.height, blk.height)
+    for c in ("x_fixed", "shot_distance", "shot_angle"):
+        assert att.select(near(c).all()).item(), f"attacking-half {c} differs from the oracle"
+    assert att.select((pl.col("y_fixed").abs() == pl.col("y_fixed_o").abs()).all()).item()
+    assert own.height >= 1 and own.select((pl.col("x_fixed") == -pl.col("x_fixed_o")).all()).item()
+    assert own.select((pl.col("shot_distance") > 89).all()).item(), "an own-half attempt is longer than the blue line"
+    for c in ("shot_distance", "shot_angle"):
+        assert blk.select(near(c).all()).item(), f"blocked-shot {c} differs from the oracle"
+
+
+def test_coordinates_rotate_with_the_defending_side_2024020001() -> None:
+    """Every event: home defends left -> (x, y) kept; right -> (-x, -y). Goals land at the net
+    the scoring team attacks (home x_fixed > 0, away x_fixed < 0)."""
+    raw, _ = _load(GID)
+    df = build_pbp(raw["pbp_raw"], GID)
+    sides = pl.DataFrame(
+        [
+            {
+                "x": p["details"]["xCoord"],
+                "y": p["details"]["yCoord"],
+                "period": p["periodDescriptor"]["number"],
+                "period_seconds": int(p["timeInPeriod"][:2]) * 60 + int(p["timeInPeriod"][3:]),
+                "hds": p["homeTeamDefendingSide"],
+            }
+            for p in raw["pbp_raw"]["plays"]
+            if p.get("homeTeamDefendingSide") and "xCoord" in (p.get("details") or {})
+        ]
+    ).unique(subset=["x", "y", "period", "period_seconds"], keep="none")
+    m = df.join(sides, on=["x", "y", "period", "period_seconds"], how="inner")
+    assert m.height >= 200
+    flip = pl.col("hds") == "right"
+    assert m.select((pl.col("x_fixed") == pl.when(flip).then(-pl.col("x")).otherwise(pl.col("x"))).all()).item()
+    assert m.select((pl.col("y_fixed") == pl.when(flip).then(-pl.col("y")).otherwise(pl.col("y"))).all()).item()
+    goals = df.filter((pl.col("event_type") == "GOAL") & pl.col("x_fixed").is_not_null())
+    ok = goals.select(
+        pl.when(pl.col("event_team_abbr") == pl.col("home_abbr"))
+        .then(pl.col("x_fixed") > 0)
+        .otherwise(pl.col("x_fixed") < 0)
+    )
+    assert goals.height >= 4 and ok.to_series().all()
 
 
 def test_parse_is_deterministic_and_nonempty() -> None:
@@ -185,8 +236,27 @@ def test_xg_parity_2024020001() -> None:
             ok += abs(pxg - oxg) < 0.005  # final.json xG is 4-dp jsonlite-rounded
 
     assert checked >= 80, f"only {checked} shots matched"
-    # both the null pattern (invalid last-event shots) and the predicted values must agree
-    assert ok / checked >= 0.98, f"xG parity {ok}/{checked} (worst abs diff {worst:.5f})"
+    # The R oracle was scored on R's mirrored coordinates; a shot may differ only when its own
+    # x_fixed or the previous event's (lag features) is one the mirror changed.
+    by_key = {key(p): p for p in final["all_plays"] if p.get("event_player_1_id") is not None}
+    explained = 0
+    prev = None
+    for p in py:
+        o = oracle.get(key(p)) if p["event_type"] in shots and p.get("event_player_1_id") is not None else None
+        if o is not None:
+            pxg, oxg = p.get("xg"), o.get("xg")
+            same = (pxg is None and oxg is None) or (pxg is not None and oxg is not None and abs(pxg - oxg) < 0.005)
+            if not same:
+                po = by_key.get(key(prev)) if prev is not None and prev.get("event_player_1_id") is not None else None
+                moved = p.get("x_fixed") != o.get("x_fixed") or (
+                    po is not None and prev.get("x_fixed") != po.get("x_fixed")
+                )
+                assert moved, f"xG differs with no coordinate change: {key(p)} {pxg} vs {oxg}"
+                explained += 1
+        if p["event_type"] != "CHANGE":
+            prev = p
+    assert ok / checked >= 0.9, f"xG parity {ok}/{checked} (worst abs diff {worst:.5f})"
+    assert ok + explained == checked
 
 
 def test_ensure_xg_models_uses_local_without_network() -> None:
