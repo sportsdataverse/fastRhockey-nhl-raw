@@ -11,7 +11,8 @@ api-web play-by-play payload (+ shifts), so the NHL data pipeline can run withou
 Port status (parity-gated against ``tests/fixtures/nhl_raw/final_2024020001.json``):
 
 * [x] ``parse_plays``     — event / time / coords / players / situation / penalty / secondary / empty-net
-* [x] ``fix_coordinates`` — ``homeTeamDefendingSide`` normalization (home shoots right)
+* [x] ``fix_coordinates`` — rink rotation by ``homeTeamDefendingSide`` (home shoots right);
+  deliberately NOT R's ``abs(x)`` form, which mirrored own-half shots (see its docstring)
 * [x] ``add_shot_metrics``— ``shot_distance`` / ``shot_angle``
 * [x] ``integrate_shifts`` + ``add_strength_states`` — on-ice cumsum matrix + strength
 * [x] ``add_descriptions`` + ``finalize_columns``; xG lives in ``nhl_raw.xg``
@@ -341,73 +342,54 @@ def parse_plays(
 
 
 def fix_coordinates(df: pl.DataFrame, home_abbr: str, away_abbr: str) -> pl.DataFrame:
-    """Port of ``.fix_coordinates`` — normalize so the home team always shoots right."""
+    """Rotate the rink so the home team always shoots right (``x_fixed``/``y_fixed``).
+
+    This is a rink transform, one per period, applied to EVERY event: when the home team
+    defends the right end, ``(x, y) -> (-x, -y)``; otherwise the coordinates are kept. Which
+    end the home team defends comes from, in order:
+
+    1. the play's own ``homeTeamDefendingSide`` (the API's statement; ``"left"`` = home net
+       at x < 0, so home already shoots right -- verified on goal locations);
+    2. the period's side from the plays that carry it (older feeds carry it on some plays);
+    3. the median x of the home team's unblocked shots in that period (> 0 = shooting right),
+       then the away team's (mirrored), when no play in the period carries the side.
+
+    The old port (and R's ``.fix_coordinates``) set ``x_fixed = abs(x)`` for home events and
+    ``-abs(x)`` for away, which mirrored every shot taken from the shooter's own half into the
+    attacking zone, and flipped ``y`` on the sign of ``x`` instead of with it; rows with a null
+    side in a game that had the column were left unnormalized.
+    """
     x, y, eta = pl.col("x"), pl.col("y"), pl.col("event_team_abbr")
+    fen = pl.col("event_type").is_in(_FENWICK)
+    home_med = pl.when(fen & (eta == home_abbr)).then(x).otherwise(None).median().over("period")
+    away_med = pl.when(fen & (eta == away_abbr)).then(x).otherwise(None).median().over("period")
+    inferred = pl.when(home_med.is_not_null()).then(home_med < 0).when(away_med.is_not_null()).then(away_med > 0)
     if "homeTeamDefendingSide" in df.columns:
         hds = pl.col("homeTeamDefendingSide")
-        return df.with_columns(
-            x_fixed=pl.when(x.is_null())
-            .then(None)
-            .when((hds == "left") & (eta == home_abbr))
-            .then(x.abs())
-            .when((hds == "left") & (eta == away_abbr))
-            .then(-x.abs())
-            .when((hds == "right") & (eta == home_abbr))
-            .then(x.abs())
-            .when((hds == "right") & (eta == away_abbr))
-            .then(-x.abs())
-            .otherwise(x),
-            y_fixed=pl.when(y.is_null())
-            .then(None)
-            .when((hds == "left") & (eta == home_abbr) & (x < 0))
-            .then(-y)
-            .when((hds == "left") & (eta == away_abbr) & (x > 0))
-            .then(-y)
-            .when((hds == "right") & (eta == home_abbr) & (x > 0))
-            .then(-y)
-            .when((hds == "right") & (eta == away_abbr) & (x < 0))
-            .then(-y)
-            .otherwise(y),
-        )
-    # Fallback: median-x per (team, period, game) when the API omits the defending side.
-    med_x = (
-        pl.when(pl.col("event_type").is_in(_FENWICK))
-        .then(x)
-        .otherwise(None)
-        .median()
-        .over(["event_team_abbr", "period", "game_id"])
-    )
-    return (
-        df.with_columns(med_x=med_x)
-        .with_columns(
-            x_fixed=pl.when((eta == home_abbr) & (pl.col("med_x") > 0))
-            .then(x)
-            .when((eta == home_abbr) & (pl.col("med_x") < 0))
-            .then(0 - x)
-            .when((eta == away_abbr) & (pl.col("med_x") > 0))
-            .then(0 - x)
-            .when((eta == away_abbr) & (pl.col("med_x") < 0))
-            .then(x)
-            .otherwise(x),
-            y_fixed=pl.when((eta == home_abbr) & (pl.col("med_x") > 0))
-            .then(y)
-            .when((eta == home_abbr) & (pl.col("med_x") < 0))
-            .then(0 - y)
-            .when((eta == away_abbr) & (pl.col("med_x") > 0))
-            .then(0 - y)
-            .when((eta == away_abbr) & (pl.col("med_x") < 0))
-            .then(y)
-            .otherwise(y),
-        )
-        .drop("med_x")
+        own = pl.when(hds == "right").then(True).when(hds == "left").then(False)
+        period_side = (pl.when(hds == "right").then(1.0).when(hds == "left").then(0.0)).mean().over("period")
+        flip = pl.coalesce(own, pl.when(period_side.is_not_null()).then(period_side > 0.5), inferred)
+    else:
+        flip = inferred
+    flip = flip.fill_null(False)
+    return df.with_columns(
+        x_fixed=pl.when(x.is_null()).then(None).when(flip).then(-x).otherwise(x),
+        y_fixed=pl.when(y.is_null()).then(None).when(flip).then(-y).otherwise(y),
     )
 
 
 def add_shot_metrics(df: pl.DataFrame, home_abbr: str) -> pl.DataFrame:
-    """Port of ``.add_shot_metrics`` — distance/angle to the attacked net (x=±89)."""
+    """Port of ``.add_shot_metrics`` — distance/angle to the net the SHOOTER attacks (x=±89).
+
+    With ``fix_coordinates`` the home team shoots at x=+89 and the away team at x=-89. A
+    BLOCKED_SHOT's ``event_team_abbr`` is the blocking team (legacy convention, kept for R
+    parity) while its location is where the shooter's attempt was blocked, so it is measured
+    to the other team's target net. The old ``abs(x)`` coordinates mirrored blocks into the
+    blocker's attacking zone, which gave the same distance by accident.
+    """
     xf, yf, eta = pl.col("x_fixed"), pl.col("y_fixed"), pl.col("event_team_abbr")
     in_f = pl.col("event_type").is_in(_FENWICK_BLK)
-    is_home = eta == home_abbr
+    is_home = pl.when(pl.col("event_type") == "BLOCKED_SHOT").then(eta != home_abbr).otherwise(eta == home_abbr)
     df = df.with_columns(
         shot_distance=pl.when(in_f & is_home)
         .then((((xf - 89) ** 2 + yf**2).sqrt()).abs().round(1))
