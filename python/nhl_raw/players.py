@@ -16,11 +16,13 @@ walk, which is how the CBS incident burned 8,400+ requests on 404s.
 
 from __future__ import annotations
 
+import io
 import json
 import os
 import time
+import urllib.request
 from pathlib import Path
-from typing import Callable, Iterable, Optional
+from typing import Any, Callable, Iterable, Optional
 
 LANDING = "https://api-web.nhle.com/v1/player/{player_id}/landing"
 
@@ -186,6 +188,19 @@ def scrape_players(
     return {"captured": done, "missing": missing, "failed": failed, "known": len(ids)}
 
 
+def _fetch_remote_parquet(url: str, timeout: float = 60.0) -> bytes:
+    """One plain GET for a remote parquet file; the bytes are parsed in memory.
+
+    Never hand the URL to polars: polars 2.0 reads a remote footer with a suffix
+    range (``Range: bytes=-N``), which raw.githubusercontent has answered with
+    ``501 Unsupported client range`` since 2026-11 (release URLs did the same
+    from 2026-10). That turned every season into an ``OSError`` and the stage red
+    from 2026-11-09. A roster file is a few MB, so one full GET costs nothing.
+    """
+    with urllib.request.urlopen(url, timeout=timeout) as resp:
+        return resp.read()
+
+
 def player_ids_from_rosters(
     roster_src: str, *, seasons: Optional[Iterable[int]] = None, log: Callable[[str], None] = print
 ) -> list[str]:
@@ -216,11 +231,16 @@ def player_ids_from_rosters(
     ids: set[str] = set()
 
     def _take(frame_path: str) -> None:
-        cols = pl.read_parquet(frame_path, n_rows=1).columns
+        src: Any = frame_path
+        if frame_path.startswith(("http://", "https://")):
+            src = io.BytesIO(_fetch_remote_parquet(frame_path))
+        cols = list(pl.read_parquet_schema(src))
         col = "player_id" if "player_id" in cols else next((c for c in cols if c.endswith("player_id")), None)
         if not col:
             return
-        ids.update(str(v) for v in pl.read_parquet(frame_path, columns=[col])[col].drop_nulls().unique().to_list())
+        if isinstance(src, io.BytesIO):
+            src.seek(0)
+        ids.update(str(v) for v in pl.read_parquet(src, columns=[col])[col].drop_nulls().unique().to_list())
 
     if roster_src.startswith(("http://", "https://")):
         import datetime as _dt
