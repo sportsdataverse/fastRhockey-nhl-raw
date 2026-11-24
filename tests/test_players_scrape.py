@@ -254,9 +254,8 @@ def test_a_remote_roster_is_one_plain_get_never_a_polars_range_read(monkeypatch)
     assert the request carries no Range header, polars never sees the URL, and the
     ids from every season come back.
     """
-    import polars as pl
-
     import nhl_raw.players as P
+    import polars as pl
 
     seen = []
 
