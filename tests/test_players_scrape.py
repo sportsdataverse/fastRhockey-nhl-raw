@@ -215,24 +215,83 @@ def test_a_truncated_roster_span_is_refused_not_silently_shrunk(monkeypatch):
     truncated work list and a run that looked healthy while capturing a fraction
     of the players.
 
-    Patches polars.read_parquet, NOT the `_take` closure inside the function --
+    Patches the module-level fetch, NOT the `_take` closure inside the function --
     monkeypatching a closure with raising=False silently sets an unused module
     attribute, the real code runs, and the test does live DNS for 17 seasons.
     """
     import nhl_raw.players as P
-    import polars as pl
 
     calls = {"n": 0}
+    one_season = _roster_parquet_bytes([8478402])
 
-    def flaky(path, **kw):
+    def flaky(url, **kw):
         calls["n"] += 1
         if calls["n"] > 1:
             raise RuntimeError("429 rate limited")
-        return pl.DataFrame({"player_id": [8478402]})
+        return one_season
 
-    monkeypatch.setattr(pl, "read_parquet", flaky)
+    monkeypatch.setattr(P, "_fetch_remote_parquet", flaky)
     with pytest.raises(RuntimeError, match="refusing a truncated work list"):
-        P.player_ids_from_rosters(
-            "https://example.invalid/parquet", seasons=range(2010, 2027), log=lambda *_: None
-        )
+        P.player_ids_from_rosters("https://example.invalid/parquet", seasons=range(2010, 2027), log=lambda *_: None)
     assert calls["n"] > 1, "the patch must actually be reached"
+
+
+def _roster_parquet_bytes(player_ids):
+    import io
+
+    import polars as pl
+
+    buf = io.BytesIO()
+    pl.DataFrame({"game_id": [1] * len(player_ids), "player_id": player_ids}).write_parquet(buf)
+    return buf.getvalue()
+
+
+def test_a_remote_roster_is_one_plain_get_never_a_polars_range_read(monkeypatch):
+    """raw.githubusercontent answers polars 2.0's suffix-range footer read with 501.
+
+    From 2026-11-09 every season failed `(OSError)` because the URL went straight to
+    `pl.read_parquet`. The fix GETs each file whole and parses the bytes in memory:
+    assert the request carries no Range header, polars never sees the URL, and the
+    ids from every season come back.
+    """
+    import polars as pl
+
+    import nhl_raw.players as P
+
+    seen = []
+
+    class _Resp:
+        def __init__(self, body):
+            self.body = body
+
+        def read(self):
+            return self.body
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def fake_urlopen(req, timeout=None):
+        url = req if isinstance(req, str) else req.full_url
+        hdrs = {} if isinstance(req, str) else dict(req.header_items())
+        seen.append((url, hdrs))
+        yr = int(url.rsplit("_", 1)[1].split(".")[0])
+        return _Resp(_roster_parquet_bytes([8470000 + yr]))
+
+    real_read = pl.read_parquet
+
+    def no_urls(src, *a, **kw):
+        assert not (isinstance(src, str) and src.startswith("http")), "polars must not read a URL"
+        return real_read(src, *a, **kw)
+
+    monkeypatch.setattr(P.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(pl, "read_parquet", no_urls)
+    ids = P.player_ids_from_rosters("https://example.invalid/parquet/", seasons=[2025, 2026], log=lambda *_: None)
+    assert ids == ["8472025", "8472026"]
+    assert [u for u, _ in seen] == [
+        "https://example.invalid/parquet/game_rosters_2025.parquet",
+        "https://example.invalid/parquet/game_rosters_2026.parquet",
+    ]
+    assert all("Range" not in h for _, h in seen)
