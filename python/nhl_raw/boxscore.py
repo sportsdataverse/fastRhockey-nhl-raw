@@ -8,6 +8,8 @@ Canonical R source: ``fastRhockey/R/nhl_game_boxscore.R`` — ``nhl_game_boxscor
 
 from __future__ import annotations
 
+import re
+
 import polars as pl
 
 _SKATER_SCHEMA = {
@@ -94,6 +96,19 @@ def _default_name(v: object) -> str | None:
     return v.get("default") if isinstance(v, dict) else v
 
 
+_UNSPACED_NAME = re.compile(r"^(\S+\.)(\S+)$")
+
+
+def _player_name(v: object) -> str | None:
+    """``name.default``, spaced: the API sends a few players as ``"J.Kulich"``.
+
+    Only a name with no space at all is touched, so ``"J.T. Compher"`` stays as sent.
+    Mirrors fastRhockey's ``.extract_default_names``.
+    """
+    name = _default_name(v)
+    return _UNSPACED_NAME.sub(r"\1 \2", name) if isinstance(name, str) else name
+
+
 def _skaters(team_pbs: dict) -> list[dict]:
     return list(team_pbs.get("forwards") or []) + list(team_pbs.get("defense") or [])
 
@@ -143,7 +158,7 @@ def parse_skater_stats(data: dict) -> pl.DataFrame:
                     "team_id": _int(team.get("id")),
                     "team_abbrev": team.get("abbrev"),
                     "player_id": _int(sk.get("playerId")),
-                    "player_name": _default_name(sk.get("name")),
+                    "player_name": _player_name(sk.get("name")),
                     "sweater_number": _int(sk.get("sweaterNumber")),
                     "position": sk.get("position"),
                     "goals": _int(sk.get("goals")),
@@ -177,7 +192,7 @@ def parse_goalie_stats(data: dict) -> pl.DataFrame:
                     "team_id": _int(team.get("id")),
                     "team_abbrev": team.get("abbrev"),
                     "player_id": _int(gl.get("playerId")),
-                    "player_name": _default_name(gl.get("name")),
+                    "player_name": _player_name(gl.get("name")),
                     "sweater_number": _int(gl.get("sweaterNumber")),
                     "even_strength_shots_against": gl.get("evenStrengthShotsAgainst"),
                     "power_play_shots_against": gl.get("powerPlayShotsAgainst"),
