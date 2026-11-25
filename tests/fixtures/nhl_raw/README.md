@@ -20,3 +20,9 @@ reproduces `final.all_plays` — no live fetch, fully deterministic.
 
 Provenance: copied verbatim from `sportsdataverse/fastRhockey-nhl-raw@main`
 (`nhl/json/{raw,final}/`). R producer: `fastRhockey::nhl_game_feed` / `nhl_game_boxscore`.
+
+`boxscore_2026020305.json` (BUF at CHI, 2025-26) is not a raw/final pair: it is the
+`boxscore_raw` block of the committed `nhl/json/raw/2026020305.json`, trimmed to the game
+header, both teams' ids/names/score, two forwards and one defenseman a side (one of them the
+unspaced `"J.Kulich"` the API sends) and all four goalies. `test_boxscore_player_names.py`
+parses it. The same file is fastRhockey's `tests/testthat/fixtures/nhl/boxscore_2026020305.json`.
