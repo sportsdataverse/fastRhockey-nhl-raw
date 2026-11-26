@@ -19,8 +19,9 @@ Layout: ``nhl/pregame/{END_YEAR}/{YYYY-MM-DD}.json``::
 
 ``probed`` is what a coverage check reads (no probe gap over 90 minutes inside the
 window); ``captures`` holds only state changes. A date with no NHL games writes nothing.
-The droplet cron runs this every 30 minutes from 11:00 to 03:00 UTC, October to June
-(``scripts/nhl_pregame_snapshot.sh``, which also commits the day's file at the 03:00 run).
+sdv-orch's ``nhl-pregame`` Prefect deployments run this every 30 minutes from 11:00 to 03:00
+UTC, October to June (``scripts/nhl_pregame_snapshot.sh``; the 03:00 run also commits the
+day's file).
 
     python python/nhl_raw_03_pregame_snapshot.py               # today's ET game date
     python python/nhl_raw_03_pregame_snapshot.py 2026-11-27    # another date (probables appear days ahead)
