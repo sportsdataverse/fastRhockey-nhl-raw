@@ -121,6 +121,30 @@ fastRhockey-nhl-raw/
 - **Scraping workflow** runs daily during the NHL season
 - On push, triggers the [fastRhockey-nhl-data](https://github.com/sportsdataverse/fastRhockey-nhl-data) repo to compile datasets
 
+## Pregame snapshots
+
+Probable goalies and the league injury list are current-state feeds: once a game is played,
+what was known before puck drop is gone. Stage 03 keeps it. Every 30 minutes from 15:00 to
+03:00 UTC on NHL game days (October to June) it fetches the ESPN Site v2 scoreboard for the
+ET game date and the league injury list, and keeps the capture only if a goalie, a goalie's
+Expected / Confirmed status, or an injury status changed.
+
+| Path | Content |
+|---|---|
+| `nhl/pregame/{END_YEAR}/{YYYY-MM-DD}.json` | `date`; `probed` (every probe time, UTC); `events` (ESPN event id, start time, both teams); `captures` (`captured_at`, `probables`, `injuries`), one per state change |
+
+Droplet cron, with the 03:00 UTC run committing the day's file (a pregame commit does not
+trigger the nhl-data season build; nhl-data compiles it on its daily run into the
+`nhl_pregame_snapshots` release, one row per state with `valid_from` / `valid_to`):
+
+```
+*/30 15-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+```
+
+Run one probe by hand with `bash scripts/nhl_pregame_snapshot.sh` (add `COMMIT=1` to commit),
+and watch the cron with `tail -f logs/nhl_pregame_snapshot.log`.
+
 ## Related repositories
 
 [fastRhockey-nhl-raw data repository (source: NHL API)](https://github.com/sportsdataverse/fastRhockey-nhl-raw)
@@ -147,3 +171,5 @@ The packages that read what this repo produces:
 Every numbered pipeline stage in `python/` (auto-listed; run subsets with the `scripts/*.sh` drivers by number or name):
 
 - `python/nhl_raw_01_scrape.py`
+- `python/nhl_raw_02_players_scrape.py`
+- `python/nhl_raw_03_pregame_snapshot.py` (driver: `scripts/nhl_pregame_snapshot.sh`)
