@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 
 import nhl_raw_03_pregame_snapshot as stage
+import pytest
 
 FIX = Path(__file__).parent / "fixtures" / "pregame"
 DAY = dt.date(2026, 11, 25)
@@ -79,3 +80,15 @@ def test_a_date_without_games_writes_nothing(tmp_path):
 
 def test_end_year_rolls_in_september():
     assert [stage.end_year(dt.date(y, m, 1)) for y, m in ((2026, 8), (2026, 9), (2027, 6))] == [2026, 2027, 2027]
+
+
+def test_a_degraded_answer_records_no_probe(tmp_path):
+    """A 200 with an empty injury list (or none at all) after a real capture is refused, not kept."""
+    _probe(tmp_path, T1)
+    sb = json.loads((FIX / f"scoreboard_nhl_{T2}.json").read_text(encoding="utf-8"))
+    now = dt.datetime(2026, 11, 26, 0, 40, tzinfo=dt.timezone.utc)
+    for injuries in ({"injuries": []}, {}):
+        with pytest.raises(stage.DegradedPayload):
+            stage.capture(DAY, tmp_path, scoreboard=sb, injuries=injuries, now=now)
+    doc = _doc(tmp_path)
+    assert len(doc["probed"]) == 1 and len(doc["captures"]) == 1

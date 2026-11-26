@@ -63,3 +63,4 @@ __pycache__/
 
 # droplet cron log of the pregame probe (scripts/nhl_pregame_snapshot.sh)
 logs/nhl_pregame_snapshot.log
+nhl/pregame/**/*.json.tmp

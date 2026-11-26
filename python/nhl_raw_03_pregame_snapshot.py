@@ -79,8 +79,28 @@ def _write_atomic(path: Path, payload: dict) -> None:
     os.replace(tmp, path)
 
 
+class DegradedPayload(RuntimeError):
+    """A 200 answer that cannot be an observation: no probe is recorded, so the gap shows."""
+
+
 def capture(day: dt.date, root: Path, *, scoreboard: dict, injuries: dict, now: dt.datetime) -> dict:
-    """Fold one probe (two raw payloads) into ``day``'s file; returns ``{"events", "kept"}``."""
+    """Fold one probe (two raw payloads) into ``day``'s file.
+
+    Args:
+        day: ET game date; the file is ``root/{END_YEAR}/{day}.json``.
+        root: Output root (``nhl/pregame``).
+        scoreboard: Raw ``espn_nhl_scoreboard(dates=day, return_parsed=False)`` payload.
+        injuries: Raw ``espn_nhl_injuries(return_parsed=False)`` payload.
+        now: When both payloads had arrived (aware); becomes ``captured_at``.
+
+    Returns:
+        ``{"events": <games on the date>, "kept": 1 if the capture was a state change else 0}``.
+
+    Raises:
+        DegradedPayload: The injury payload has no ``injuries`` list, or the probables or the
+            injury list came back empty where the previous kept capture had rows. Recording
+            either would close every open interval and reopen it on the next probe.
+    """
     from sportsdataverse._common_espn_parsers import parse_scoreboard
     from sportsdataverse.espn_snapshots import (
         parse_injuries_snapshot,
@@ -110,7 +130,7 @@ def capture(day: dt.date, root: Path, *, scoreboard: dict, injuries: dict, now: 
     doc["events"] = sorted(known.values(), key=lambda e: (e["event_date"] or "", e["event_id"]))
     probables = sorted(
         _rows(parse_probables_snapshot(scoreboard, league="nhl"), _PROBABLE_COLS),
-        key=lambda r: (r["event_id"], r["team_id"], r["role"] or ""),
+        key=lambda r: (r["event_id"] or 0, r["team_id"] or 0, r["role"] or ""),
     )
     hurt = sorted(
         _rows(
@@ -119,8 +139,13 @@ def capture(day: dt.date, root: Path, *, scoreboard: dict, injuries: dict, now: 
         ),
         key=lambda r: (r["team_id"] or 0, r["athlete_id"] or 0),
     )
-    doc["probed"].append(stamp)
     last = doc["captures"][-1] if doc["captures"] else None
+    if not isinstance(injuries.get("injuries"), list):
+        raise DegradedPayload("injuries payload has no 'injuries' list")
+    for name, rows in (("probables", probables), ("injuries", hurt)):
+        if last and last[name] and not rows:
+            raise DegradedPayload(f"{name} came back empty after a capture with {len(last[name])} rows")
+    doc["probed"].append(stamp)
     kept = last is None or (last["probables"], last["injuries"]) != (probables, hurt)
     if kept:
         doc["captures"].append({"captured_at": stamp, "probables": probables, "injuries": hurt})

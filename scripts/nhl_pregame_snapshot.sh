@@ -6,7 +6,10 @@
 # not per probe, so the probes never race each other or the daily scrape on a push:
 #
 #   */30 15-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
-#   0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+#   0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -w 600 /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+#
+# The commit run waits for the lock (-w) instead of skipping (-n): a skipped 03:00 run would
+# leave the day uncommitted.
 #
 #   bash scripts/nhl_pregame_snapshot.sh               # one probe of today's ET game date
 #   COMMIT=1 bash scripts/nhl_pregame_snapshot.sh      # probe, then commit + push nhl/pregame
@@ -24,17 +27,20 @@ export PYTHONUNBUFFERED=1 PYTHONIOENCODING=utf-8
 RC=$?
 
 if [ "${COMMIT:-0}" = "1" ] || [ "$(date -u +%H)" = "03" ]; then
+  # pathspec-limited throughout: this is a shared checkout, and nothing else may ride along
   git add -- nhl/pregame >/dev/null 2>&1 || true
-  if git diff --cached --quiet; then
+  if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
+    echo "::error ::checkout is not on main; not committing nhl/pregame"; RC=1
+  elif git diff --cached --quiet -- nhl/pregame; then
     echo "nothing to commit under nhl/pregame"
   else
-    git commit -m "chore(pregame): NHL pregame snapshot $(TZ=America/New_York date +%Y-%m-%d)" >/dev/null || RC=1
+    git commit -m "chore(pregame): NHL pregame snapshot $(TZ=America/New_York date +%Y-%m-%d)" -- nhl/pregame >/dev/null || RC=1
     pushed=0
     for attempt in 1 2 3; do
-      if git push origin HEAD >/dev/null 2>&1; then pushed=1; echo "pushed (attempt $attempt)"; break; fi
+      if git push origin HEAD:main >/dev/null 2>&1; then pushed=1; echo "pushed (attempt $attempt)"; break; fi
       echo "push rejected (attempt $attempt); syncing with origin"
       git fetch --quiet origin main || true
-      git rebase --merge origin/main >/dev/null 2>&1 || { git rebase --abort >/dev/null 2>&1; break; }
+      git rebase --autostash --merge origin/main >/dev/null 2>&1 || { git rebase --abort >/dev/null 2>&1; break; }
     done
     [ "$pushed" = "1" ] || { echo "::error ::pregame commit did not reach origin"; RC=1; }
   fi
