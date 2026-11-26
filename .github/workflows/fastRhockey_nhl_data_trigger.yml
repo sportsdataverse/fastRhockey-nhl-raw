@@ -1,4 +1,10 @@
-on: [push, workflow_dispatch]
+on:
+  push:
+    # the nightly pregame-capture commit (scripts/nhl_pregame_snapshot.sh) is not a scrape;
+    # nhl-data compiles it on its daily run, so it must not dispatch a season build
+    paths-ignore:
+      - 'nhl/pregame/**'
+  workflow_dispatch:
 
 name: fastRhockey NHL Data trigger
 
