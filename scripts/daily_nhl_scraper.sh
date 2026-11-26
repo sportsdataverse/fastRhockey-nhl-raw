@@ -21,11 +21,13 @@ sdv_commit_push() {
   # cfb_player_stats_logfile_2026.log at 105 MB). A no-op where the droplet helper is absent.
   [ -x "${SDV_ROTATE_LOGS:-/mnt/sdv_repos/bin/rotate_tracked_logs.sh}" ] && "${SDV_ROTATE_LOGS:-/mnt/sdv_repos/bin/rotate_tracked_logs.sh}" -- "$@"
   git add -- "$@" >/dev/null 2>&1 || true
-  if git diff --cached --quiet; then
+  # Pathspec-limited diff and commit too, not just add: something else staged in this shared
+  # checkout (a pregame commit that failed halfway) must not ride along in this commit.
+  if git diff --cached --quiet -- "$@"; then
     echo "nothing to commit for: $msg"
     return 0
   fi
-  git commit -m "$msg" >/dev/null || { echo "::warning ::commit failed: $msg"; return 1; }
+  git commit -m "$msg" -- "$@" >/dev/null || { echo "::warning ::commit failed: $msg"; return 1; }
   local attempt
   for attempt in 1 2 3; do
     if git push origin HEAD >/dev/null 2>&1; then
@@ -81,7 +83,9 @@ do
         git config --local user.email "action@github.com"
         git config --local user.name "Github Action"
         PYTHONPATH=python "${PY}" -m nhl_raw_01_scrape -s $i -e $i $RESCRAPE_FLAG
-        sdv_commit_push "NHL Raw Updated (Start: $i End: $i)" nhl || PUSH_RC=1
+        # nhl/pregame belongs to the pregame job (sdv-orch nhl-pregame-commit, 03:00 UTC), which
+        # commits it on its own; the daily scrape never sweeps it into its commit.
+        sdv_commit_push "NHL Raw Updated (Start: $i End: $i)" nhl ':!nhl/pregame' || PUSH_RC=1
     } 2>&1 | tee "$TMPLOG"
 
     # Block is finished and pushed; tee has closed $TMPLOG. Now copy the log
