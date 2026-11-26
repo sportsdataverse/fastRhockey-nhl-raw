@@ -124,7 +124,7 @@ fastRhockey-nhl-raw/
 ## Pregame snapshots
 
 Probable goalies and the league injury list are current-state feeds: once a game is played,
-what was known before puck drop is gone. Stage 03 keeps it. Every 30 minutes from 15:00 to
+what was known before puck drop is gone. Stage 03 keeps it. Every 30 minutes from 11:00 to
 03:00 UTC on NHL game days (October to June) it fetches the ESPN Site v2 scoreboard for the
 ET game date and the league injury list, and keeps the capture only if a goalie, a goalie's
 Expected / Confirmed status, or an injury status changed.
@@ -139,7 +139,7 @@ until they are. fastRhockey-nhl-data's pregame compile (its own PR) turns the fi
 `nhl_pregame_snapshots` release, one row per state with `valid_from` / `valid_to`, on its daily run:
 
 ```
-*/30 15-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+*/30 11-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
 0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -w 600 /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
 ```
 

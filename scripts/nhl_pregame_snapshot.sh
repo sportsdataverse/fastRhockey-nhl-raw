@@ -1,11 +1,11 @@
 #!/bin/bash
 # Pregame snapshot probe: python/nhl_raw_03_pregame_snapshot.py, one probe per run.
 #
-# Droplet cron (every 30 min, 15:00-03:00 UTC, October to June; the stage writes nothing on
+# Droplet cron (every 30 min, 11:00-03:00 UTC, October to June; the stage writes nothing on
 # a date without NHL games). The 03:00 UTC run also commits the day's file -- once a day,
 # not per probe, so the probes never race each other or the daily scrape on a push:
 #
-#   */30 15-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+#   */30 11-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
 #   0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -w 600 /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
 #
 # The commit run waits for the lock (-w) instead of skipping (-n): a skipped 03:00 run would

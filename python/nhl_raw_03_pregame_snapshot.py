@@ -12,14 +12,14 @@ previous kept one. The fetch + parse live in sdv-py
 Layout: ``nhl/pregame/{END_YEAR}/{YYYY-MM-DD}.json``::
 
     {"date": "2026-11-25",
-     "probed": ["2026-11-25T15:00:04Z", ...],          # every probe, kept or not
+     "probed": ["2026-11-25T11:00:04Z", ...],          # every probe, kept or not
      "events": [{"event_id", "event_date", "home_id", "home_abbreviation",
                  "away_id", "away_abbreviation"}, ...],  # ESPN events of the date
      "captures": [{"captured_at": "...Z", "probables": [...], "injuries": [...]}, ...]}
 
 ``probed`` is what a coverage check reads (no probe gap over 90 minutes inside the
 window); ``captures`` holds only state changes. A date with no NHL games writes nothing.
-The droplet cron runs this every 30 minutes from 15:00 to 03:00 UTC, October to June
+The droplet cron runs this every 30 minutes from 11:00 to 03:00 UTC, October to June
 (``scripts/nhl_pregame_snapshot.sh``, which also commits the day's file at the 03:00 run).
 
     python python/nhl_raw_03_pregame_snapshot.py               # today's ET game date
