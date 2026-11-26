@@ -1,0 +1,1180 @@
+{
+ "events": [
+  {
+   "id": "401892781",
+   "uid": "s:70~l:90~e:401892781",
+   "date": "2026-11-26T00:00Z",
+   "name": "Winnipeg Jets at Boston Bruins",
+   "shortName": "WPG @ BOS",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 622.0,
+    "displayClock": "10:22",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "10:22 - 1st Period",
+     "shortDetail": "10:22 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "1",
+        "abbreviation": "BOS",
+        "displayName": "Boston Bruins",
+        "name": "Bruins",
+        "location": "Boston"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4712036",
+          "displayName": "Jeremy Swayman",
+          "shortName": "J. Swayman"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "28",
+        "abbreviation": "WPG",
+        "displayName": "Winnipeg Jets",
+        "name": "Jets",
+        "location": "Winnipeg"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4697683",
+          "displayName": "Nico Daws",
+          "shortName": "N. Daws"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892782",
+   "uid": "s:70~l:90~e:401892782",
+   "date": "2026-11-26T00:00Z",
+   "name": "New York Rangers at Buffalo Sabres",
+   "shortName": "NYR @ BUF",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 595.0,
+    "displayClock": "9:55",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "9:55 - 1st Period",
+     "shortDetail": "9:55 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "2",
+        "abbreviation": "BUF",
+        "displayName": "Buffalo Sabres",
+        "name": "Sabres",
+        "location": "Buffalo"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4233889",
+          "displayName": "Ukko-Pekka Luukkonen",
+          "shortName": "U. Luukkonen"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "13",
+        "abbreviation": "NYR",
+        "displayName": "New York Rangers",
+        "name": "Rangers",
+        "location": "New York"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3069266",
+          "displayName": "Joonas Korpisalo",
+          "shortName": "J. Korpisalo"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892783",
+   "uid": "s:70~l:90~e:401892783",
+   "date": "2026-11-26T00:00Z",
+   "name": "Carolina Hurricanes at Tampa Bay Lightning",
+   "shortName": "CAR @ TB",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 648.0,
+    "displayClock": "10:48",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "10:48 - 1st Period",
+     "shortDetail": "10:48 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "20",
+        "abbreviation": "TB",
+        "displayName": "Tampa Bay Lightning",
+        "name": "Lightning",
+        "location": "Tampa Bay"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "2976847",
+          "displayName": "Andrei Vasilevskiy",
+          "shortName": "A. Vasilevskiy"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "7",
+        "abbreviation": "CAR",
+        "displayName": "Carolina Hurricanes",
+        "name": "Hurricanes",
+        "location": "Carolina"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4996097",
+          "displayName": "Brandon Bussi",
+          "shortName": "B. Bussi"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892784",
+   "uid": "s:70~l:90~e:401892784",
+   "date": "2026-11-26T00:00Z",
+   "name": "Ottawa Senators at Florida Panthers",
+   "shortName": "OTT @ FLA",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 671.0,
+    "displayClock": "11:11",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "11:11 - 1st Period",
+     "shortDetail": "11:11 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "26",
+        "abbreviation": "FLA",
+        "displayName": "Florida Panthers",
+        "name": "Panthers",
+        "location": "Florida"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "5452",
+          "displayName": "Jacob Markstrom",
+          "shortName": "J. Markstrom"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "14",
+        "abbreviation": "OTT",
+        "displayName": "Ottawa Senators",
+        "name": "Senators",
+        "location": "Ottawa"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3069285",
+          "displayName": "Linus Ullmark",
+          "shortName": "L. Ullmark"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892785",
+   "uid": "s:70~l:90~e:401892785",
+   "date": "2026-11-26T00:00Z",
+   "name": "St. Louis Blues at New York Islanders",
+   "shortName": "STL @ NYI",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 914.0,
+    "displayClock": "15:14",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "15:14 - 1st Period",
+     "shortDetail": "15:14 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "12",
+        "abbreviation": "NYI",
+        "displayName": "New York Islanders",
+        "name": "Islanders",
+        "location": "New York"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3151981",
+          "displayName": "Ilya Sorokin",
+          "shortName": "I. Sorokin"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "19",
+        "abbreviation": "STL",
+        "displayName": "St. Louis Blues",
+        "name": "Blues",
+        "location": "St. Louis"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4587909",
+          "displayName": "Joel Hofer",
+          "shortName": "J. Hofer"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892786",
+   "uid": "s:70~l:90~e:401892786",
+   "date": "2026-11-26T00:00Z",
+   "name": "Calgary Flames at Pittsburgh Penguins",
+   "shortName": "CGY @ PIT",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 656.0,
+    "displayClock": "10:56",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "10:56 - 1st Period",
+     "shortDetail": "10:56 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "16",
+        "abbreviation": "PIT",
+        "displayName": "Pittsburgh Penguins",
+        "name": "Penguins",
+        "location": "Pittsburgh"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4576894",
+          "displayName": "Arturs Silovs",
+          "shortName": "A. Silovs"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "3",
+        "abbreviation": "CGY",
+        "displayName": "Calgary Flames",
+        "name": "Flames",
+        "location": "Calgary"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4587952",
+          "displayName": "Dustin Wolf",
+          "shortName": "D. Wolf"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892787",
+   "uid": "s:70~l:90~e:401892787",
+   "date": "2026-11-26T00:00Z",
+   "name": "Philadelphia Flyers at Washington Capitals",
+   "shortName": "PHI @ WSH",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 957.0,
+    "displayClock": "15:57",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "15:57 - 1st Period",
+     "shortDetail": "15:57 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "23",
+        "abbreviation": "WSH",
+        "displayName": "Washington Capitals",
+        "name": "Capitals",
+        "location": "Washington"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4272888",
+          "displayName": "Logan Thompson",
+          "shortName": "L. Thompson"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "15",
+        "abbreviation": "PHI",
+        "displayName": "Philadelphia Flyers",
+        "name": "Flyers",
+        "location": "Philadelphia"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4271575",
+          "displayName": "Joseph Woll",
+          "shortName": "J. Woll"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892788",
+   "uid": "s:70~l:90~e:401892788",
+   "date": "2026-11-26T00:00Z",
+   "name": "New Jersey Devils at Columbus Blue Jackets",
+   "shortName": "NJ @ CBJ",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 639.0,
+    "displayClock": "10:39",
+    "period": 1,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "10:39 - 1st Period",
+     "shortDetail": "10:39 - 1st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "29",
+        "abbreviation": "CBJ",
+        "displayName": "Columbus Blue Jackets",
+        "name": "Blue Jackets",
+        "location": "Columbus"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "5734",
+          "displayName": "Cam Talbot",
+          "shortName": "C. Talbot"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "11",
+        "abbreviation": "NJ",
+        "displayName": "New Jersey Devils",
+        "name": "Devils",
+        "location": "New Jersey"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3020225",
+          "displayName": "Connor Hellebuyck",
+          "shortName": "C. Hellebuyck"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892789",
+   "uid": "s:70~l:90~e:401892789",
+   "date": "2026-11-26T00:30Z",
+   "name": "Vancouver Canucks at Detroit Red Wings",
+   "shortName": "VAN @ DET",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Wed, November 25th at 7:30 PM EST",
+     "shortDetail": "11/25 - 7:30 PM EST"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "5",
+        "abbreviation": "DET",
+        "displayName": "Detroit Red Wings",
+        "name": "Red Wings",
+        "location": "Detroit"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4587994",
+          "displayName": "Daniil Tarasov",
+          "shortName": "D. Tarasov"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "22",
+        "abbreviation": "VAN",
+        "displayName": "Vancouver Canucks",
+        "name": "Canucks",
+        "location": "Vancouver"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4894703",
+          "displayName": "Leevi Merilainen",
+          "shortName": "L. Merilainen"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892790",
+   "uid": "s:70~l:90~e:401892790",
+   "date": "2026-11-26T01:00Z",
+   "name": "Nashville Predators at Dallas Stars",
+   "shortName": "NSH @ DAL",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Wed, November 25th at 8:00 PM EST",
+     "shortDetail": "11/25 - 8:00 PM EST"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "9",
+        "abbreviation": "DAL",
+        "displayName": "Dallas Stars",
+        "name": "Stars",
+        "location": "Dallas"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4196914",
+          "displayName": "Jake Oettinger",
+          "shortName": "J. Oettinger"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "27",
+        "abbreviation": "NSH",
+        "displayName": "Nashville Predators",
+        "name": "Predators",
+        "location": "Nashville"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "101",
+          "name": "Expected",
+          "type": "expected",
+          "abbreviation": "Expected"
+         },
+         "athlete": {
+          "id": "3042109",
+          "displayName": "Juuse Saros",
+          "shortName": "J. Saros"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892791",
+   "uid": "s:70~l:90~e:401892791",
+   "date": "2026-11-26T01:00Z",
+   "name": "Utah Mammoth at Minnesota Wild",
+   "shortName": "UTA @ MIN",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Wed, November 25th at 8:00 PM EST",
+     "shortDetail": "11/25 - 8:00 PM EST"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "30",
+        "abbreviation": "MIN",
+        "displayName": "Minnesota Wild",
+        "name": "Wild",
+        "location": "Minnesota"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "4874737",
+          "displayName": "Jesper Wallstedt",
+          "shortName": "J. Wallstedt"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "129764",
+        "abbreviation": "UTA",
+        "displayName": "Utah Mammoth",
+        "name": "Mammoth",
+        "location": "Utah"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "101",
+          "name": "Expected",
+          "type": "expected",
+          "abbreviation": "Expected"
+         },
+         "athlete": {
+          "id": "3942065",
+          "displayName": "Karel Vejmelka",
+          "shortName": "K. Vejmelka"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892792",
+   "uid": "s:70~l:90~e:401892792",
+   "date": "2026-11-26T02:30Z",
+   "name": "Montreal Canadiens at Colorado Avalanche",
+   "shortName": "MTL @ COL",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Wed, November 25th at 9:30 PM EST",
+     "shortDetail": "11/25 - 9:30 PM EST"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "17",
+        "abbreviation": "COL",
+        "displayName": "Colorado Avalanche",
+        "name": "Avalanche",
+        "location": "Colorado"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3904177",
+          "displayName": "Mackenzie Blackwood",
+          "shortName": "M. Blackwood"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "10",
+        "abbreviation": "MTL",
+        "displayName": "Montreal Canadiens",
+        "name": "Canadiens",
+        "location": "Montreal"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "5188437",
+          "displayName": "Jacob Fowler",
+          "shortName": "J. Fowler"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892794",
+   "uid": "s:70~l:90~e:401892794",
+   "date": "2026-11-26T02:40Z",
+   "name": "Chicago Blackhawks at Seattle Kraken",
+   "shortName": "CHI @ SEA",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Wed, November 25th at 9:40 PM EST",
+     "shortDetail": "11/25 - 9:40 PM EST"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "124292",
+        "abbreviation": "SEA",
+        "displayName": "Seattle Kraken",
+        "name": "Kraken",
+        "location": "Seattle"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "101",
+          "name": "Expected",
+          "type": "expected",
+          "abbreviation": "Expected"
+         },
+         "athlete": {
+          "id": "3942073",
+          "displayName": "Joey Daccord",
+          "shortName": "J. Daccord"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "4",
+        "abbreviation": "CHI",
+        "displayName": "Chicago Blackhawks",
+        "name": "Blackhawks",
+        "location": "Chicago"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "101",
+          "name": "Expected",
+          "type": "expected",
+          "abbreviation": "Expected"
+         },
+         "athlete": {
+          "id": "4565234",
+          "displayName": "Spencer Knight",
+          "shortName": "S. Knight"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401892793",
+   "uid": "s:70~l:90~e:401892793",
+   "date": "2026-11-26T03:00Z",
+   "name": "San Jose Sharks at Anaheim Ducks",
+   "shortName": "SJ @ ANA",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Wed, November 25th at 10:00 PM EST",
+     "shortDetail": "11/25 - 10:00 PM EST"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "homeAway": "home",
+       "team": {
+        "id": "25",
+        "abbreviation": "ANA",
+        "displayName": "Anaheim Ducks",
+        "name": "Ducks",
+        "location": "Anaheim"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3026526",
+          "displayName": "Laurent Brossoit",
+          "shortName": "L. Brossoit"
+         }
+        }
+       ]
+      },
+      {
+       "homeAway": "away",
+       "team": {
+        "id": "18",
+        "abbreviation": "SJ",
+        "displayName": "San Jose Sharks",
+        "name": "Sharks",
+        "location": "San Jose"
+       },
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "athlete": {
+          "id": "3114994",
+          "displayName": "Alex Nedeljkovic",
+          "shortName": "A. Nedeljkovic"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

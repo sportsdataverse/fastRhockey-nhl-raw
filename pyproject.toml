@@ -9,7 +9,13 @@ dependencies = [
     "pyarrow>=14.0",
     "requests>=2.31",
     "beautifulsoup4>=4.12",
+    # stage 03 (pregame snapshot): ESPN fetch + parse live in sdv-py
+    "sportsdataverse",
 ]
+
+# parse_probables_snapshot lands on sdv-py main ahead of PyPI, like the other -raw producers
+[tool.uv.sources]
+sportsdataverse = { git = "https://github.com/sportsdataverse/sportsdataverse-py", branch = "main" }
 
 [dependency-groups]
 dev = [

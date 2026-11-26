@@ -60,3 +60,6 @@ daily_nhl.out
 # Python bytecode (9 .pyc files were tracked until 2026-08-03).
 __pycache__/
 *.pyc
+
+# droplet cron log of the pregame probe (scripts/nhl_pregame_snapshot.sh)
+logs/nhl_pregame_snapshot.log
