@@ -31,18 +31,24 @@ if [ "${COMMIT:-0}" = "1" ] || [ "$(date -u +%H)" = "03" ]; then
   git add -- nhl/pregame >/dev/null 2>&1 || true
   if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
     echo "::error ::checkout is not on main; not committing nhl/pregame"; RC=1
-  elif git diff --cached --quiet -- nhl/pregame; then
-    echo "nothing to commit under nhl/pregame"
   else
-    git commit -m "chore(pregame): NHL pregame snapshot $(TZ=America/New_York date +%Y-%m-%d)" -- nhl/pregame >/dev/null || RC=1
-    pushed=0
-    for attempt in 1 2 3; do
-      if git push origin HEAD:main >/dev/null 2>&1; then pushed=1; echo "pushed (attempt $attempt)"; break; fi
-      echo "push rejected (attempt $attempt); syncing with origin"
-      git fetch --quiet origin main || true
-      git rebase --autostash --merge origin/main >/dev/null 2>&1 || { git rebase --abort >/dev/null 2>&1; break; }
-    done
-    [ "$pushed" = "1" ] || { echo "::error ::pregame commit did not reach origin"; RC=1; }
+    if git diff --cached --quiet -- nhl/pregame; then
+      echo "nothing new to commit under nhl/pregame"
+    else
+      git commit -m "chore(pregame): NHL pregame snapshot $(TZ=America/New_York date +%Y-%m-%d)" -- nhl/pregame >/dev/null || RC=1
+    fi
+    # push whenever main is ahead of origin, so a commit an earlier run failed to push is retried
+    git fetch --quiet origin main || true
+    if [ "$(git rev-list --count origin/main..HEAD)" != "0" ]; then
+      pushed=0
+      for attempt in 1 2 3; do
+        if git push origin HEAD:main >/dev/null 2>&1; then pushed=1; echo "pushed (attempt $attempt)"; break; fi
+        echo "push rejected (attempt $attempt); syncing with origin"
+        git fetch --quiet origin main || true
+        git rebase --autostash --merge origin/main >/dev/null 2>&1 || { git rebase --abort >/dev/null 2>&1; break; }
+      done
+      [ "$pushed" = "1" ] || { echo "::error ::pregame commit did not reach origin"; RC=1; }
+    fi
   fi
 fi
 

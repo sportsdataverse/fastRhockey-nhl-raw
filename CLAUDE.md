@@ -69,7 +69,8 @@ Rscript R/scrape_nhl_raw.R -s 2026 -r TRUE        # rescrape existing files
   - `nhl/nhl_schedule_master.{rds,parquet}` — combined schedule across all seasons (regenerated each run)
   - `nhl/pregame/{end_year}/{YYYY-MM-DD}.json` — pregame captures (probable goalies + ESPN injury list), one
     file per ET game date, written by `python/nhl_raw_03_pregame_snapshot.py` (Python, sdv-py parsers) every
-    30 min from 15:00 to 03:00 UTC by the droplet cron in `scripts/nhl_pregame_snapshot.sh`; only state
+    30 min from 15:00 to 03:00 UTC by the droplet cron that runs `scripts/nhl_pregame_snapshot.sh` (the cron
+    lines are in the README and must be installed on the droplet by hand); only state
     changes are kept, `probed` lists every probe. Committed once a day by the 03:00 UTC run, and
     `fastRhockey_nhl_data_trigger.yml` ignores that path (no season-build dispatch). Cannot be backfilled.
 - **Publish target:** none here — this repo only commits to `main`. The

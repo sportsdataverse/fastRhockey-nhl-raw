@@ -134,8 +134,9 @@ Expected / Confirmed status, or an injury status changed.
 | `nhl/pregame/{END_YEAR}/{YYYY-MM-DD}.json` | `date`; `probed` (every probe time, UTC); `events` (ESPN event id, start time, both teams); `captures` (`captured_at`, `probables`, `injuries`), one per state change |
 
 Droplet cron, with the 03:00 UTC run committing the day's file (a pregame commit does not
-trigger the nhl-data season build; nhl-data compiles it on its daily run into the
-`nhl_pregame_snapshots` release, one row per state with `valid_from` / `valid_to`):
+trigger the nhl-data season build). Install both lines on the droplet by hand; nothing is captured
+until they are. fastRhockey-nhl-data's pregame compile (its own PR) turns the files into the
+`nhl_pregame_snapshots` release, one row per state with `valid_from` / `valid_to`, on its daily run:
 
 ```
 */30 15-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
