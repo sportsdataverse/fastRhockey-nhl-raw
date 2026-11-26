@@ -1,25 +1,26 @@
 #!/bin/bash
 # Pregame snapshot probe: python/nhl_raw_03_pregame_snapshot.py, one probe per run.
 #
-# Droplet cron (every 30 min, 11:00-03:00 UTC, October to June; the stage writes nothing on
-# a date without NHL games). The 03:00 UTC run also commits the day's file -- once a day,
-# not per probe, so the probes never race each other or the daily scrape on a push:
+# Scheduled by sdv-orch (Prefect), not cron: the nhl-pregame flow's two deployments, UTC,
+# October to June (the stage writes nothing on a date without NHL games):
 #
-#   */30 11-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
-#   0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -w 600 /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
+#   nhl-pregame/nhl-pregame-probe    */30 11-23,0-2 * 10-12,1-6 *   one probe, no commit
+#   nhl-pregame/nhl-pregame-commit   0 3 * 10-12,1-6 *              COMMIT=1: probe, then commit
 #
-# The commit run waits for the lock (-w) instead of skipping (-n): a skipped 03:00 run would
-# leave the day uncommitted.
+# The day's file is committed once a day, not per probe, so the probes never race each other
+# or the daily scrape on a push. Both runs hold the repo-writer slot daily-nhl's scrape holds;
+# a probe that waits more than 25 min for it skips, the commit run waits (a skipped commit
+# would leave the day uncommitted).
 #
 #   bash scripts/nhl_pregame_snapshot.sh               # one probe of today's ET game date
 #   COMMIT=1 bash scripts/nhl_pregame_snapshot.sh      # probe, then commit + push nhl/pregame
 #
-# Watch it live: tail -f logs/nhl_pregame_snapshot.log
+# Watch scheduled runs: journalctl -u sdv-orch-flows -f | grep -i pregame
 
 set -uo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
 
-# cron's PATH has no ~/.local/bin, where uv lives on the droplet
+# the systemd unit's PATH has no ~/.local/bin, where uv lives on the droplet
 UV="${UV:-$(command -v uv || echo /root/.local/bin/uv)}"
 export PYTHONUNBUFFERED=1 PYTHONIOENCODING=utf-8
 

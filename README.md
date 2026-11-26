@@ -133,18 +133,25 @@ Expected / Confirmed status, or an injury status changed.
 |---|---|
 | `nhl/pregame/{END_YEAR}/{YYYY-MM-DD}.json` | `date`; `probed` (every probe time, UTC); `events` (ESPN event id, start time, both teams); `captures` (`captured_at`, `probables`, `injuries`), one per state change |
 
-Droplet cron, with the 03:00 UTC run committing the day's file (a pregame commit does not
-trigger the nhl-data season build). Install both lines on the droplet by hand; nothing is captured
-until they are. fastRhockey-nhl-data's pregame compile (its own PR) turns the files into the
-`nhl_pregame_snapshots` release, one row per state with `valid_from` / `valid_to`, on its daily run:
+Scheduled on the droplet by [sdv-orch](https://github.com/sportsdataverse/sdv-orch) (Prefect),
+the orchestrator that already runs the daily scrape (`run-pipeline/daily-nhl`). There is no cron
+line. The `nhl-pregame` flow has two deployments (UTC):
 
-```
-*/30 11-23,0-2 * 10-12,1-6 * cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -n /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
-0 3 * 10-12,1-6 *            cd /mnt/sdv_repos/fastRhockey-nhl-raw && flock -w 600 /tmp/nhl-pregame.lock bash scripts/nhl_pregame_snapshot.sh >> logs/nhl_pregame_snapshot.log 2>&1
-```
+| Deployment | Schedule | Does |
+|---|---|---|
+| `nhl-pregame/nhl-pregame-probe` | `*/30 11-23,0-2 * 10-12,1-6 *` | one probe; commits nothing |
+| `nhl-pregame/nhl-pregame-commit` | `0 3 * 10-12,1-6 *` | last probe, then commits + pushes `nhl/pregame` only (`COMMIT=1`) |
 
-Run one probe by hand with `bash scripts/nhl_pregame_snapshot.sh` (add `COMMIT=1` to commit),
-and watch the cron with `tail -f logs/nhl_pregame_snapshot.log`.
+Both hold the same repo-writer slot as the daily scrape, so neither touches the checkout while
+the scrape commits. A probe that waits more than 25 minutes for it skips (the next probe takes
+the sample); the commit run waits up to 4 hours. A pregame commit does not trigger the nhl-data
+season build. fastRhockey-nhl-data's pregame compile turns the files into the
+`nhl_pregame_snapshots` release, one row per state with `valid_from` / `valid_to`, on its daily run.
+
+Run one probe by hand with `bash scripts/nhl_pregame_snapshot.sh` (add `COMMIT=1` to commit), or
+through the orchestrator with `prefect deployment run 'nhl-pregame/nhl-pregame-probe'`. Scheduled
+runs log to Prefect: watch them with `journalctl -u sdv-orch-flows -f | grep -i pregame`, or read
+one run with `prefect flow-run logs <id>`.
 
 ## Related repositories
 
